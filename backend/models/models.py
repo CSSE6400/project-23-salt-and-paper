@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from backend.users.models import db
+from backend.models import db
 
 
 # User model
