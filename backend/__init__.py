@@ -1,14 +1,14 @@
 from flask import Flask
 from flask_migrate import Migrate
 
-from backend.users.models import db
+from backend.models import db
 
 from backend.users.routes import user_api
 from backend.auth.routes import auth_api
 from backend.cookbook.routes import cookbook_api
 from backend.recipe.routes import recipe_api
 from backend.search.routes import search_api
-from backend.users.models.models import User, Recipe, Step, Rating
+from backend.models.models import User, Recipe, Step, Rating
 
 
 
