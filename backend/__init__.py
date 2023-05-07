@@ -17,7 +17,7 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/saltandpaper"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 # Register blueprints
 app.register_blueprint(user_api)
