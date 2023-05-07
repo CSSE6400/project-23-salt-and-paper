@@ -11,12 +11,17 @@ from backend.search.routes import search_api
 from backend.models.models import User, Recipe, Step, Rating
 
 
-
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://localhost/saltandpaper"
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql://postgres:postgres@localhost:5432/saltandpaper"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+db.init_app(app)
+with app.app_context():
+    db.create_all()
+    db.session.commit()
 # migrate = Migrate(app, db)
 
 # Register blueprints
@@ -25,7 +30,6 @@ app.register_blueprint(auth_api)
 app.register_blueprint(cookbook_api)
 app.register_blueprint(recipe_api)
 app.register_blueprint(search_api)
-
 
 
 if __name__ == "__main__":
