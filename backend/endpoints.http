@@ -23,6 +23,14 @@ Content-Type: application/json
 }
 
 
+## Create User
+POST {{baseUrl}}/api/v1/users/create
+Content-Type: application/json
+
+{
+    "name": "test",
+    "picture": "test",
+}
 
 ### Search Service Health
 GET {{baseUrl}}/api/v1/search/health
