@@ -48,6 +48,19 @@ class Recipe(db.Model):
     # Ratings relationship
     ratings = db.relationship("Rating", backref="recipe", lazy=True)
 
+    visibility = db.Column(db.String(50), default="PUBLIC")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "category": self.category,
+            "image": self.image,
+            "visibility": self.visibility,
+            "author_id": self.author_id
+        }
+
 
 # Step model
 class Step(db.Model):
