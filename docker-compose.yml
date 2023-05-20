@@ -6,17 +6,17 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "6400:6400"
     depends_on:
       - db
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
-      - DATABASE_URL=postgresql://user:password@db:5432/saltandpaper
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/saltandpaper
 
   db:
     image: postgres:13
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=saltandpaper

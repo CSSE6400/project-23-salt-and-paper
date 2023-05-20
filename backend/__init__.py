@@ -13,9 +13,13 @@ from backend.models.models import User, Recipe, Step, Rating
 
 app = Flask(__name__)
 
+
+db_uri = "postgresql://postgres:postgres@db:5432/saltandpaper" # using DOCKER
+# db_uri = "postgresql://postgres:postgres@localhost:5432/saltandpaper" # without DOCKER
+
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://postgres:postgres@localhost:5432/saltandpaper"
+] = "postgresql://postgres:postgres@db:5432/saltandpaper"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
