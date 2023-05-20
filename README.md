@@ -5,7 +5,15 @@
 1. Install PSQL : https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/
 2. Install the latest PgAdmin : https://www.pgadmin.org/docs/pgadmin4/development/pgagent_install.html
 
-## Set-Up
+## Set-Up - Run with Docker Compose 
+
+1. Make sure you have Docker desktop and WSL installed.
+
+2. Run the docker containers using : `docker-compose up --build` or `sudo docker-compose up --build`
+
+3. Open the `endpoints.http` file and run each of the endpoints. You should get a 200 Response Code for each of the health endpoints.
+
+## Set-Up - Run Locally
 
 1. Use the `environment.yml` file to create a conda environment with the required packages for this project:
 
