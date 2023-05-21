@@ -47,9 +47,8 @@ def create_recipe(author_id):
         if user is None:
             return jsonify({"error": "Author does not exist"}), 404
 
-        if request.json.get("id"):
-            if user.id != request.json.get("id"):
-                raise IDMismatchException
+        if user.id != author_id:
+            raise IDMismatchException
 
         recipe = Recipe(
             title=request.json.get("title"),
