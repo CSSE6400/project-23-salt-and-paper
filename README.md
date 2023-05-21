@@ -7,7 +7,7 @@
 
 ## Set-Up - Run with Docker Compose 
 
-1. Uncomment the `db_uri` variable that is set for running with docker.
+1. Uncomment the `db_uri` variable that is set for running with docker. Set the hostname to your IP address if 'db' doesn't work.
 
 2. Make sure you have Docker desktop and WSL installed.
 

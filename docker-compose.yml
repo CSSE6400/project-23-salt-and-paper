@@ -14,9 +14,12 @@ services:
       - FLASK_ENV=development
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/saltandpaper
 
-  db:
-    image: postgres:13
-    environment:
+  db: 
+    image: postgres:15-alpine
+    restart: always 
+    ports: 
+      - "5432:5432" 
+    environment: 
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=saltandpaper

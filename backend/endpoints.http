@@ -11,7 +11,7 @@ GET {{baseUrl}}/api/v1/cookbook/health
 GET {{baseUrl}}/api/v1/recipe/health
 
 ### Create Recipe
-POST {{baseUrl}}/api/v1/recipe/create/1
+POST {{baseUrl}}/api/v1/recipe/create/2
 Content-Type: application/json
 
 {
@@ -23,13 +23,12 @@ Content-Type: application/json
 }
 
 
-## Create User
-POST {{baseUrl}}/api/v1/users/create
+### Create User
+POST {{baseUrl}}/api/v1/users/create_user
 Content-Type: application/json
 
 {
-    "name": "test",
-    "picture": "test",
+    "name": "John"
 }
 
 ### Search Service Health

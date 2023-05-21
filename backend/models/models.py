@@ -23,6 +23,15 @@ class User(db.Model):
     # Recipes relationship
     recipes = db.relationship("Recipe", backref="author", lazy=True)
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "picture": self.picture,
+            "cooking_preferences": self.cooking_preferences
+        }
+
+
 
 # Followers table
 followers = db.Table(
