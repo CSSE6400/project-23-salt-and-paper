@@ -19,7 +19,7 @@ db_uri = "postgresql://postgres:postgres@db:5432/saltandpaper" # using DOCKER
 
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://postgres:postgres@db:5432/saltandpaper"
+] = db_uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
