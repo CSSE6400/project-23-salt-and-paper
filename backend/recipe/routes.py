@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 import uuid
@@ -94,10 +94,10 @@ def create_recipe(author_id):
 @recipe_api.route("/get_by_id/<int:recipe_id>", methods=["GET"])
 def get_recipe(recipe_id):
     """Return the details of a recipe item"""
-    recipe = recipe.query.get(recipe_id)
+    recipe = Recipe.query.get(recipe_id)
     if recipe is None:
         return jsonify({"error": "recipe does not exist"}), 404
-    return jsonify(recipe.to_dict())
+    return render_template('recipieView.html', recipe=recipe.to_dict())
 
 
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])

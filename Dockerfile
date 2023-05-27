@@ -12,11 +12,12 @@ RUN pip install pipenv
 WORKDIR . 
 
 # Install pipenv dependencies 
-COPY Pipfile Pipfile.lock ./ 
+COPY Pipfile Pipfile.lock recipes.json ratings.json steps.json users.json ./ 
 RUN pipenv install --system --deploy --ignore-pipfile
 
 # Copying our application into the container 
 COPY backend backend
+COPY frontend frontend
 
 # Running our application 
 CMD ["bash", "-c", "sleep 1 && flask --app backend run --debug --host 0.0.0.0 --port 6400"]
