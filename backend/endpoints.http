@@ -46,14 +46,6 @@ Content-Type: application/json
 }
 
 
-### Create User
-POST {{baseUrl}}/api/v1/users/create_user
-Content-Type: application/json
-
-{
-    "name": "Anna"
-}
-
 ### Search Service Health
 GET {{baseUrl}}/api/v1/search/health
 
@@ -69,3 +61,17 @@ GET {{baseUrl}}/api/v1/search/searchcategory/break
 
 ### search Service test
 GET {{baseUrl}}/api/v1/search/searchdescription/cereal milk
+### Create User
+POST {{baseUrl}}/api/v1/users/create_user
+Content-Type: application/json
+
+{
+    "name": "Sam"
+}
+
+
+### Get all users
+GET {{baseUrl}}/api/v1/users/get_all
+
+### Get user by id
+GET {{baseUrl}}/api/v1/users/get_user/3
