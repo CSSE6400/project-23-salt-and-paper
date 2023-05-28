@@ -31,7 +31,7 @@ def searchall(keywords):
     for recipe in recipes:
         resultlist.append(recipe.to_dict())
     return jsonify(resultlist)
-@search_api.route('/searchcatergory/<string:keywords>') 
+@search_api.route('/searchcategory/<string:keywords>') 
 def searchcategory(keywords):
     # define the filter conditions
     keywordslist=keywords.split(" ")
