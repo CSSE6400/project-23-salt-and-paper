@@ -1,5 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from backend.models import db
+from sqlalchemy import event
+import json
 
 
 # User model
@@ -34,6 +36,27 @@ class User(db.Model):
             "cooking_preferences": self.cooking_preferences
         }
 
+# [1]
+# [2]
+user_json = "backend/data/users.json"
+@event.listens_for(User.__table__, 'after_create')
+def populate_users(mapper, connection, *args, **kwargs):
+    "listen for the 'after_create' event"
+    f = open(user_json)
+    user_table = User.__table__
+    user_json_object = json.load(f)
+    for user_item in user_json_object:
+        new_user = User(
+            # id = user_item["id"],
+            name = user_item["name"],
+            picture = user_item["picture"],
+            cooking_preferences = user_item["cooking_preferences"]
+        )
+        connection.execute(user_table.insert().values(
+                                                    # id=new_user.id, 
+                                                  name=new_user.name, 
+                                                  picture=new_user.picture,
+                                                  cooking_preferences=new_user.cooking_preferences))
 
 
 # Followers table

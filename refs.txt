@@ -1,0 +1,2 @@
+[1]“python - SQLALCHEMY: how to use @events.listens_for in flask_sqlalchemy-SQLalchemy,” Stack Overflow, Dec. 20, 2016. https://stackoverflow.com/questions/41249045/sqlalchemy-how-to-use-events-listens-for-in-flask-sqlalchemy-sqlalchemy.
+[2]“Events — SQLAlchemy 2.0 Documentation,” docs.sqlalchemy.org, May 12, 2023. https://docs.sqlalchemy.org/en/20/core/event.html#sqlalchemy.event.listens_for.
