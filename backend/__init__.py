@@ -9,6 +9,7 @@ from backend.cookbook.routes import cookbook_api
 from backend.recipe.routes import recipe_api
 from backend.search.routes import search_api
 from backend.models.models import User, Recipe, Step, Rating
+import os
 
 
 app = Flask(__name__)
@@ -21,7 +22,7 @@ app.config[
     "SQLALCHEMY_DATABASE_URI"
 ] = db_uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
+app.json.sort_keys = False
 db.init_app(app)
 with app.app_context():
     db.create_all()
