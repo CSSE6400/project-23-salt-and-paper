@@ -85,7 +85,7 @@ def create_recipe(author_id):
         return jsonify({"error": "Failed to create Recipe"}), 400
 
     except UnknownFieldException:
-        return jsonify({"error": "There are missing or extra fields"}), 400
+        return jsonify({"error": "There are extra fields"}), 400
 
     except InvalidParameterInput:
         return jsonify({"error": "Parameter input is invalid!"}), 400

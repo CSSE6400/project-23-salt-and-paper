@@ -23,6 +23,9 @@ class User(db.Model):
     # Recipes relationship
     recipes = db.relationship("Recipe", backref="author", lazy=True)
 
+    # Cookbooks relationship
+    cookbooks = db.relationship("Cookbook", backref="cookbook_author", lazy=True)
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -57,6 +60,9 @@ class Recipe(db.Model):
     # Ratings relationship
     ratings = db.relationship("Rating", backref="recipe", lazy=True)
 
+    # Recipe-Cookbook relationship
+    recipe_to_cookbook = db.relationship("RecipeCookbook", backref="recipe", lazy=True)
+
     visibility = db.Column(db.String(50), default="PUBLIC")
 
     def to_dict(self):
@@ -88,3 +94,37 @@ class Rating(db.Model):
     difficulty_rating = db.Column(db.Integer)
     modification = db.Column(db.String(500))
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.id"), nullable=False)
+
+
+# Recipe and Cookbook Model
+class RecipeCookbook(db.Model):
+    __tablename__ = 'recipecookbook'
+    id = db.Column(db.Integer, primary_key=True)
+    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.id"), nullable=False)
+    cookbook_id = db.Column(db.Integer, db.ForeignKey("cookbook.id"), nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "recipe_id": self.recipe_id,
+            "cookbook_id": self.cookbook_id
+        }
+
+# Cookbook model
+class Cookbook(db.Model):
+    __tablename__ = 'cookbook'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(500), nullable=False)
+    author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    recipes_url = db.Column(db.String(500))
+
+    # Recipe-Cookbook relationship
+    recipe_to_cookbook = db.relationship("RecipeCookbook", backref="cookbook", lazy=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "author_id": self.author_id,
+            "recipes_url": self.recipes_url
+        }
