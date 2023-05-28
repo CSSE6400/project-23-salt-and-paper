@@ -34,7 +34,7 @@ GET {{baseUrl}}/api/v1/cookbook/get_cookbooks/3
 GET {{baseUrl}}/api/v1/recipe/health
 
 ### Create Recipe
-POST {{baseUrl}}/api/v1/recipe/create/1
+POST {{baseUrl}}/api/v1/recipe/create/3
 Content-Type: application/json
 
 {
@@ -45,6 +45,14 @@ Content-Type: application/json
     "visibility": "PUBLIC"
 }
 
+
+### Create User
+POST {{baseUrl}}/api/v1/users/create_user
+Content-Type: application/json
+
+{
+    "name": "Anna"
+}
 
 ### Search Service Health
 GET {{baseUrl}}/api/v1/search/health
