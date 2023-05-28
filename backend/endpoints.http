@@ -34,7 +34,7 @@ GET {{baseUrl}}/api/v1/cookbook/get_cookbooks/3
 GET {{baseUrl}}/api/v1/recipe/health
 
 ### Create Recipe
-POST {{baseUrl}}/api/v1/recipe/create/3
+POST {{baseUrl}}/api/v1/recipe/create/1
 Content-Type: application/json
 
 {
@@ -59,3 +59,13 @@ GET {{baseUrl}}/api/v1/search/health
 
 ### Users Service Health
 GET {{baseUrl}}/api/v1/users/health
+
+
+### search Service Health
+GET {{baseUrl}}/api/v1/search/health
+
+### search Service test
+GET {{baseUrl}}/api/v1/search/searchcategory/break
+
+### search Service test
+GET {{baseUrl}}/api/v1/search/searchdescription/cereal milk
