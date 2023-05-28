@@ -7,16 +7,39 @@ GET {{baseUrl}}/api/v1/auth/health
 GET {{baseUrl}}/api/v1/cookbook/health
 
 
+### Create Cookbook for current user
+POST {{baseUrl}}/api/v1/cookbook/create/3
+Content-Type: application/json
+
+{
+    "title": "Asian"
+}
+
+### Add recipe to Cookbook
+POST {{baseUrl}}/api/v1/cookbook/add_recipe
+Content-Type: application/json
+
+{
+    "recipe_id": 3,
+    "cookbook_id": 3
+}
+
+### Get all recipes based on Cookbook id
+GET {{baseUrl}}/api/v1/cookbook/get_recipes/3
+
+### Get all cookbooks based on user id
+GET {{baseUrl}}/api/v1/cookbook/get_cookbooks/3
+
 ### Recipe Service Health
 GET {{baseUrl}}/api/v1/recipe/health
 
 ### Create Recipe
-POST {{baseUrl}}/api/v1/recipe/create/2
+POST {{baseUrl}}/api/v1/recipe/create/3
 Content-Type: application/json
 
 {
-    "title": "Cereal",
-    "description": "Add cereal to bowl. Add milk to bowl. Mix.",
+    "title": "Fried Rice",
+    "description": "Add left-over rice to pan. Fry under medium heat. Add seasoning and eggs.",
     "category": "Breakfast",
     "image": "Image URL",
     "visibility": "PUBLIC"
@@ -28,7 +51,7 @@ POST {{baseUrl}}/api/v1/users/create_user
 Content-Type: application/json
 
 {
-    "name": "John"
+    "name": "Anna"
 }
 
 ### Search Service Health
