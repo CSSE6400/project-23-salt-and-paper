@@ -5,23 +5,47 @@
 	<title>Create Recipe</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="js/script.js"></script>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			width: 300px;
+			margin-top: 50px;
+		}
+
+		label {
+			margin-top: 10px;
+		}
+
+		input, textarea {
+			width: 100%;
+		}
+
+		button {
+			margin-top: 20px;
+		}
+	</style>
 </head>
 <body>
 	<div class="container">
 		<form>
-            <h1>Welcome to Salt and Pepper!</h1><br><br>
+			<h1>Welcome to Salt and Paper!</h1><br><br>
 			<h2>Create Recipe</h2>
 			<label for="recipeName"><b>Recipe Name</b></label>
 			<input type="text" placeholder="Enter Recipe Name" name="recipeName" required>
 
+			<label for="ingredients"><b>Category</b></label>
+			<textarea placeholder="Enter Category" name="ingredients" required></textarea>
+
 			<label for="description"><b>Description</b></label>
 			<textarea placeholder="Enter Recipe Description" name="description" required></textarea>
-
-			<label for="ingredients"><b>Ingredients</b></label>
-			<textarea placeholder="Enter Ingredients (one per line)" name="ingredients" required></textarea>
-
-			<label for="instructions"><b>Instructions</b></label>
-			<textarea placeholder="Enter Recipe Instructions" name="instructions" required></textarea>
 
 			<button type="submit">Create Recipe</button>
 		</form>

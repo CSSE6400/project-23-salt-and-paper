@@ -41,7 +41,6 @@ Content-Type: application/json
     "title": "Fried Rice",
     "description": "Add left-over rice to pan. Fry under medium heat. Add seasoning and eggs.",
     "category": "Breakfast",
-    "image": "Image URL",
     "visibility": "PUBLIC"
 }
 
@@ -60,7 +59,6 @@ GET {{baseUrl}}/api/v1/search/health
 ### Users Service Health
 GET {{baseUrl}}/api/v1/users/health
 
-
 ### search Service Health
 GET {{baseUrl}}/api/v1/search/health
 
@@ -76,7 +74,6 @@ Content-Type: application/json
 {
     "name": "Sam"
 }
-
 
 ### Get all users
 GET {{baseUrl}}/api/v1/users/get_all

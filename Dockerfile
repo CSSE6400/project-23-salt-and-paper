@@ -12,7 +12,7 @@ RUN pip install pipenv
 WORKDIR . 
 
 # Install pipenv dependencies 
-COPY Pipfile Pipfile.lock recipes.json ratings.json steps.json users.json ./ 
+COPY Pipfile Pipfile.lock recipes.json ratings.json users.json ./ 
 RUN pipenv install --system --deploy --ignore-pipfile
 
 # Copying our application into the container 

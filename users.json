@@ -2,61 +2,51 @@
   {
     "id": 1,
     "name": "User 1",
-    "picture": "picture1.jpg",
-    "cooking_preferences": "Vegetarian"
+    "cooking_preferences": "Paleo"
   },
   {
     "id": 2,
     "name": "User 2",
-    "picture": "picture2.jpg",
-    "cooking_preferences": "Paleo"
+    "cooking_preferences": "Gluten-free"
   },
   {
     "id": 3,
     "name": "User 3",
-    "picture": "picture3.jpg",
-    "cooking_preferences": "Vegan"
+    "cooking_preferences": "Paleo"
   },
   {
     "id": 4,
     "name": "User 4",
-    "picture": "picture4.jpg",
-    "cooking_preferences": "Gluten-free"
+    "cooking_preferences": "Vegetarian"
   },
   {
     "id": 5,
     "name": "User 5",
-    "picture": "picture5.jpg",
-    "cooking_preferences": "Paleo"
+    "cooking_preferences": "Vegan"
   },
   {
     "id": 6,
     "name": "User 6",
-    "picture": "picture6.jpg",
-    "cooking_preferences": "Gluten-free"
+    "cooking_preferences": "Vegan"
   },
   {
     "id": 7,
     "name": "User 7",
-    "picture": "picture7.jpg",
-    "cooking_preferences": "Gluten-free"
+    "cooking_preferences": "Vegan"
   },
   {
     "id": 8,
     "name": "User 8",
-    "picture": "picture8.jpg",
-    "cooking_preferences": "Paleo"
+    "cooking_preferences": "Vegetarian"
   },
   {
     "id": 9,
     "name": "User 9",
-    "picture": "picture9.jpg",
-    "cooking_preferences": "Vegan"
+    "cooking_preferences": "Paleo"
   },
   {
     "id": 10,
     "name": "User 10",
-    "picture": "picture10.jpg",
     "cooking_preferences": "Vegetarian"
   }
 ]
