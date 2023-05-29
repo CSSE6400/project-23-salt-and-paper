@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "User 1",
+    "cooking_preferences": "Paleo"
+  },
+  {
+    "id": 2,
+    "name": "User 2",
+    "cooking_preferences": "Gluten-free"
+  },
+  {
+    "id": 3,
+    "name": "User 3",
+    "cooking_preferences": "Paleo"
+  },
+  {
+    "id": 4,
+    "name": "User 4",
+    "cooking_preferences": "Vegetarian"
+  },
+  {
+    "id": 5,
+    "name": "User 5",
+    "cooking_preferences": "Vegan"
+  },
+  {
+    "id": 6,
+    "name": "User 6",
+    "cooking_preferences": "Vegan"
+  },
+  {
+    "id": 7,
+    "name": "User 7",
+    "cooking_preferences": "Vegan"
+  },
+  {
+    "id": 8,
+    "name": "User 8",
+    "cooking_preferences": "Vegetarian"
+  },
+  {
+    "id": 9,
+    "name": "User 9",
+    "cooking_preferences": "Paleo"
+  },
+  {
+    "id": 10,
+    "name": "User 10",
+    "cooking_preferences": "Vegetarian"
+  }
+]

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 import uuid
@@ -30,13 +30,12 @@ def health():
 @recipe_api.route("/get_all", methods=["GET"])
 def get_recipes():
     """Return the list of recipe items"""
-    # window = request.args.get('window', 100)
     recipes = Recipe.query.all()
     result = []
     for recipe in recipes:
         result.append(recipe.to_dict())
 
-    return jsonify(result)
+    return render_template('recipie.html', recipes=result)
 
 
 @recipe_api.route("/create/<int:author_id>", methods=["POST"])
@@ -54,7 +53,6 @@ def create_recipe(author_id):
             title=request.json.get("title"),
             description=request.json.get("description"),
             category=request.json.get("category"),
-            image=request.json.get("image"),
             author_id=author_id,
             visibility=request.json.get("visibility"),
         )
@@ -68,7 +66,7 @@ def create_recipe(author_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title", "description", "category", "image", "visibility"}
+                - {"title", "description", "category", "visibility"}
             )
             > 0
         ):
@@ -94,10 +92,10 @@ def create_recipe(author_id):
 @recipe_api.route("/get_by_id/<int:recipe_id>", methods=["GET"])
 def get_recipe(recipe_id):
     """Return the details of a recipe item"""
-    recipe = recipe.query.get(recipe_id)
+    recipe = Recipe.query.get(recipe_id)
     if recipe is None:
         return jsonify({"error": "recipe does not exist"}), 404
-    return jsonify(recipe.to_dict())
+    return render_template('recipieView.html', recipe=recipe.to_dict())
 
 
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])
@@ -113,7 +111,7 @@ def update_recipe(recipe_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title", "description", "category", "image", "visibility"}
+                - {"title", "description", "category", "visibility"}
             )
             > 0
         ):
@@ -126,7 +124,6 @@ def update_recipe(recipe_id):
         recipe.title = request.json.get("title", recipe.title)
         recipe.description = request.json.get("description", recipe.description)
         recipe.category = request.json.get("category", recipe.category)
-        recipe.image = request.json.get("image", recipe.image)
         recipe.visibility = request.json.get("visibility", recipe.visibility)
 
         if recipe.visibility not in ["PUBLIC", "PRIVATE"]:

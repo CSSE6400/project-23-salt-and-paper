@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Recipes</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Welcome to Salt and Paper!</h1><br><br>
+		<h2>My Recipes</h2>
+		<div class="recipe-container">
+			{% for recipe in recipes %}
+			<div class="recipe">
+				<h3>{{ recipe.title }}</h3>
+				<p>{{ recipe.description }}</p>
+				<p>Ingredients:</p>
+				<ul>
+					{% for ingredient in recipe.ingredients %}
+					<li>{{ ingredient }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>

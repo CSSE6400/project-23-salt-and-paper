@@ -34,24 +34,30 @@ GET {{baseUrl}}/api/v1/cookbook/get_cookbooks/3
 GET {{baseUrl}}/api/v1/recipe/health
 
 ### Create Recipe
-POST {{baseUrl}}/api/v1/recipe/create/1
+POST {{baseUrl}}/api/v1/recipe/create/3
 Content-Type: application/json
 
 {
     "title": "Fried Rice",
     "description": "Add left-over rice to pan. Fry under medium heat. Add seasoning and eggs.",
     "category": "Breakfast",
-    "image": "Image URL",
     "visibility": "PUBLIC"
 }
 
+
+### Create User
+POST {{baseUrl}}/api/v1/users/create_user
+Content-Type: application/json
+
+{
+    "name": "Anna"
+}
 
 ### Search Service Health
 GET {{baseUrl}}/api/v1/search/health
 
 ### Users Service Health
 GET {{baseUrl}}/api/v1/users/health
-
 
 ### search Service Health
 GET {{baseUrl}}/api/v1/search/health
@@ -68,7 +74,6 @@ Content-Type: application/json
 {
     "name": "Sam"
 }
-
 
 ### Get all users
 GET {{baseUrl}}/api/v1/users/get_all

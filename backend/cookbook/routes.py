@@ -42,7 +42,7 @@ def create_cookbook(author_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title", "description", "category", "image", "visibility"}
+                - {"title", "description", "category", "visibility"}
             )
             > 0
         ):

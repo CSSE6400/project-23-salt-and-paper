@@ -9,7 +9,6 @@ class User(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    picture = db.Column(db.String(100))
     cooking_preferences = db.Column(db.String(100))
 
     # Followers relationship
@@ -32,7 +31,6 @@ class User(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "picture": self.picture,
             "cooking_preferences": self.cooking_preferences
         }
 
@@ -47,15 +45,11 @@ def populate_users(mapper, connection, *args, **kwargs):
     user_json_object = json.load(f)
     for user_item in user_json_object:
         new_user = User(
-            # id = user_item["id"],
             name = user_item["name"],
-            picture = user_item["picture"],
             cooking_preferences = user_item["cooking_preferences"]
         )
         connection.execute(user_table.insert().values(
-                                                    # id=new_user.id, 
                                                   name=new_user.name, 
-                                                  picture=new_user.picture,
                                                   cooking_preferences=new_user.cooking_preferences))
 
 
@@ -74,11 +68,7 @@ class Recipe(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(500))
     category = db.Column(db.String(50))
-    image = db.Column(db.String(100))
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-
-    # Steps relationship
-    steps = db.relationship("Step", backref="recipe", lazy=True)
 
     # Ratings relationship
     ratings = db.relationship("Rating", backref="recipe", lazy=True)
@@ -94,19 +84,9 @@ class Recipe(db.Model):
             "title": self.title,
             "description": self.description,
             "category": self.category,
-            "image": self.image,
             "visibility": self.visibility,
             "author_id": self.author_id
         }
-
-
-# Step model
-class Step(db.Model):
-    __tablename__ = "steps"
-    id = db.Column(db.Integer, primary_key=True)
-    description = db.Column(db.String(500))
-    image = db.Column(db.String(100))
-    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.id"), nullable=False)
 
 
 # Rating model
