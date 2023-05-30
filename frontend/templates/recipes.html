@@ -28,7 +28,7 @@
 				<input type="hidden" name="category" value="{{ recipe.category }}">
 				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
 				<div class="recipe-actions">
-					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}', '{{ recipe.title }}', '{{ recipe.description }}', '{{ recipe.category }}', '{{ recipe.visibility }}')">Modify</button>
+					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}')">Modify</button>
 					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}', '{{ recipe.title }}', '{{ recipe.description }}', '{{ recipe.category }}', '{{ recipe.visibility }}')">Delete</button>
 				</div>
 			</div>
@@ -39,14 +39,7 @@
 	<!-- JavaScript functions for modifying and deleting recipes -->
 	<script>
 		function modifyRecipe(recipeId, title, description, category, visibility) {
-			// Output the details
-			console.log("Recipe ID: " + recipeId);
-			console.log("Title: " + title);
-			console.log("Description: " + description);
-			console.log("Category: " + category);
-			console.log("Visibility: " + visibility);
-
-			// Add your modify logic here
+			window.location.href = "/api/v1/recipe/updateRecipeView/" + recipeId;
 		}
 
 		function deleteRecipe(recipeId, title, description, category, visibility) {
