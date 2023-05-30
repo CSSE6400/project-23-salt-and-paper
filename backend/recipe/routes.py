@@ -35,7 +35,7 @@ def get_recipes():
     for recipe in recipes:
         result.append(recipe.to_dict())
 
-    return render_template('recipe.html', recipes=result)
+    return render_template('recipes.html', recipes=result)
 
 @recipe_api.route("/create_recipe", methods=["GET"])
 def view_create_recipe():

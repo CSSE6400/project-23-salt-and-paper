@@ -24,7 +24,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.sort_keys = False
 db.init_app(app)
 with app.app_context():
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
     
 # Load recipe data from JSON file
