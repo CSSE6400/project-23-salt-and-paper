@@ -13,12 +13,6 @@
 			<div class="recipe">
 				<h3>{{ recipe.title }}</h3>
 				<p>{{ recipe.description }}</p>
-				<p>Ingredients:</p>
-				<ul>
-					{% for ingredient in recipe.ingredients %}
-					<li>{{ ingredient }}</li>
-					{% endfor %}
-				</ul>
 			</div>
 			{% endfor %}
 		</div>

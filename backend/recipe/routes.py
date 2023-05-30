@@ -35,7 +35,11 @@ def get_recipes():
     for recipe in recipes:
         result.append(recipe.to_dict())
 
-    return render_template('recipie.html', recipes=result)
+    return render_template('recipe.html', recipes=result)
+
+@recipe_api.route("/create_recipe", methods=["GET"])
+def view_create_recipe():
+    return render_template('createRecipe.html')
 
 
 @recipe_api.route("/create/<int:author_id>", methods=["POST"])
@@ -60,33 +64,27 @@ def create_recipe(author_id):
         if recipe.visibility not in ["PUBLIC", "PRIVATE"]:
             raise InvalidParameterInput
 
-        if recipe.title == "":
-            raise exc.IntegrityError
+        if not recipe.title:
+            raise InvalidParameterInput
 
-        if (
-            len(
-                set(request.json.keys())
-                - {"title", "description", "category", "visibility"}
-            )
-            > 0
-        ):
+        if len(set(request.json.keys()) - {"title", "description", "category", "visibility"}) > 0:
             raise UnknownFieldException
 
         db.session.add(recipe)
-
         db.session.commit()
+
         return jsonify(recipe.to_dict()), 201
 
     except exc.IntegrityError as e:
         print(str(e))
         db.session.rollback()
-        return jsonify({"error": "Failed to create Recipe"}), 400
+        return jsonify({"error": "Failed to create Recipe"}), 405
 
     except UnknownFieldException:
-        return jsonify({"error": "There are extra fields"}), 400
+        return jsonify({"error": "There are extra fields"}), 406
 
     except InvalidParameterInput:
-        return jsonify({"error": "Parameter input is invalid!"}), 400
+        return jsonify({"error": "Parameter input is invalid!"}), 407
 
 
 @recipe_api.route("/get_by_id/<int:recipe_id>", methods=["GET"])
@@ -95,7 +93,7 @@ def get_recipe(recipe_id):
     recipe = Recipe.query.get(recipe_id)
     if recipe is None:
         return jsonify({"error": "recipe does not exist"}), 404
-    return render_template('recipieView.html', recipe=recipe.to_dict())
+    return render_template('recipeView.html', recipe=recipe.to_dict())
 
 
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])
