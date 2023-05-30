@@ -96,6 +96,13 @@ def get_recipe(recipe_id):
     return render_template('recipeView.html', recipe=recipe.to_dict())
 
 
+@recipe_api.route("/updateRecipeView/<int:recipe_id>", methods=["GET"])
+def update_recipe_view(recipe_id):
+    recipe = Recipe.query.get(recipe_id)
+    if recipe is None:
+        return jsonify({"error": "recipe does not exist"}), 404
+    return render_template('updateRecipe.html', recipe=recipe.to_dict())
+
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])
 def update_recipe(recipe_id):
     """Update recipe item and return the updated recipe item"""

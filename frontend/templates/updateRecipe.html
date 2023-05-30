@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Update Recipe</title>
+	<style>
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			width: 300px;
+			margin-top: 50px;
+		}
+
+		label {
+			margin-top: 10px;
+		}
+
+		input, textarea {
+			width: 100%;
+		}
+
+		button {
+			margin-top: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form id="updateRecipeForm">
+			<h2>Update Recipe</h2>
+			<label for="recipeName"><b>Recipe Name</b></label>
+			<input type="text" placeholder="Enter Recipe Name" name="title" value="{{ recipe.title }}" required>
+
+			<label for="ingredients"><b>Category</b></label>
+			<textarea placeholder="Enter Category" name="category" required>{{ recipe.category }}</textarea>
+
+			<label for="description"><b>Description</b></label>
+			<textarea placeholder="Enter Recipe Description" name="description" required>{{ recipe.description }}</textarea>
+
+			<label for="visibility"><b>Visibility</b></label>
+			<select name="visibility" required>
+				<option value="PUBLIC" {% if recipe.visibility == 'PUBLIC' %}selected{% endif %}>PUBLIC</option>
+				<option value="PRIVATE" {% if recipe.visibility == 'PRIVATE' %}selected{% endif %}>PRIVATE</option>
+			</select>
+
+			<input type="hidden" name="author_id" value="{{ recipe.author_id }}">
+
+			<button type="submit">Update Recipe</button>
+		</form>
+	</div>
+
+	<script>
+		document.getElementById("updateRecipeForm").addEventListener("submit", function(event) {
+			event.preventDefault();
+
+			var form = document.getElementById("updateRecipeForm");
+			var formData = new FormData(form);
+
+			var data = {
+				"title": formData.get("title"),
+				"description": formData.get("description"),
+				"category": formData.get("category"),
+				"visibility": formData.get("visibility")
+			};
+
+			fetch("/api/v1/recipe/update/{{ recipe.id }}", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(data)
+			});
+		});
+	</script>
+</body>
+</html>
