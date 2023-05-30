@@ -29,7 +29,7 @@
 				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
 				<div class="recipe-actions">
 					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}')">Modify</button>
-					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}', '{{ recipe.title }}', '{{ recipe.description }}', '{{ recipe.category }}', '{{ recipe.visibility }}')">Delete</button>
+					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}')">Delete</button>
 				</div>
 			</div>
 			{% endfor %}
@@ -38,19 +38,32 @@
 
 	<!-- JavaScript functions for modifying and deleting recipes -->
 	<script>
-		function modifyRecipe(recipeId, title, description, category, visibility) {
+		function modifyRecipe(recipeId) {
 			window.location.href = "/api/v1/recipe/updateRecipeView/" + recipeId;
 		}
 
-		function deleteRecipe(recipeId, title, description, category, visibility) {
-			// Output the details
-			console.log("Recipe ID: " + recipeId);
-			console.log("Title: " + title);
-			console.log("Description: " + description);
-			console.log("Category: " + category);
-			console.log("Visibility: " + visibility);
-
-			// Add your delete logic here
+		function deleteRecipe(recipeId) {
+			// Confirm deletion
+			if (confirm("Are you sure you want to delete this recipe?")) {
+				// Send a DELETE request to the server
+				fetch(`/api/v1/recipe/delete/${recipeId}`, {
+					method: "DELETE"
+				})
+				.then(response => {
+					if (response.ok) {
+						// Recipe deleted successfully
+						console.log("Recipe deleted");
+						// Reload the page to reflect the changes
+						location.reload();
+					} else {
+						// Failed to delete the recipe
+						console.error("Failed to delete recipe");
+					}
+				})
+				.catch(error => {
+					console.error("An error occurred:", error);
+				});
+			}
 		}
 	</script>
 </body>

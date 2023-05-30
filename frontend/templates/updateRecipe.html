@@ -76,6 +76,17 @@
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(data)
+			})
+			.then(response => {
+				if (response.ok) {
+					console.log("Recipe updated successfully");
+					window.location.href = "/api/v1/recipe/get_all"; // Redirect to the get_all URL
+				} else {
+					console.error("Failed to update recipe");
+				}
+			})
+			.catch(error => {
+				console.error("An error occurred while updating recipe:", error);
 			});
 		});
 	</script>
