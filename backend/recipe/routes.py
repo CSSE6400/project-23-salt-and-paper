@@ -30,6 +30,7 @@ def health():
 @recipe_api.route("/get_all", methods=["GET"])
 def get_recipes():
     """Return the list of recipe items"""
+    db.session.commit()
     recipes = Recipe.query.all()
     result = []
     for recipe in recipes:
