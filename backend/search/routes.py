@@ -56,6 +56,7 @@ def searchCatergory(keywords):
     doc=[doc.to_dict() for doc in docs]
     task_id= searchCatOrDes.delay(doc,keywords,True)
     while(True):
+# test
 
 
         if task_id.ready():
