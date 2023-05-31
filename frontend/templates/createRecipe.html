@@ -77,7 +77,18 @@
 					"Content-Type": "application/json"
 				},
 				body: JSON.stringify(data)
-			});
+			})
+			.then(response => {
+				if (response.ok) {
+					console.log("Recipe created successfully");
+					window.location.href = "/api/v1/recipe/get_all"; // Redirect to the get_all URL
+				} else {
+					console.error("Failed to create recipe");
+				}
+			})
+			.catch(error => {
+				console.error("An error occurred while creating recipe:", error);
+			}); 
 		});
 	</script>
 </body>
