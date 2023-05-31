@@ -1,0 +1,74 @@
+<div align="center">
+  <img src="salt-and-paper-logo.png" alt="Salt and Paper Logo" width="200"/>
+</div>
+
+# Salt and Paper: Software Architecture Capstone Project Report
+
+## Abstract
+
+Have you ever had trouble remembering a recipe you followed a long time ago but can’t find it? Or perhaps you’re craving your mum’s special cookies but can’t remember how she made it? Wouldn’t it be easier if you had it all those recipes stored with step-by-step instructions on how to make them?
+
+Introducing Salt and Paper, a user-friendly software application designed for individuals who love to cook and want to organize their favourite recipes in one place. With this app, users can create a personal recipe collection by storing their own recipes and browse and save recipes from other users.
+
+The app features a user-friendly interface where users can easily enter and store their recipes. In addition to storing personal recipes, the app allows users to search for recipes based on different categories, such as cuisine type, meal type, or ingredient. They can also view popular recipes or browse recipes by other users they follow. Prepare to embark on a flavorful journey as we delve into the architecture, trade-offs, critique, evaluation, and reflection of Salt and Paper.
+
+## Changes
+
+Just as spices enhance the flavors of a dish, our team has infused Salt and Paper with design improvements. We added a feature that would allow users to search recipes. We added a feature that would allow users to create and update their profile.
+
+from Architecture prospective; We changed the architecture to be maintainability. At first, we decided to design a software that is fully written in Python and Javascipt. We then decided to move to react to be able to design a more appealing front-end. We changed the architecture to be using a seperate front-end and back-end. We made sure that the new architecture is suitable with each members' prospective schedule.
+
+## Architecture
+
+The Minimum Viable Product (MVP) showcases a tantalizing software architecture, composed of components:
+
+1. Frontend:
+
+   - User Interface (UI): Crafted with cutting-edge React frameworks, the UI tantalizes users' visual senses, providing a seamless and visually pleasing experience.
+   - Views and Components: We incorporated pictures icons, and other elements to make it easier to navigate through the app. The UI is designed to be responsive, ensuring a consistent experience across devices.
+
+2. Backend:
+
+   - Server: We used Python Flask to serve the API endpoints. The server is responsible for handling the requests and responses between the frontend and the database. Orchestrates the flow of requests, serving multiple API endpoints of data to the frontend. Some of the endpoints are enforced with protected routes middleware to ensure the authentication and authorization of the users.
+   - Database: We used PostgreSQL for its robustness. The database stores users' profiles, recipes, Cookbook and Ratings. Its design ensures data integrity and efficient recipe retrieval. We used the Sequelize ORM to facilitate the interaction with the database.
+
+3. API:
+   - Endpoints: The endpoints are designed to be RESTful and follow the best practices of RESTful API design. The endpoints are enforced with authentication and authorization to ensure the security of the data.
+   - RESTful API: The API endpoints are designed to be intuitive and easy to use.
+
+## Trade-Offs
+
+- Performance vs. Extensibility: By optimizing certain components, we've achieved an appetizing performance. However, to ensure a better user experience, we traded a slight reduction in extensibility. For the core architecture still welcomes future enhancements.
+
+- Simplicity vs. Customization: Our UI design focuses on simplicity and elegance. While customization options are limited, this approach ensures that users a consistent and intuitive interface.
+
+## Architecture Diagrams
+
+@TODO
+
+<div align="center">
+  <img src="Salt and Paper - Architecture Diagram.png" alt="Salt and Paper Architecture Diagram" width="800"/>
+</div>
+## Critique
+
+@TODO
+
+## Evaluation
+
+The flavor of Salt and Paper was meticulously tested to evaluate its adherence to the promised quality attributes. Let us savor the results:
+
+- Scalability: We've put the application to the ultimate test using Locust. The results? Salt and Paper exhibits remarkable scalability, whith results exceeding @TODO
+
+- Extensibility: The architecture boasts well-defined, abstracted classes, ready to embrace future enhancements and evolving design requests.
+
+- Accessibility: Salt and Paper front-end is using React to be accessible across devices, from smartphones to Personal Computers. We tested the application with several devices and it worked without a problem.
+
+## Reflection
+
+- Improved Requirements Gathering: We've learned that requirements gathering is a continuous process. We've improved our requirements gathering process by incorporating feedback from each iteration.
+
+- Embrace Iterative Development: By adopting an iterative development approach, such as Agile or Scrum, we can utilize frequent feedback loops. This will ensure that the software is developed to meet the needs of the users.
+
+- Spice up with Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
+
+---
