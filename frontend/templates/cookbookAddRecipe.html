@@ -13,6 +13,10 @@
 		.add-btn {
 			margin-right: 10px;
 		}
+		.recipe-btn {
+			width: 300px;
+			height: 100px;
+		}
 	</style>
 </head>
 <body>
@@ -22,8 +26,10 @@
 		<div class="recipe-container">
 			{% for recipe in recipes %}
 			<div class="recipe">
-				<h3 name="title">{{ recipe.title }}</h3>
-				<p name="description">{{ recipe.description }}</p>
+				<button class="recipe-btn" onclick="viewRecipe('{{ recipe.id }}')">
+					<h3 name="title">{{ recipe.title }}</h3>
+					<p name="description">{{ recipe.description }}</p>
+				</button>
 				<input type="hidden" name="category" value="{{ recipe.category }}">
 				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
 				<div class="recipe-actions">
@@ -35,6 +41,9 @@
 	</div>
 
 	<script>
+		function viewRecipe(recipeId) {
+			window.location.href = `/api/v1/recipe/get_by_id/${recipeId}`;
+		}
 		function addRecipe(recipeId) {
 			// Confirm add
 			if (confirm("Are you sure you want to add this recipe to the cookbook?")) {
