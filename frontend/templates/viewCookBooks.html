@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cookbooks</title>
+	<style>
+		.recipe {
+			margin-bottom: 20px;
+		}
+		.recipe-actions {
+			margin-top: 10px;
+		}
+		.modify-btn,
+		.delete-btn {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Welcome to Salt and Paper!</h1><br><br>
+		<h2>Cookbooks</h2>
+		<div class="cookbook-container">
+			{% for cookbook in cookbooks %}
+			<div class="recipe">
+				<h3 name="title">{{ cookbook.title }}</h3>
+				<p name="description">{{ cookbook.description }}</p>
+				<input type="hidden" name="category" value="{{ cookbook.category }}">
+				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>

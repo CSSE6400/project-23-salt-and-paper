@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 from backend.models.models import Cookbook, db, Recipe, RecipeCookbook, User
@@ -152,9 +152,9 @@ def get_cookbooks(author_id):
         for cookbook in cookbooks:
             result.append(cookbook.to_dict())
         
-        return jsonify(result), 200, {'Content-Type': 'application/json'}
+        return render_template('viewCookBooks.html', cookbooks=result)
 
-    except IDMismatchException:
+    except IDMismatchException: 
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
     
     except Exception as e:
