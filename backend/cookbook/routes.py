@@ -18,6 +18,12 @@ def health():
     """Return a status of 'ok' if the server is running and listening to request"""
     return jsonify({"status": "ok"})
 
+@cookbook_api.route('/create_cookbook_view', methods=['GET'])
+def create_cookbook_view():
+    try:
+        return render_template('createCookbook.html')
+    except Exception as e:
+        return jsonify({"error": "Failed to load page" + e}), 500
 
 @cookbook_api.route('/create/<int:author_id>', methods=['POST'])
 def create_cookbook(author_id):
@@ -152,7 +158,7 @@ def get_cookbooks(author_id):
         for cookbook in cookbooks:
             result.append(cookbook.to_dict())
         
-        return render_template('viewCookBooks.html', cookbooks=result)
+        return render_template('viewCookbooks.html', cookbooks=result)
 
     except IDMismatchException: 
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
