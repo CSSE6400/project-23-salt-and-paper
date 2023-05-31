@@ -4,15 +4,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Cookbooks</title>
 	<style>
-		.recipe {
+		.cookbook {
 			margin-bottom: 20px;
-		}
-		.recipe-actions {
-			margin-top: 10px;
-		}
-		.modify-btn,
-		.delete-btn {
-			margin-right: 10px;
 		}
 	</style>
 </head>
@@ -22,14 +15,15 @@
 		<h2>Cookbooks</h2>
 		<div class="cookbook-container">
 			{% for cookbook in cookbooks %}
-			<div class="recipe">
+			<div class="cookbook">
 				<h3 name="title">{{ cookbook.title }}</h3>
 				<p name="description">{{ cookbook.description }}</p>
 				<input type="hidden" name="category" value="{{ cookbook.category }}">
-				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
+				<input type="hidden" name="visibility" value="{{ cookbook.visibility }}">
 			</div>
 			{% endfor %}
 		</div>
+		<button onclick="window.location.href='/api/v1/cookbook/create_cookbook_view'">Create Cookbook</button>
 	</div>
 </body>
 </html>
