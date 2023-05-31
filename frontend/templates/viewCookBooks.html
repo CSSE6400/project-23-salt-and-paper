@@ -7,6 +7,11 @@
 		.cookbook {
 			margin-bottom: 20px;
 		}
+
+		.cookbook-button {
+			width: 800px;
+			height: 100px;
+		}
 	</style>
 </head>
 <body>
@@ -16,14 +21,13 @@
 		<div class="cookbook-container">
 			{% for cookbook in cookbooks %}
 			<div class="cookbook">
-				<h3 name="title">{{ cookbook.title }}</h3>
+				<button class="cookbook-button" onclick="window.location.href='/api/v1/cookbook/get_recipes/{{ cookbook.id }}'">{{ cookbook.title }}</button>
 				<p name="description">{{ cookbook.description }}</p>
 				<input type="hidden" name="category" value="{{ cookbook.category }}">
 				<input type="hidden" name="visibility" value="{{ cookbook.visibility }}">
 			</div>
 			{% endfor %}
 		</div>
-		<button onclick="window.location.href='/api/v1/cookbook/create_cookbook_view'">Create Cookbook</button>
 	</div>
 </body>
 </html>

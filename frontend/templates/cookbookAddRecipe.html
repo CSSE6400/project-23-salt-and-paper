@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Recipes</title>
+	<style>
+		.recipe {
+			margin-bottom: 20px;
+		}
+		.recipe-actions {
+			margin-top: 10px;
+		}
+		.add-btn {
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Welcome to Salt and Paper!</h1><br><br>
+		<h2>My Recipes</h2>
+		<div class="recipe-container">
+			{% for recipe in recipes %}
+			<div class="recipe">
+				<h3 name="title">{{ recipe.title }}</h3>
+				<p name="description">{{ recipe.description }}</p>
+				<input type="hidden" name="category" value="{{ recipe.category }}">
+				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
+				<div class="recipe-actions">
+					<button class="add-btn" onclick="addRecipe('{{ recipe.id }}')">Add to Cookbook</button>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<script>
+		function addRecipe(recipeId) {
+			// Confirm add
+			if (confirm("Are you sure you want to add this recipe to the cookbook?")) {
+                // Send a ADD recipe to the cookbook
+                event.preventDefault();
+				var cookbookId = getCookie("cookbookId");
+
+				var data = {
+					"recipe_id": recipeId,
+					"cookbook_id": cookbookId
+				};
+
+				fetch("/api/v1/cookbook/add_recipe", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(data)
+                })
+                .then(response => {
+					if (response.ok) {
+						// Recipe added successfully
+						console.log("Recipe added to cookbook");
+						// Reload the page to reflect the changes
+						window.location.href = `/api/v1/cookbook/get_recipes/${cookbookId}`;
+					} else {
+						// Failed to add the recipe
+						console.error("Cookbook id: " + cookbookId);
+						console.error("RecipeID: " +  recipeId);
+						console.error("Failed to add recipe");
+					}
+				})
+				.catch(error => {
+					console.error("An error occurred:", error);
+				});
+			}
+		}
+
+		// Get a cookie by name
+		function getCookie(name) {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = cookies[i].trim();
+				if (cookie.startsWith(name + "=")) {
+				return cookie.substring(name.length + 1);
+				}
+			}
+			return "";
+		}
+	</script>
+</body>
+</html>
