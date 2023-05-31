@@ -110,7 +110,10 @@ def add_recipe_to_cookbook():
         
         if cookbook.author_id != recipe.author_id:
             return jsonify({"error": f"Cookbook author ({cookbook.author_id}) does not match recipe author ({recipe.author_id})."}), 400
-
+        
+        if RecipeCookbook.query.filter_by(recipe_id=recipe_id_input, cookbook_id=cookbook_id_input).first():
+            return jsonify({"success": "Recipe already exists in cookbook"}), 201 #Recipe already exist in cookbook
+        
         recipeCookbook = RecipeCookbook(
             recipe_id = recipe_id_input,
             cookbook_id = cookbook_id_input
