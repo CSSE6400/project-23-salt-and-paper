@@ -9,6 +9,12 @@ flask-migrate = "*"
 flask-sqlalchemy = "*"
 importlib-metadata = "*"
 psycopg2 = "*"
+requests = "*"
+nltk = "*"
+rank-bm25 = "*"
+redis = "*"
+celery = {extras = ["sqs"], version = "*"}
+boto3 = "*"
 
 [dev-packages]
 
