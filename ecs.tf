@@ -45,6 +45,36 @@ resource "aws_ecs_task_definition" "saltandpaper_task" {
             "awslogs-create-group": "true"
         }
         }
+    },
+    {
+        "image": "${docker_image.saltandpaper_worker.name}",  
+        "cpu": 512,
+        "memory": 1024,
+        "name": "celery-worker",
+        "networkMode": "awsvpc",
+         "environment": [
+            {
+                "name": "SQLALCHEMY_DATABASE_URI",
+                "value": "postgresql://${local.database_username}:${local.database_password}@${aws_db_instance.database.address}:${aws_db_instance.database.port}/${aws_db_instance.database.db_name}"
+            },
+            {
+                "name": "CELERY_BROKER_URL",
+                "value": "sqs://"
+            },
+            {
+                "name": "CELERY_RESULT_BACKEND",
+                "value": "db+postgresql://${local.database_username}:${local.database_password}@${aws_db_instance.database.address}:${aws_db_instance.database.port}/${aws_db_instance.database.db_name}"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "/saltandpaper/celery-worker",
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "ecs",
+                "awslogs-create-group": "true"
+            }
+        }
     }
 
 ]
