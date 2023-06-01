@@ -24,51 +24,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.sort_keys = False
 db.init_app(app)
 with app.app_context():
-    db.drop_all()
+    # db.drop_all()
     db.create_all()
-    
-# Load recipe data from JSON file
-# with open("recipes.json") as f:
-#     dummy_recipes = json.load(f)
-
-# # Populate the Recipe table
-# try:
-#     with app.app_context():
-#         for recipe_data in dummy_recipes:
-#             new_recipe = Recipe(
-#                 id=recipe_data['id'],
-#                 title=recipe_data['title'],
-#                 description=recipe_data['description'],
-#                 category=recipe_data['category'],
-#                 visibility=recipe_data['visibility'],
-#                 author_id=recipe_data['author_id']
-#             )
-#             db.session.add(new_recipe)
-#         db.session.commit()
-# except Exception as e:
-#     print(f"Error populating Recipe table: {e}")
-
-
-# Load rating data from JSON file
-# with open("ratings.json") as f:
-#     dummy_ratings = json.load(f)
-
-# # Populate the Rating table
-# try:
-#     with app.app_context():
-#         for rating_data in dummy_ratings:
-#             new_rating = Rating(
-#                 id=rating_data['id'],
-#                 taste_rating=rating_data['taste_rating'],
-#                 difficulty_rating=rating_data['difficulty_rating'],
-#                 modification=rating_data['modification'],
-#                 recipe_id=rating_data['recipe_id']
-#             )
-#             db.session.add(new_rating)
-#         db.session.commit()
-# except Exception as e:
-#     print(f"Error populating Rating table: {e}")
-# migrate = Migrate(app, db)
 
 # Register blueprints
 app.register_blueprint(user_api)

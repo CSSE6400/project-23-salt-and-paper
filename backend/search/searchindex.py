@@ -1,5 +1,6 @@
 import requests
 import nltk
+import os
 from nltk.stem import PorterStemmer
 from rank_bm25 import BM25Okapi
 
@@ -16,7 +17,7 @@ nltk.download('punkt') # This downloads the necessary files for tokenization
 nltk.download('wordnet') 
 nltk.download('stopwords')
 porter = PorterStemmer() # Initializing the Porter2 stemmer
-API='http://localhost:6400/api/v1/recipe/get_all'# os.environ.get("API")
+API= os.environ.get("API")
 response = requests.get(API)
 
 recipelist=response.json()
