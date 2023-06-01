@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cookbooks</title>
+	<style>
+		.cookbook {
+			margin-bottom: 20px;
+		}
+
+		.cookbook-button {
+			width: 800px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Welcome to Salt and Paper!</h1><br><br>
+		<h2>Cookbooks</h2>
+		<div class="cookbook-container">
+			{% for cookbook in cookbooks %}
+			<div class="cookbook">
+				<button class="cookbook-button" onclick="window.location.href='/api/v1/cookbook/get_recipes/{{ cookbook.id }}'">{{ cookbook.title }}</button>
+				<p name="description">{{ cookbook.description }}</p>
+				<input type="hidden" name="category" value="{{ cookbook.category }}">
+				<input type="hidden" name="visibility" value="{{ cookbook.visibility }}">
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</body>
+</html>

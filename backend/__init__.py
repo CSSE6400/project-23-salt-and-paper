@@ -26,6 +26,8 @@ db.init_app(app)
 with app.app_context():
     # db.drop_all()
     db.create_all()
+    
+# migrate = Migrate(app, db)
 
 # Register blueprints
 app.register_blueprint(user_api)

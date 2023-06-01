@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Create Recipe</title>
+	<title>Update Recipe</title>
 	<style>
 		.container {
 			display: flex;
@@ -33,35 +33,34 @@
 </head>
 <body>
 	<div class="container">
-		<form id="createRecipeForm">
-			<h1>Welcome to Salt and Paper!</h1><br><br>
-			<h2>Create Recipe</h2>
+		<form id="updateRecipeForm">
+			<h2>Update Recipe</h2>
 			<label for="recipeName"><b>Recipe Name</b></label>
-			<input type="text" placeholder="Enter Recipe Name" name="title" required>
+			<input type="text" placeholder="Enter Recipe Name" name="title" value="{{ recipe.title }}" required>
 
 			<label for="ingredients"><b>Category</b></label>
-			<textarea placeholder="Enter Category" name="category" required></textarea>
+			<textarea placeholder="Enter Category" name="category" required>{{ recipe.category }}</textarea>
 
 			<label for="description"><b>Description</b></label>
-			<textarea placeholder="Enter Recipe Description" name="description" required></textarea>
+			<textarea placeholder="Enter Recipe Description" name="description" required>{{ recipe.description }}</textarea>
 
 			<label for="visibility"><b>Visibility</b></label>
 			<select name="visibility" required>
-				<option value="PUBLIC">PUBLIC</option>
-				<option value="PRIVATE">PRIVATE</option>
+				<option value="PUBLIC" {% if recipe.visibility == 'PUBLIC' %}selected{% endif %}>PUBLIC</option>
+				<option value="PRIVATE" {% if recipe.visibility == 'PRIVATE' %}selected{% endif %}>PRIVATE</option>
 			</select>
 
-			<input type="hidden" name="author_id" value="1">
+			<input type="hidden" name="author_id" value="{{ recipe.author_id }}">
 
-			<button type="submit">Create Recipe</button>
+			<button type="submit">Update Recipe</button>
 		</form>
 	</div>
 
 	<script>
-		document.getElementById("createRecipeForm").addEventListener("submit", function(event) {
+		document.getElementById("updateRecipeForm").addEventListener("submit", function(event) {
 			event.preventDefault();
 
-			var form = document.getElementById("createRecipeForm");
+			var form = document.getElementById("updateRecipeForm");
 			var formData = new FormData(form);
 
 			var data = {
@@ -71,8 +70,8 @@
 				"visibility": formData.get("visibility")
 			};
 
-			fetch("/api/v1/recipe/create/1", {
-				method: "POST",
+			fetch("/api/v1/recipe/update/{{ recipe.id }}", {
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json"
 				},
@@ -80,15 +79,15 @@
 			})
 			.then(response => {
 				if (response.ok) {
-					console.log("Recipe created successfully");
+					console.log("Recipe updated successfully");
 					window.location.href = "/api/v1/recipe/get_all"; // Redirect to the get_all URL
 				} else {
-					console.error("Failed to create recipe");
+					console.error("Failed to update recipe");
 				}
 			})
 			.catch(error => {
-				console.error("An error occurred while creating recipe:", error);
-			}); 
+				console.error("An error occurred while updating recipe:", error);
+			});
 		});
 	</script>
 </body>

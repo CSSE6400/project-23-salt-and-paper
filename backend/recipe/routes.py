@@ -30,12 +30,13 @@ def health():
 @recipe_api.route("/get_all", methods=["GET"])
 def get_recipes():
     """Return the list of recipe items"""
+    db.session.commit()
     recipes = Recipe.query.all()
     result = []
     for recipe in recipes:
         result.append(recipe.to_dict())
 
-    return render_template('recipe.html', recipes=result)
+    return render_template('recipes.html', recipes=result)
 
 @recipe_api.route("/create_recipe", methods=["GET"])
 def view_create_recipe():
@@ -95,6 +96,13 @@ def get_recipe(recipe_id):
         return jsonify({"error": "recipe does not exist"}), 404
     return render_template('recipeView.html', recipe=recipe.to_dict())
 
+
+@recipe_api.route("/updateRecipeView/<int:recipe_id>", methods=["GET"])
+def update_recipe_view(recipe_id):
+    recipe = Recipe.query.get(recipe_id)
+    if recipe is None:
+        return jsonify({"error": "recipe does not exist"}), 404
+    return render_template('updateRecipe.html', recipe=recipe.to_dict())
 
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])
 def update_recipe(recipe_id):

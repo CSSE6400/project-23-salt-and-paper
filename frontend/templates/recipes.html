@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Recipes</title>
+	<style>
+		.recipe {
+			margin-bottom: 20px;
+		}
+		.recipe-actions {
+			margin-top: 10px;
+		}
+		.modify-btn,
+		.delete-btn {
+			margin-right: 10px;
+		}
+		.recipe-btn {
+			width: 300px;
+			height: 100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Welcome to Salt and Paper!</h1><br><br>
+		<h2>My Recipes</h2>
+		<div class="recipe-container">
+			{% for recipe in recipes %}
+			<div class="recipe">
+				<button class="recipe-btn" onclick="viewRecipe('{{ recipe.id }}')">
+					<h3 name="title">{{ recipe.title }}</h3>
+					<p name="description">{{ recipe.description }}</p>
+				</button>
+				<input type="hidden" name="category" value="{{ recipe.category }}">
+				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
+				<div class="recipe-actions">
+					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}')">Modify</button>
+					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}')">Delete</button>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<!-- JavaScript functions for modifying and deleting recipes -->
+	<script>
+		function viewRecipe(recipeId) {
+			window.location.href = `/api/v1/recipe/get_by_id/${recipeId}`;
+		}
+
+		function modifyRecipe(recipeId) {
+			window.location.href = "/api/v1/recipe/updateRecipeView/" + recipeId;
+		}
+
+		function deleteRecipe(recipeId) {
+			// Confirm deletion
+			if (confirm("Are you sure you want to delete this recipe?")) {
+				// Send a DELETE request to the server
+				fetch(`/api/v1/recipe/delete/${recipeId}`, {
+					method: "DELETE"
+				})
+				.then(response => {
+					if (response.ok) {
+						// Recipe deleted successfully
+						console.log("Recipe deleted");
+						// Reload the page to reflect the changes
+						location.reload();
+					} else {
+						// Failed to delete the recipe
+						console.error("Failed to delete recipe");
+					}
+				})
+				.catch(error => {
+					console.error("An error occurred:", error);
+				});
+			}
+		}
+	</script>
+</body>
+</html>

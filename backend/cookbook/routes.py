@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 from backend.models.models import Cookbook, db, Recipe, RecipeCookbook, User
@@ -18,6 +18,12 @@ def health():
     """Return a status of 'ok' if the server is running and listening to request"""
     return jsonify({"status": "ok"})
 
+@cookbook_api.route('/create_cookbook_view', methods=['GET'])
+def create_cookbook_view():
+    try:
+        return render_template('createCookbook.html')
+    except Exception as e:
+        return jsonify({"error": "Failed to load page" + e}), 500
 
 @cookbook_api.route('/create/<int:author_id>', methods=['POST'])
 def create_cookbook(author_id):
@@ -64,10 +70,30 @@ def create_cookbook(author_id):
         return jsonify({"error": "There are extra fields"}), 400
 
 
+@cookbook_api.route('/get_user_recipes/<int:author_id>', methods=['GET'])
+def get_user_recipes(author_id):
+    """Return a list of recipe items"""
+    try:
+        user = User.query.filter_by(id=author_id).first()
+        if user is None:
+            return jsonify({"error": "Author does not exist"}), 404
+        if user.id != author_id:
+            raise IDMismatchException
+
+        recipes = Recipe.query.filter_by(author_id=author_id).all()
+        result = []
+        for recipe in recipes:
+            result.append(recipe.to_dict())
+
+        return render_template('cookbookAddRecipe.html', recipes=result)
+    except IDMismatchException:
+        return jsonify({"error": "user ID does not match ID in JSON object"}), 400
+    
+
 @cookbook_api.route('/add_recipe', methods=['POST'])
 def add_recipe_to_cookbook():
     try:
-        recipe_id_input = request.json.get("recipe_id")
+        recipe_id_input = int(request.json.get("recipe_id"))
         recipe = Recipe.query.get(recipe_id_input)
         if recipe is None:
             return jsonify({"error": "Recipe does not exist"}), 404
@@ -75,7 +101,7 @@ def add_recipe_to_cookbook():
         if recipe.id != recipe_id_input:
             raise IDMismatchException
         
-        cookbook_id_input = request.json.get("cookbook_id")
+        cookbook_id_input = int(request.json.get("cookbook_id"))
         cookbook = Cookbook.query.get(cookbook_id_input)
         if cookbook is None:
             return jsonify({"error": "Cookbook does not exist"}), 404
@@ -84,7 +110,10 @@ def add_recipe_to_cookbook():
         
         if cookbook.author_id != recipe.author_id:
             return jsonify({"error": f"Cookbook author ({cookbook.author_id}) does not match recipe author ({recipe.author_id})."}), 400
-
+        
+        if RecipeCookbook.query.filter_by(recipe_id=recipe_id_input, cookbook_id=cookbook_id_input).first():
+            return jsonify({"success": "Recipe already exists in cookbook"}), 201 #Recipe already exist in cookbook
+        
         recipeCookbook = RecipeCookbook(
             recipe_id = recipe_id_input,
             cookbook_id = cookbook_id_input
@@ -104,8 +133,7 @@ def add_recipe_to_cookbook():
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
     
     except Exception as e:
-        print(e)
-        return jsonify({'error': e}), 500
+        return jsonify({'error': str(e)}), 500
 
 @cookbook_api.route('/get_recipes/<int:cookbook_id>', methods=['GET'])
 def get_recipes(cookbook_id):
@@ -126,7 +154,7 @@ def get_recipes(cookbook_id):
             print(recipe)
             result.append(recipe.to_dict())
         
-        return jsonify(result), 200, {'Content-Type': 'application/json'}
+        return render_template('cookbookRecipes.html', recipes=result)
     
     except IDMismatchException:
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
@@ -152,9 +180,9 @@ def get_cookbooks(author_id):
         for cookbook in cookbooks:
             result.append(cookbook.to_dict())
         
-        return jsonify(result), 200, {'Content-Type': 'application/json'}
+        return render_template('viewCookbooks.html', cookbooks=result)
 
-    except IDMismatchException:
+    except IDMismatchException: 
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
     
     except Exception as e:
