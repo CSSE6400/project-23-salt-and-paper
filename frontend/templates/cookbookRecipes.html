@@ -10,8 +10,7 @@
 		.recipe-actions {
 			margin-top: 10px;
 		}
-		.modify-btn,
-		.delete-btn {
+		.modify-btn {
 			margin-right: 10px;
 		}
 		.recipe-btn {
@@ -36,7 +35,6 @@
 				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
 				<div class="recipe-actions">
 					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}')">Modify</button>
-					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}')">Delete</button>
 				</div>
 			</div>
 			{% endfor %}
@@ -51,30 +49,6 @@
 		
 		function modifyRecipe(recipeId) {
 			window.location.href = "/api/v1/recipe/updateRecipeView/" + recipeId;
-		}
-
-		function deleteRecipe(recipeId) {
-			// Confirm deletion
-			if (confirm("Are you sure you want to delete this recipe?")) {
-				// Send a DELETE request to the server
-				fetch(`/api/v1/recipe/delete/${recipeId}`, {
-					method: "DELETE"
-				})
-				.then(response => {
-					if (response.ok) {
-						// Recipe deleted successfully
-						console.log("Recipe deleted");
-						// Reload the page to reflect the changes
-						location.reload();
-					} else {
-						// Failed to delete the recipe
-						console.error("Failed to delete recipe");
-					}
-				})
-				.catch(error => {
-					console.error("An error occurred:", error);
-				});
-			}
 		}
 
         function addRecipe() {
