@@ -1,7 +1,7 @@
 import nltk
 from nltk.stem import PorterStemmer
 from rank_bm25 import BM25Okapi
-
+import requests
 import os
 from celery import Celery
 celery = Celery(__name__)
@@ -40,8 +40,27 @@ def searchCatOrDes(Recipedoc,keywords,category):
     bm25= BM25Okapi(preprocessed)
     return searchquery(Recipedoc,bm25,keywords) 
 
+
 @celery.task
-def add(x, y):
-    result = x + y
-    # Update the result in the backend
-    return result
+def updateBM25_des(documents):
+    nltk.download('punkt') # This downloads the necessary files for tokenization
+    nltk.download('wordnet') 
+    nltk.download('stopwords')
+    porter = PorterStemmer() # Initializing the Porter2 stemmer
+    preprocessed_des = [preprocess(doc["description"]) for doc in documents]
+    # preprocessed_cat = [preprocess(doc["category"]) for doc in documents]
+
+   
+    return preprocessed_des
+
+@celery.task
+def updateBM25_cat(documents):
+    nltk.download('punkt') # This downloads the necessary files for tokenization
+    nltk.download('wordnet') 
+    nltk.download('stopwords')
+    porter = PorterStemmer() # Initializing the Porter2 stemmer
+    # preprocessed_des = [preprocess(doc["description"]) for doc in documents]
+    preprocessed_cat = [preprocess(doc["category"]) for doc in documents]
+
+ 
+    return preprocessed_cat

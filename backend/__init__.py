@@ -18,8 +18,8 @@ app = Flask(__name__, template_folder="/frontend/templates/")
 db_uri = "postgresql://postgres:postgres@db:5432/saltandpaper" # using DOCKER
 # db_uri = "postgresql://postgres:postgres@localhost:5432/saltandpaper" # without DOCKER
 
-# app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.sort_keys = False
 db.init_app(app)

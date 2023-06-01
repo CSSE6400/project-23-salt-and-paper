@@ -4,6 +4,7 @@ from nltk.stem import PorterStemmer
 from rank_bm25 import BM25Okapi
 
 def preprocess(text):
+    porter = PorterStemmer() 
     tokens = nltk.word_tokenize(text.lower())
     stemmed_tokens = [porter.stem(token) for token in tokens]
     stop_words = set(nltk.corpus.stopwords.words('english'))
@@ -37,14 +38,14 @@ preprocessed_cat = [preprocess(doc["category"]) for doc in documents]
 bm25 = BM25Okapi(preprocessed_des)
 
 print(bm25)
+print(str(bm25))
 
+# def search(query, n=5):
+#     preprocessed_query = preprocess(query)
+#     scores = bm25.get_scores(preprocessed_query)
+#     sorted_indexes = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
+#     top_indexes = sorted_indexes[:n]
+#     return [documents[i] for i in top_indexes]
 
-def search(query, n=5):
-    preprocessed_query = preprocess(query)
-    scores = bm25.get_scores(preprocessed_query)
-    sorted_indexes = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
-    top_indexes = sorted_indexes[:n]
-    return [documents[i] for i in top_indexes]
-
-results = search('cereals')
-print(results)
+# results = search('cereals')
+# print(results)
