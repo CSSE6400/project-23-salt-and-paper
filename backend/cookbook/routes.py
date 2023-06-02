@@ -180,7 +180,7 @@ def get_cookbooks(author_id):
         for cookbook in cookbooks:
             result.append(cookbook.to_dict())
         
-        return render_template('viewCookbooks.html', cookbooks=result)
+        return render_template('viewCookBooks.html', cookbooks=result)
 
     except IDMismatchException: 
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
