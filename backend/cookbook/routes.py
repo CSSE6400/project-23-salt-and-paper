@@ -48,7 +48,7 @@ def create_cookbook(author_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title", "description", "category", "visibility"}
+                - {"title"}
             )
             > 0
         ):
@@ -165,7 +165,7 @@ def get_recipes(cookbook_id):
 
 
 
-@cookbook_api.route('/get_cookbooks/<int:author_id>', methods=['GET'])
+@cookbook_api.route('/get_user_cookbooks/<int:author_id>', methods=['GET'])
 def get_cookbooks(author_id):
     """"Return all cookbook items"""
     try:
@@ -183,6 +183,27 @@ def get_cookbooks(author_id):
         return render_template('viewCookBooks.html', cookbooks=result)
 
     except IDMismatchException: 
+        return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
+    
+    except Exception as e:
+        print(e)
+        return jsonify({'error': e}), 500
+    
+@cookbook_api.route('/get_cookbook/<int:cookbook_id>', methods=['GET'])
+def get_cookbook(cookbook_id):
+    """"Return cookbook item of a user"""
+    try:
+        cookbook = Cookbook.query.get(cookbook_id)
+        if cookbook is None:
+            return jsonify({"error": "Cookbook does not exist"}), 404
+        if cookbook.id != cookbook_id:
+            raise IDMismatchException
+        
+        cookbook = Cookbook.query.filter(Cookbook.id==cookbook_id).all()
+        
+        return jsonify(cookbook), 200, {'Content-Type': 'application/json'}
+
+    except IDMismatchException:
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
     
     except Exception as e:
