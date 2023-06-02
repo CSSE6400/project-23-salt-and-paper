@@ -4,6 +4,12 @@ resource "docker_image" "saltandpaper" {
     build {
         dockerfile = "./Dockerfile"
         context = "."
+        build_arg = {
+            SQLALCHEMY_DATABASE_URI = "postgresql://${aws_db_instance.database.username}:${aws_db_instance.database.password}@${aws_db_instance.database.address}:${aws_db_instance.database.port}/${aws_db_instance.database.db_name}",
+            JSON_SORT_KEYS = "false",
+            CELERY_BROKER_URL = "sqs://", 
+            CELERY_RESULT_BACKEND = "db+postgresql://${aws_db_instance.database.username}:${aws_db_instance.database.password}@${aws_db_instance.database.address}:${aws_db_instance.database.port}/${aws_db_instance.database.db_name}"
+        }
     }
 } 
  

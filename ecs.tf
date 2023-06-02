@@ -34,6 +34,14 @@ resource "aws_ecs_task_definition" "saltandpaper_task" {
             {
                 "name": "JSON_SORT_KEYS",
                 "value": "false"
+            },
+            {
+                "name": "CELERY_BROKER_URL",
+                "value": "sqs://"
+            },
+            {
+                "name": "CELERY_RESULT_BACKEND",
+                "value": "db+postgresql://${local.database_username}:${local.database_password}@${aws_db_instance.database.address}:${aws_db_instance.database.port}/${aws_db_instance.database.db_name}"
             }
         ],
         "logConfiguration": {
