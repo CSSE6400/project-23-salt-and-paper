@@ -5,11 +5,20 @@
 	<title>Login</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script src="js/script.js"></script>
+	<style>
+		iframe#header-frame {
+			display: block;
+			border: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+	</style>
 </head>
-<body>
+<body style="margin: 0">
+	<iframe id="header-frame" src="/api/v1/recipe/header" frameborder="0"></iframe>
 	<div class="container">
 		<form>
-            <h1>Welcome to Salt and Paper!</h1><br><br>
 			<h2>Login</h2>
 			<label for="username"><b>Username</b></label>
 			<input type="text" placeholder="Enter Username" name="username" required>

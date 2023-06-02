@@ -3,10 +3,19 @@
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Recipe View</title>
+	<style>
+		iframe#header-frame {
+			display: block;
+			border: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+	</style>
 </head>
-<body>
+<body style="margin: 0">
 	<div class="container">
-		<h1>Welcome to Salt and Paper!</h1><br><br>
+		<iframe id="header-frame" src="/api/v1/recipe/header" frameborder="0"></iframe>
 		<div class="recipe-view">
 			<h2>{{ recipe.title }}</h2>
 			<p>Description: {{ recipe.description }}</p>

@@ -29,12 +29,19 @@
 		button {
 			margin-top: 20px;
 		}
+		iframe#header-frame {
+			display: block;
+			border: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
 	</style>
 </head>
-<body>
+<body style="margin: 0">
 	<div class="container">
 		<form id="createCookbookForm">
-			<h1>Welcome to Salt and Paper!</h1><br><br>
+			<iframe id="header-frame" src="/api/v1/recipe/header" frameborder="0"></iframe>
 			<h2>Create Cookbook</h2>
 			<label for="cookbookName"><b>Cookbook Name</b></label>
 			<input type="text" placeholder="Enter Cookbook Name" name="title" required>
