@@ -29,10 +29,18 @@
 		button {
 			margin-top: 20px;
 		}
+		iframe#header-frame {
+			display: block;
+			border: none;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
 	</style>
 </head>
-<body>
+<body style="margin: 0">
 	<div class="container">
+		<iframe id="header-frame" src="/api/v1/recipe/header" frameborder="0"></iframe>
 		<form id="updateRecipeForm">
 			<h2>Update Recipe</h2>
 			<label for="recipeName"><b>Recipe Name</b></label>
