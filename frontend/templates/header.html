@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Salt and Paper</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #6A0572;
+      height: 60px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      color: #FFF;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    
+    nav ul li {
+      margin-right: 20px;
+    }
+    
+    nav ul li a {
+      text-decoration: none;
+      color: #FFF;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="#">Salt and Paper</a>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="/api/v1/recipe/get_all">Recipes</a></li>
+        <!-- TODO change so its user specific -->
+        <li><a href="/api/v1/cookbook/get_cookbooks/1">Cookbooks</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </nav>
+  </header>
+</body>
+</html>

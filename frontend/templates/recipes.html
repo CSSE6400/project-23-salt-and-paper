@@ -18,12 +18,15 @@
 			width: 300px;
 			height: 100px;
 		}
+		
 	</style>
 </head>
-<body>
+<body style="margin: 0">
 	<div class="container">
-		<h1>Welcome to Salt and Paper!</h1><br><br>
+		{% include 'header.html' %}
 		<h2>My Recipes</h2>
+		<button class="create-recipe-btn" onclick="createRecipe()">Create Recipe</button>
+		<br><br>
 		<div class="recipe-container">
 			{% for recipe in recipes %}
 			<div class="recipe">
@@ -50,6 +53,10 @@
 
 		function modifyRecipe(recipeId) {
 			window.location.href = "/api/v1/recipe/updateRecipeView/" + recipeId;
+		}
+
+		function createRecipe() {
+			window.location.href = "/api/v1/recipe/create_recipe"
 		}
 
 		function deleteRecipe(recipeId) {

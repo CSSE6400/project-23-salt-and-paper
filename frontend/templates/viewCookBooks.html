@@ -14,9 +14,9 @@
 		}
 	</style>
 </head>
-<body>
+<body style="margin: 0">
+	{% include 'header.html' %}
 	<div class="container">
-		<h1>Welcome to Salt and Paper!</h1><br><br>
 		<h2>Cookbooks</h2>
 		<div class="cookbook-container">
 			{% for cookbook in cookbooks %}

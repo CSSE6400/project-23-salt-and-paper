@@ -29,12 +29,13 @@
 		button {
 			margin-top: 20px;
 		}
+		
 	</style>
 </head>
-<body>
+<body style="margin: 0">
+	{% include 'header.html' %}
 	<div class="container">
 		<form id="createCookbookForm">
-			<h1>Welcome to Salt and Paper!</h1><br><br>
 			<h2>Create Cookbook</h2>
 			<label for="cookbookName"><b>Cookbook Name</b></label>
 			<input type="text" placeholder="Enter Cookbook Name" name="title" required>
