@@ -162,3 +162,8 @@ def delete_recipe(recipe_id):
     db.session.delete(recipe)
     db.session.commit()
     return jsonify(recipe.to_dict()), 200
+
+
+@recipe_api.route("/header", methods=["GET"])
+def get_header():
+    return render_template("header.html")
