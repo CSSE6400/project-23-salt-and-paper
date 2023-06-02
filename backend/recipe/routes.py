@@ -177,24 +177,6 @@ def update_recipe(recipe_id):
     except InvalidParameterInput:
         return jsonify({"error": "Parameter input is invalid!"}), 400
 
-@recipe_api.route('/get_user_recipes/<int:author_id>', methods=['GET'])
-def get_user_recipes(author_id):
-    """Return a list of recipe items"""
-    try:
-        user = User.query.filter_by(id=author_id).first()
-        if user is None:
-            return jsonify({"error": "Author does not exist"}), 404
-        if user.id != author_id:
-            raise IDMismatchException
-
-        recipes = Recipe.query.filter_by(author_id=author_id).all()
-        result = []
-        for recipe in recipes:
-            result.append(recipe.to_dict())
-
-        return render_template('recipes.html', recipes=result)
-    except IDMismatchException:
-        return jsonify({"error": "user ID does not match ID in JSON object"}), 400
 
 @recipe_api.route("/delete/<int:recipe_id>", methods=["DELETE"])
 def delete_recipe(recipe_id):
