@@ -25,6 +25,8 @@
 	<div class="container">
 		{% include 'header.html' %}
 		<h2>My Recipes</h2>
+		<button class="create-recipe-btn" onclick="createRecipe()">Create Recipe</button>
+		<br><br>
 		<div class="recipe-container">
 			{% for recipe in recipes %}
 			<div class="recipe">
@@ -51,6 +53,10 @@
 
 		function modifyRecipe(recipeId) {
 			window.location.href = "/api/v1/recipe/updateRecipeView/" + recipeId;
+		}
+
+		function createRecipe() {
+			window.location.href = "/api/v1/recipe/create_recipe"
 		}
 
 		function deleteRecipe(recipeId) {
