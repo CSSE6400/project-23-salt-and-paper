@@ -5,7 +5,6 @@ from backend.models.models import Recipe
 from backend.models import db
 
 from celery.result import AsyncResult
-from backend.search.searchservice import searchCatOrDes
 import time
 from sqlalchemy import or_
 search_api = Blueprint('search_api', __name__, url_prefix='/api/v1/search')
@@ -22,7 +21,7 @@ def searchCategory(keywords):
     task = searchCatOrDes.delay(doc, keywords, True)
     while True:
         if task.ready():
-            task_result = task.result
+            task_result = task.result 
             return task_result, 200
         else:
             time.sleep(1)
