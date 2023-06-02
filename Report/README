@@ -41,7 +41,9 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 - Performance vs. Extensibility: By optimizing certain components, we've achieved an appetizing performance. However, to ensure a better user experience, we traded a slight reduction in extensibility. For the core architecture still welcomes future enhancements.
 
 - Simplicity vs. Customization: Our UI design focuses on simplicity and elegance. While customization options are limited, this approach ensures that users a consistent and intuitive interface.
-
+- accuracy  of search task are traded for efficiency and availability the search task. 
+Use global variables to stored documents which would expire in 5 minutes to respond to the search request.
+Only return 5 most related documents,just like the first page of google search result.
 ## Architecture Diagrams
 
 @TODO
@@ -52,6 +54,14 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 ## Critique
 
 @TODO
+-Pros in search service:
+1.Search tasks use stored documents which avoid access db frequently and reduce the load of the app’s bottleneck :Database. 
+2. avoid repeat preprocessing documents and search index.
+-Cons in search service:
+1.Users could not access the recently updated or added recipes and all recipes.
+2.Global variables are not suitable for storing large files , could use local file or another DB.
+3.Fail to use existing search engine frame like elasticsearch as configuration failed....
+4. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
 
 ## Evaluation
 
