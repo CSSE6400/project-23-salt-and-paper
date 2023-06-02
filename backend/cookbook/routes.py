@@ -161,7 +161,7 @@ def get_recipes(cookbook_id):
     
     except Exception as e:
         print(e)
-        return jsonify({'error': e}), 500
+        return jsonify({'error': str(e)}), 500
 
 
 
@@ -187,7 +187,7 @@ def get_cookbooks(author_id):
     
     except Exception as e:
         print(e)
-        return jsonify({'error': e}), 500
+        return jsonify({'error': str(e)}), 500
     
 @cookbook_api.route('/get_cookbook/<int:cookbook_id>', methods=['GET'])
 def get_cookbook(cookbook_id):
@@ -199,16 +199,16 @@ def get_cookbook(cookbook_id):
         if cookbook.id != cookbook_id:
             raise IDMismatchException
         
-        cookbook = Cookbook.query.filter(Cookbook.id==cookbook_id).all()
+        cookbook = Cookbook.query.get(cookbook_id)
         
-        return jsonify(cookbook), 200, {'Content-Type': 'application/json'}
+        return jsonify(cookbook.to_dict()), 200, {'Content-Type': 'application/json'}
 
     except IDMismatchException:
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
     
     except Exception as e:
         print(e)
-        return jsonify({'error': e}), 500
+        return jsonify({'error': str(e)}), 500
     
 
 

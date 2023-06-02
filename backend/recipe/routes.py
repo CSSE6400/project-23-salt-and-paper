@@ -54,7 +54,7 @@ def get_user_recipes(author_id):
         for recipe in recipes:
             result.append(recipe.to_dict())
 
-        return render_template('recipe.html', recipes=result)
+        return render_template('recipes.html', recipes=result)
     
     except IDMismatchException:
         return jsonify({"error": "user ID does not match ID in JSON object"}), 400
