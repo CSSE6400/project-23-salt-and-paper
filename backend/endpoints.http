@@ -7,7 +7,7 @@ GET {{baseUrl}}/api/v1/auth/health
 GET {{baseUrl}}/api/v1/cookbook/health
 
 
-### Create Cookbook for current user
+### Create Cookbook based on user id
 POST {{baseUrl}}/api/v1/cookbook/create/3
 Content-Type: application/json
 
@@ -20,21 +20,24 @@ POST {{baseUrl}}/api/v1/cookbook/add_recipe
 Content-Type: application/json
 
 {
-    "recipe_id": 3,
-    "cookbook_id": 3
+    "recipe_id": 1,
+    "cookbook_id": 1
 }
 
 ### Get all recipes based on Cookbook id
-GET {{baseUrl}}/api/v1/cookbook/get_recipes/3
+GET {{baseUrl}}/api/v1/cookbook/get_recipes/2
 
 ### Get all cookbooks based on user id
-GET {{baseUrl}}/api/v1/cookbook/get_cookbooks/3
+GET {{baseUrl}}/api/v1/cookbook/get_user_cookbooks/3
+
+### Get a cookbook item based on cookbook id
+GET {{baseUrl}}/api/v1/cookbook/get_cookbook/1
 
 ### Recipe Service Health
 GET {{baseUrl}}/api/v1/recipe/health
 
-### Create Recipe
-POST {{baseUrl}}/api/v1/recipe/create/3
+### Create Recipe based on user id
+POST {{baseUrl}}/api/v1/recipe/create/1
 Content-Type: application/json
 
 {
@@ -44,6 +47,11 @@ Content-Type: application/json
     "visibility": "PUBLIC"
 }
 
+### Get all user's recipes based on user id
+GET {{baseUrl}}/api/v1/recipe/get_user_recipes/1
+
+### Get all recipes
+GET {{baseUrl}}/api/v1/recipe/get_all
 
 ### Create User
 POST {{baseUrl}}/api/v1/users/create_user

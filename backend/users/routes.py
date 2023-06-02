@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 from backend.models.models import User, db
-import json
+import json, uuid
 
 user_api = Blueprint("user_api", __name__, url_prefix="/api/v1/users")
 
@@ -21,7 +21,6 @@ def add_user():
     try:
         user = User(
             name=request.json.get("name"),
-            picture=request.json.get("picture"),
             cooking_preferences = request.json.get("cooking_preferences")
         )
 
@@ -31,7 +30,7 @@ def add_user():
         if (
             len(
                 set(request.json.keys())
-                - {"name", "picture", "cooking_preferences"}
+                - {"name", "cooking_preferences"}
             )
             > 0
         ):
