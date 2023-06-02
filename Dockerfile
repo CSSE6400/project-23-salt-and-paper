@@ -19,5 +19,14 @@ RUN pipenv install --system --deploy --ignore-pipfile
 COPY backend backend
 COPY frontend frontend
 
+ARG SQLALCHEMY_DATABASE_URI
+ARG JSON_SORT_KEYS
+ARG CELERY_BROKER_URL
+ARG CELERY_RESULT_BACKEND
+ENV SQLALCHEMY_DATABASE_URI=$SQLALCHEMY_DATABASE_URI
+ENV JSON_SORT_KEYS=$JSON_SORT_KEYS
+ENV CELERY_BROKER_URL=$CELERY_BROKER_URL
+ENV CELERY_RESULT_BACKEND=$CELERY_RESULT_BACKEND
+
 # Running our application 
 CMD ["bash", "-c", "sleep 1 && flask --app backend run --debug --host 0.0.0.0 --port 6400"]

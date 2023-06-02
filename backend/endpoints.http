@@ -53,20 +53,6 @@ GET {{baseUrl}}/api/v1/recipe/get_user_recipes/1
 ### Get all recipes
 GET {{baseUrl}}/api/v1/recipe/get_all
 
-### Create User
-POST {{baseUrl}}/api/v1/users/create_user
-Content-Type: application/json
-
-{
-    "name": "Anna"
-}
-
-### Search Service Health
-GET {{baseUrl}}/api/v1/search/health
-
-### Users Service Health
-GET {{baseUrl}}/api/v1/users/health
-
 ### search Service Health
 GET {{baseUrl}}/api/v1/search/health
 
@@ -75,6 +61,10 @@ GET {{baseUrl}}/api/v1/search/searchcategory/break
 
 ### search Service test
 GET {{baseUrl}}/api/v1/search/searchdescription/cereal milk
+
+### Users Service Health
+GET {{baseUrl}}/api/v1/users/health
+
 ### Create User
 POST {{baseUrl}}/api/v1/users/create_user
 Content-Type: application/json

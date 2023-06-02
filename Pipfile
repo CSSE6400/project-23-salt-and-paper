@@ -17,6 +17,7 @@ celery = {extras = ["sqs"], version = "*"}
 boto3 = "*"
 locust = "*"
 bs4 = "*"
+gunicorn = "*"
 
 [dev-packages]
 

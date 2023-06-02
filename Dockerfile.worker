@@ -18,6 +18,12 @@ RUN pipenv install --system --deploy --ignore-pipfile
 # Copying our application into the container 
 COPY backend backend
 
+ARG SQLALCHEMY_DATABASE_URI
+ARG CELERY_BROKER_URL
+ARG CELERY_RESULT_BACKEND
+ENV SQLALCHEMY_DATABASE_URI=$SQLALCHEMY_DATABASE_URI
+ENV CELERY_BROKER_URL=$CELERY_BROKER_URL
+ENV CELERY_RESULT_BACKEND=$CELERY_RESULT_BACKEND
 
 # Running our application 
 CMD ["celery" ,"--app" ,"backend.search.searchservice", "worker" ,"--loglevel=info"]

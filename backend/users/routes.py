@@ -13,7 +13,11 @@ class UnknownFieldException(Exception):
 @user_api.route("/health")
 def health():
     """Return a status of 'ok' if the server is running and listening to request"""
-    return jsonify({"status": "ok"})
+    users = User.query.all()
+    if len(users) < 1:
+        return jsonify({"error": "User table has not been populated."}), 500
+    return jsonify({"status": "User table has been populated."}), 200
+
 
 @user_api.route("/create_user", methods=["POST"])
 def add_user():
