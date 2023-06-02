@@ -8,6 +8,7 @@ celery = Celery(__name__)
 
 # celery.conf.broker_url = redis://redis:6379
 # celery.conf.result_backend= redis://redis:6379
+celery.conf.sqlalchemy_database_uri = os.environ.get('SQLALCHEMY_DATABASE_URI')
 celery.conf.broker_url = os.environ.get("CELERY_BROKER_URL")
 celery.conf.result_backend = os.environ.get("CELERY_RESULT_BACKEND")
 celery.conf.task_default_queue = os.environ.get("CELERY_DEFAULT_QUEUE", "search")
