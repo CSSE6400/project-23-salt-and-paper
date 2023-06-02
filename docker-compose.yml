@@ -15,24 +15,27 @@ services:
       - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/saltandpaper
       - CELERY_BROKER_URL=redis://redis:6379
       - CELERY_RESULT_BACKEND=redis://redis:6379
+
   db: 
     image: postgres:15-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=saltandpaper
+
   redis:
     image: redis:latest
     restart: always
     ports:
-    - "6379:6379"
+      - "6379:6379"
+
   worker:
     build:
       context: .
       dockerfile: Dockerfile.worker
     restart: always
     environment:
-        - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/saltandpaper
-        - CELERY_BROKER_URL=redis://redis:6379
-        - CELERY_RESULT_BACKEND=redis://redis:6379
-    command: celery --app backend.search.searchservice worker --loglevel=info
+      - SQLALCHEMY_DATABASE_URI=postgresql://postgres:postgres@db:5432/saltandpaper
+      - CELERY_BROKER_URL=redis://redis:6379
+      - CELERY_RESULT_BACKEND=redis://redis:6379
+    command: celery --app backend.search.routes.celery:app worker --loglevel=info

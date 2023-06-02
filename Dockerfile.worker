@@ -18,6 +18,5 @@ RUN pipenv install --system --deploy
 # Copying our application into the container 
 COPY backend backend
 
-
 # Running our application 
-CMD ["celery" ,"--app" ,"backend.search.searchservice", "worker" ,"--loglevel=info"]
+CMD ["celery" ,"--app" ,"backend.search.routes", "worker" ,"--loglevel=info"]
