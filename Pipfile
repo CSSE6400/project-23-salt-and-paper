@@ -15,6 +15,7 @@ rank-bm25 = "*"
 redis = "*"
 celery = {extras = ["sqs"], version = "*"}
 boto3 = "*"
+flask-wtf = "*"
 
 [dev-packages]
 

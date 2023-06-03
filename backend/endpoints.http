@@ -63,7 +63,7 @@ GET {{baseUrl}}/api/v1/users/health
 GET {{baseUrl}}/api/v1/search/health
 
 ### search Service test
-GET {{baseUrl}}/api/v1/search/searchcategory/break
+GET {{baseUrl}}/api/v1/search/searchcatergory/break
 
 ### search Service test
 GET {{baseUrl}}/api/v1/search/searchdescription/cereal milk

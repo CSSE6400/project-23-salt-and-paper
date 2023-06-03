@@ -9,6 +9,7 @@
 <body>
 	<div class="container">
 		<form>
+			{{ form.csrf_token }}
             <h1>Welcome to Salt and Paper!</h1><br><br>
 			<h2>Sign Up</h2>
 			<label for="username"><b>Username</b></label>
@@ -24,6 +25,7 @@
 			<input type="password" placeholder="Confirm Password" name="confirm_password" required>
 
 			<button type="submit">Sign Up</button>
+			
 		</form>
 	</div>
 </body>
