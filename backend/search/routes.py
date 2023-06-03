@@ -10,12 +10,12 @@ import time
 from sqlalchemy import or_
 search_api = Blueprint('search_api', __name__, url_prefix='/api/v1/search')
 
-@search_api.route('/health') 
+@search_api.route('/health', methods=["GET"]) 
 def health():
     """Return a status of 'ok' if the server is running and listening to request"""
     return jsonify({"status": "ok"})
 
-@search_api.route('/searchcategory/<string:keywords>') 
+@search_api.route('/searchcategory/<string:keywords>', methods=["GET"]) 
 def searchCategory(keywords):
     docs = Recipe.query.all()
     doc = [doc.to_dict() for doc in docs]
@@ -27,7 +27,7 @@ def searchCategory(keywords):
         else:
             time.sleep(1)
 
-@search_api.route('/searchdescription/<string:keywords>') 
+@search_api.route('/searchdescription/<string:keywords>', methods=["GET"]) 
 def searchDescription(keywords):
     docs = Recipe.query.all()
     doc = [doc.to_dict() for doc in docs]
