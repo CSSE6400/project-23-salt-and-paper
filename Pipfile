@@ -18,6 +18,10 @@ boto3 = "*"
 locust = "*"
 bs4 = "*"
 gunicorn = "*"
+flask-login = "*"
+flask-bcrypt = "*"
+flask-wtf = "*"
+wtforms = "*"
 
 [dev-packages]
 
