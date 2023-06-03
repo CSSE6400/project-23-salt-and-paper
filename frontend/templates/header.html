@@ -48,11 +48,17 @@
     <a class="logo" href="#">Salt and Paper</a>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
+        <li><a href="index.html">Home</a></li>
         <!-- TODO change so its user specific -->
         <li><a href="/api/v1/recipe/get_user_recipes/1">Recipes</a></li>
         <li><a href="/api/v1/cookbook/get_user_cookbooks/1">Cookbooks</a></li>
-        <li><a href="#">About</a></li>
+        {% if current_user.is_authenticated == False %}
+        <li><a href="{{url_for('auth_api.login')}}">Login</a></li>
+        <li><a href="{{url_for('auth_api.register')}}">Sign Up</a></li>
+        {% else %}
+        <li><a href="{{url_for('auth_api.logout')}}">Log out</a></li>
+        {% endif %}
+        <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </nav>
   </header>
