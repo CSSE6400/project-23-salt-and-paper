@@ -1,23 +1,28 @@
 from locust import HttpUser, task, between
+from locust.exception import RescheduleTask
 import json, random
 from bs4 import BeautifulSoup
 
 
 class UserTests(HttpUser):
     wait_time = between(1, 5)
-    current_user_id = None
-    recipe_ids = set()
-    cookbook_ids = set()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_user_id = None
+        self.recipe_ids = set([])
+        self.cookbook_ids = set([])
 
     def add_user(self):
-        with open("../data/users.json") as f:
+        with open("backend/data/users.json") as f:
             user_json = json.load(f)
         
         user_data = random.choice(user_json)
-        response = self.client.post("/api/v1/users/create_user", json=user_data)
-        assert response.status_code == 201, f"Add user request resulted in a {response.status_code} status code. Should be 201."
-        response_dict = response.json()
-        UserTests.current_user_id = int(response_dict["id"])
+        with self.client.post("/api/v1/users/create_user", json=user_data) as response:
+            if response.status_code != 201:
+                response.failure(f"Add user request resulted in a {response.status_code} status code. Should return 201.")
+            response_dict = response.json()
+            self.current_user_id = int(response_dict["id"])
 
     def on_start(self):
         self.add_user()
@@ -28,7 +33,7 @@ class UserTests(HttpUser):
 
     @task
     def create_recipe(self, recipe_kw=None):
-        with open("../data/recipes.json") as f:
+        with open("backend/data/recipes.json") as f:
             recipe_json = json.load(f)
         if recipe_kw:
             for recipe in recipe_json:
@@ -38,44 +43,45 @@ class UserTests(HttpUser):
         else:
             recipe_data = random.choice(recipe_json)
 
-        response = self.client.post(f"/api/v1/recipe/create/{UserTests.current_user_id}",json=recipe_data)
-        assert response.status_code == 201, f"Create recipe request resulted in a {response.status_code} status code. Should be 201."
-        response_json = response.json()
-        UserTests.recipe_ids.add(int(response_json["id"]))
+        with self.client.post(f"/api/v1/recipe/create/{self.current_user_id}",json=recipe_data) as response:
+            if response.status_code != 201:
+                response.failure(f"Create recipe request resulted in a {response.status_code} status code. Should return 201.")
+            response_json = response.json()
+            self.recipe_ids.add(int(response_json["id"]))
 
 
     @task
     def create_cookbook(self):
         # with open("../data/cookbooks.json") as f:
         #     cookbook_json = json.load(f)
-        random_int = random.randrange(10000000)
-        cookbook_data = {"title": f"Cookbook {random_int}"}
-        response = self.client.post(f"/api/v1/cookbook/create/{UserTests.current_user_id}",json=cookbook_data)
-        assert response.status_code == 201, f"Create cookbook request resulted in a {response.status_code} status code. Should be 201."
-        response_json = response.json()
-        UserTests.cookbook_ids.add(int(response_json["id"]))
+        cookbook_int = len(self.cookbook_ids) + 1
+        cookbook_data = {"title": f"Cookbook {cookbook_int} for User {self.current_user_id}"}
+        with self.client.post(f"/api/v1/cookbook/create/{self.current_user_id}",json=cookbook_data, catch_response=True) as response:
+            if response.status_code != 201:
+                response.failure(f"Create cookbook request resulted in a {response.status_code} status code. Should return 201.")
+            response_json = response.json()
+            self.cookbook_ids.add(int(response_json["id"]))
 
     @task
     def view_user_recipes(self):
-        recipe_resp = self.client.get(f"/api/v1/recipe/get_user_recipes/{UserTests.current_user_id}")
+        with self.client.get(f"/api/v1/recipe/get_user_recipes/{self.current_user_id}", catch_response=True) as recipe_resp:
 
-        # Code taken from [4]
-        # ******* START *******
-        # Access the rendered HTML content
-        html_content = recipe_resp.text
+            # Code taken from [4]
+            # ******* START *******
+            # Access the rendered HTML content
+            html_content = recipe_resp.text
 
-        # Parse the HTML content with BeautifulSoup
-        soup = BeautifulSoup(html_content, 'html.parser')
+            # Parse the HTML content with BeautifulSoup
+            soup = BeautifulSoup(html_content, 'html.parser')
 
-        # Extract the attributes from the HTML
-        recipes = soup.find('input', {'name': 'user_recipes'})['value']
+            # Extract the attributes from the HTML
+            recipes = soup.find('input', {'name': 'user_recipes'})['value']
 
-        # Use the extracted attributes as needed in your Locust test logic
-        # print(f"Recipe ID: {recipes}")
-        # ******* END *******
-        assert recipe_resp.status_code == 200, f"View user recipes request resulted in a {recipe_resp.status_code} status code. Should be 200."
-        assert len(recipes) > 0, f"No recipes for user {UserTests.current_user_id}!"
-
+            # ******* END *******
+            if recipe_resp.status_code != 200:
+                recipe_resp.failure(f"View user recipes request resulted in a {recipe_resp.status_code} status code. Should return 200.")
+            if len(recipes) < 1:
+                recipe_resp.failure(f"No recipes for user {self.current_user_id}!")
 
     # @task
     # def view_all_users_recipes(self):
@@ -83,24 +89,24 @@ class UserTests(HttpUser):
 
     @task
     def view_user_cookbooks(self):
-        cookbook_resp = self.client.get(f"/api/v1/cookbook/get_user_cookbooks/{UserTests.current_user_id}")
+        with self.client.get(f"/api/v1/cookbook/get_user_cookbooks/{self.current_user_id}", catch_response=True) as cookbook_resp:
 
-        # Code taken from [4]
-        # ******* START *******
-        # Access the rendered HTML content
-        html_content = cookbook_resp.text
+            # Code taken from [4]
+            # ******* START *******
+            # Access the rendered HTML content
+            html_content = cookbook_resp.text
 
-        # Parse the HTML content with BeautifulSoup
-        soup = BeautifulSoup(html_content, 'html.parser')
+            # Parse the HTML content with BeautifulSoup
+            soup = BeautifulSoup(html_content, 'html.parser')
 
-        # Extract the attributes from the HTML
-        cookbooks = soup.find('input', {'name': 'user_cookbooks'})['value']
+            # Extract the attributes from the HTML
+            cookbooks = soup.find('input', {'name': 'user_cookbooks'})['value']
 
-        # Use the extracted attributes as needed in your Locust test logic
-        # print(f"Cookbook ID: {cookbooks}")
-        # ******* END *******
-        assert cookbook_resp.status_code == 200, f"View user cookbooks request resulted in a {cookbook_resp.status_code} status code. Should be 200."
-        assert len(cookbooks) > 0, f"No cookbooks for user {UserTests.current_user_id}!"
+            # ******* END *******
+            if cookbook_resp.status_code != 200:
+                cookbook_resp.failure(f"View user cookbooks request resulted in a {cookbook_resp.status_code} status code. Should return 200.")
+            if len(cookbooks) < 1:
+                cookbook_resp.failure(f"No cookbooks for user {self.current_user_id}!")
 
 
     # @task
@@ -110,48 +116,68 @@ class UserTests(HttpUser):
     @task
     def add_recipe_to_cookbook(self):
         # Choose random recipe
-        random_recipe_id = random.choice(list(UserTests.recipe_ids))
+        random_recipe_id = random.choice(list(self.recipe_ids))
 
         # Choose random cookbook
-        random_cookbook_id = random.choice(list(UserTests.cookbook_ids))
+        random_cookbook_id = random.choice(list(self.cookbook_ids))
 
         add_recipe_to_cookbook_data = {"recipe_id": random_recipe_id, 
                                         "cookbook_id": random_cookbook_id}
-        print(f"Recipe id: {random_recipe_id}")
-        print(f'Cookbook id: {random_cookbook_id}')
         # Add recipe to cookbook
-        response = self.client.post("/api/v1/cookbook/add_recipe",json=add_recipe_to_cookbook_data)
-        assert response.status_code == 201, f"Add recipe to cookbook request resulted in a {response.status_code} status code. Should be 201."
+        with self.client.post("/api/v1/cookbook/add_recipe",json=add_recipe_to_cookbook_data, catch_response=True) as response:
+            if response.status_code != 201:
+                response.failure(f"Add recipe to cookbook request resulted in a {response.status_code} status code. Should return 201.")
         
-    @task
+    @task(3)
     def search_recipe_by_desc(self):
         # search by desc 1
         keywords = "chicken"
-        response = self.client.get(f"/api/v1/search/searchdescription/{keywords}")
+        with self.client.get(f"/api/v1/search/searchdescription/{keywords}", catch_response=True) as response:
         
-        ## assert output has correct substring and is > 0
-        assert response.status_code == 200, f"Search description endpoint request resulted in a {response.status_code} status code. Should be 200."
-        words = keywords.split(" ")
-        response_json = response.json()
-        for word in words:
-            assert word.casefold() in response_json["description"].casefold(), f"{word} is not in {response_json['title']}'s recipe description."
+            if response.status_code != 200:
+                raise RescheduleTask()
+            words = keywords.split(" ")
+            response_json = response.json()
+            for item in response_json:
+                for word in words:
+                    if word.casefold() in item["description"].casefold():
+                        response.success()
+                    else:
+                        response.failure(f"{word} is not in {response_json['title']}'s recipe description.")
 
 
     @task
     def search_recipe_by_category(self):
         # search by category 1
         keywords = "japanese"
-        response = self.client.get(f"/api/v1/search/searchcategory/{keywords}")
+        with self.client.get(f"/api/v1/search/searchcategory/{keywords}", catch_response=True) as response:
+            if response.status_code != 200:
+                raise RescheduleTask()
         
-        ## assert output has correct substring and is > 0
-        assert response.status_code == 200, f"Search category endpoint request resulted in a {response.status_code} status code. Should be 200."
-        words = keywords.split(" ")
-        response_json = response.json()
-        for word in words:
-            assert word.casefold() in response_json["category"].casefold(), f"{word} is not {response_json['title']}'s recipe category."
+            words = keywords.split(" ")
+            response_json = response.json()
+            for item in response_json:
+                for word in words:
+                    if word.casefold() in item["category"].casefold():
+                        response.success()
+                    else:
+                        response.failure(f"{word} is not {response_json['title']}'s recipe category.")
 
-    # @task
-    # #TODO: Update recipe
+    @task
+    def update_recipe(self):
+        random_recipe_id = random.choice(list(self.recipe_ids))
+        updated_title = random_recipe_id["title"] + " Updated"
+        updated_desc = random_recipe_id["description"].split(" ")[:-1]
+        updated_category = random_recipe_id["category"].upper()
+        updated_visibility = "PRIVATE" if random_recipe_id["visibility"] == "PUBLIC" else "PUBLIC"
+        updated_data = {"title":  }
+        with self.client.post(f"/api/v1/recipe/update/{random_recipe_id}",) as update_recipe_resp:
+            if update_recipe_resp.status_code != 200:
+                response.failure(f"Update recipe endpoint resulted in a {update_recipe_resp.status_code} status code. Should return 200.")
+            response_json = update_recipe_resp.json()
+
+            
+
     
 # ******* START *******
 
