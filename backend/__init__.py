@@ -44,7 +44,7 @@ app.register_blueprint(cookbook_api)
 app.register_blueprint(recipe_api)
 app.register_blueprint(search_api)
 
-@app.route("/")
+@app.route("/api/v1/home")
 def home():
     return render_template("index.html")
 
