@@ -87,20 +87,21 @@ def populate_users(mapper, connection, *args, **kwargs):
     user_table = User.__table__
     user_json_object = json.load(f)
     for user_item in user_json_object:
-        hashed_password = bcrypt.generate_password_hash(user_item["password"])
+        hashed_password = bcrypt.generate_password_hash(user_item["password"]).decode('utf-8')
         new_user = User(
-            name = user_item["name"],
-            username = user_item["username"],
-            email = user_item["email"],
-            password = hashed_password,
-            cooking_preferences = user_item["cooking_preferences"]
+            name=user_item["name"],
+            username=user_item["username"],
+            email=user_item["email"],
+            password=hashed_password,
+            cooking_preferences=user_item["cooking_preferences"]
         )
         connection.execute(user_table.insert().values(
-                                                  name=new_user.name,
-                                                  username=new_user.username,
-                                                  email=new_user.email,
-                                                  password=new_user.password,
-                                                  cooking_preferences=new_user.cooking_preferences))
+            name=new_user.name,
+            username=new_user.username,
+            email=new_user.email,
+            password=new_user.password,
+            cooking_preferences=new_user.cooking_preferences))
+
 
 
 # Followers table

@@ -23,6 +23,7 @@ db_uri = "postgresql://postgres:postgres@db:5432/saltandpaper" # using DOCKER
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.sort_keys = False
+app.config['SECRET_KEY'] = 'any secret string'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
