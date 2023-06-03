@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from datetime import datetime, timedelta
 from sqlalchemy import exc
-from backend.models.models import User, db
+from backend.models.models import User, db, bcrypt
 import json, uuid
 
 user_api = Blueprint("user_api", __name__, url_prefix="/api/v1/users")
@@ -23,8 +23,12 @@ def health():
 def add_user():
     """Create a user item"""
     try:
+        hashed_password = bcrypt.generate_password_hash(request.json.get("password"))
         user = User(
             name=request.json.get("name"),
+            username=request.json.get("username"),
+            email=request.json.get("email"),
+            password=hashed_password,
             cooking_preferences = request.json.get("cooking_preferences")
         )
 
@@ -34,7 +38,7 @@ def add_user():
         if (
             len(
                 set(request.json.keys())
-                - {"name", "cooking_preferences"}
+                - {"name", "username", "email", "password", "cooking_preferences"}
             )
             > 0
         ):

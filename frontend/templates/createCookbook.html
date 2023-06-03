@@ -39,19 +39,7 @@
 			<h2>Create Cookbook</h2>
 			<label for="cookbookName"><b>Cookbook Name</b></label>
 			<input type="text" placeholder="Enter Cookbook Name" name="title" required>
-
-			<label for="category"><b>Category</b></label>
-			<textarea placeholder="Enter Cookbook Category" name="category" required></textarea>
-
-			<label for="description"><b>Description</b></label>
-			<textarea placeholder="Enter Cookbook Description" name="description" required></textarea>
-
-			<label for="visibility"><b>Visibility</b></label>
-			<select name="visibility" required>
-				<option value="PUBLIC">PUBLIC</option>
-				<option value="PRIVATE">PRIVATE</option>
-			</select>
-
+			
 			<input type="hidden" name="author_id" value="1">
 
 			<button type="submit">Create Cookbook</button>
@@ -67,9 +55,6 @@
 
 			var data = {
 				"title": formData.get("title"),
-				"description": formData.get("description"),
-				"category": formData.get("category"),
-				"visibility": formData.get("visibility")
 			};
 
 			fetch("/api/v1/cookbook/create/1", {
@@ -82,7 +67,7 @@
 			.then(response => {
 				if (response.ok) {
 					console.log("Cookbook created successfully");
-					window.location.href = "/api/v1/cookbook/get_cookbooks/1";
+					window.location.href = "/api/v1/cookbook/get_user_cookbooks/1";
 				} else {
 					console.error("Failed to create cookbook");
 				}
