@@ -1,14 +1,21 @@
 from flask_sqlalchemy import SQLAlchemy
-from backend.models import db
+from backend.models import db, bcrypt
+from flask_login import UserMixin
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, EmailField
+from wtforms.validators import InputRequired, Length, Email, ValidationError
 from sqlalchemy import event
 import json
 
 
 # User model
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
     cooking_preferences = db.Column(db.String(100))
 
     # Followers relationship
@@ -27,12 +34,48 @@ class User(db.Model):
     # Cookbooks relationship
     cookbooks = db.relationship("Cookbook", backref="cookbook_author", lazy=True)
 
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.password, password)
+
     def to_dict(self):
         return {
             "id": self.id,
             "name": self.name,
+            'username': self.username,
+            'password': self.password,
+            'email': self.email,
             "cooking_preferences": self.cooking_preferences
         }
+
+def validate_username(form, field):
+    user = User.query.filter_by(username=field.data).first()
+    if form.__class__.__name__ == 'RegisterForm' and user:
+        raise ValidationError("Username already exists")
+    elif form.__class__.__name__ == 'LoginForm' and not user:
+        raise ValidationError("Username or password is incorrect")
+    
+def validate_password(form, field):
+    user = User.query.filter_by(username=form.username.data).first()
+    if user and not user.check_password(password=field.data):
+        raise ValidationError("Username or password is incorrect")
+
+class RegisterForm(FlaskForm):
+
+    name = StringField(validators=[InputRequired(), Length(min=4, max=100)], render_kw={"placeholder": "Full Name"})
+    username = StringField(validators=[InputRequired(), Length(
+        min=4, max=20), validate_username], render_kw={"placeholder": "Username"})
+    email = EmailField('Email', validators=[InputRequired(), Email()], render_kw={
+                       "placeholder": "Email"})
+    password = PasswordField(validators=[InputRequired(), Length(
+        min=4, max=20)], render_kw={"placeholder": "Password"})
+    submit = SubmitField("Register")
+
+class LoginForm(FlaskForm):
+    username = StringField(validators=[InputRequired(), Length(
+        min=4, max=20), validate_username], render_kw={"placeholder": "Username"})
+    password = PasswordField(validators=[InputRequired(), Length(
+        min=4, max=20), validate_password], render_kw={"placeholder": "Password"})
+    submit = SubmitField("Log in")
 
 # [1]
 # [2]

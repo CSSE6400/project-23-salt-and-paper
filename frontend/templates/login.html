@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script src="js/script.js"></script>
-	<style>
-		
-	</style>
-</head>
-<body style="margin: 0">
-	<iframe id="header-frame" src="/api/v1/recipe/header" frameborder="0"></iframe>
-	<div class="container">
-		<form>
-			<h2>Login</h2>
-			<label for="username"><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="username" required>
-			<label for="password"><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password" required>
-			<button type="submit">Login</button>
-		</form>
-	</div>
-</body>
+  <head>
+    <title>Login to My Recipe Website</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Login to My Recipe Website</h1>
+    </header>
+    <main>
+      <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <p>{{ form.username }}</p>
+        <p>{{ form.password }}</p>
+        <p>
+          {% for error in form.username.errors or form.password.errors %}
+          <span style="color: red">[{{ error }}]</span>
+          {% endfor %}
+        </p>
+        <p>{{ form.submit }}</p>
+      </form>
+      <a href="{{url_for('api.register')}}">Don't have an account? Sign Up</a>
+      <br />
+      <a href="{{url_for('home')}}">Continue as guest</a>
+    </main>
+    <footer>
+      <p>© 2023 My Recipe Website. All rights reserved.</p>
+    </footer>
+  </body>
 </html>
