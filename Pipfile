@@ -21,7 +21,7 @@ gunicorn = "*"
 flask-login = "*"
 flask-bcrypt = "*"
 flask-wtf = "*"
-wtforms = "*"
+wtforms = {extras = ["email"], version = "*"}
 
 [dev-packages]
 
