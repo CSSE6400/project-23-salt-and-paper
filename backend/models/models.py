@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String, nullable=False)
     cooking_preferences = db.Column(db.String(100))
 
     # Followers relationship
@@ -87,12 +87,19 @@ def populate_users(mapper, connection, *args, **kwargs):
     user_table = User.__table__
     user_json_object = json.load(f)
     for user_item in user_json_object:
+        hashed_password = bcrypt.generate_password_hash(user_item["password"])
         new_user = User(
             name = user_item["name"],
+            username = user_item["username"],
+            email = user_item["email"],
+            password = hashed_password,
             cooking_preferences = user_item["cooking_preferences"]
         )
         connection.execute(user_table.insert().values(
-                                                  name=new_user.name, 
+                                                  name=new_user.name,
+                                                  username=new_user.username,
+                                                  email=new_user.email,
+                                                  password=new_user.password,
                                                   cooking_preferences=new_user.cooking_preferences))
 
 

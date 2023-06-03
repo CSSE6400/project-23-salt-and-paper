@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a81ef6b9af19ef876160c7723111ab63cb62f0ac05112e977537fec911ab39c6"
+            "sha256": "186b91ea2d04e3a029848d31a7fa06ff63796b0b1f08c608ce0aed269acbbc65"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -351,6 +351,7 @@
                 "sha256:1ff6e86044200c56ae23595695c54e9614f4a9551e0e393614f764860b3d7900",
                 "sha256:2466ba57cda361fb7309fd3d5a225723c788ca4bbad32a0ebd5373b99730285c"
             ],
+            "index": "pypi",
             "version": "==2.0.0.post2"
         },
         "flask": {
@@ -1281,9 +1282,7 @@
             "version": "==2.3.4"
         },
         "wtforms": {
-            "extras": [
-                "email"
-            ],
+            "extras": [],
             "hashes": [
                 "sha256:6b351bbb12dd58af57ffef05bc78425d08d1914e0fd68ee14143b7ade023c5bc",
                 "sha256:837f2f0e0ca79481b92884962b914eba4e72b7a2daaf1f939c890ed0124b834b"
