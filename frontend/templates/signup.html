@@ -2,14 +2,77 @@
 <html>
   <head>
     <title>Sign Up for My Recipe Website</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #fdf2e9;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      main {
+        background: #ffffff;
+        padding: 2em;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 300px;
+      }
+
+      form p {
+        margin-bottom: 15px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+
+      footer {
+        text-align: center;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+        background-color: #d6d6d6;
+      }
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <h1>Sign Up for My Recipe Website</h1>
-    </header>
     <main>
-      <form action="" method="post">
+      <h1>Sign Up for My Recipe Website</h1>
+      <form action="" method="POST">
         {{ form.hidden_tag() }}
         <p>
           {{ form.name }} {% for error in form.name.errors %}
@@ -33,7 +96,6 @@
         </p>
         <p>{{ form.submit }}</p>
       </form>
-
       <a href="{{url_for('auth_api.login')}}"
         >Already have an account? Log In</a
       >
