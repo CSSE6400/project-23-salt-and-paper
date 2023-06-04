@@ -26,7 +26,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.sort_keys = False
 app.config['SECRET_KEY'] = 'any secret string'
 
-#[9]
+#[7]
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "auth_api.login"

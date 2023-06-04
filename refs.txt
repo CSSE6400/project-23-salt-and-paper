@@ -10,5 +10,5 @@
 [10] “How to run Gunicorn on Docker,” www.tutorialspoint.com. https://www.tutorialspoint.com/how-to-run-gunicorn-on-docker
 [11] Croft, W.B., Metzler, D., & Strohman, T. (2010). Search engines: Information retrieval in practice (Vol. 520, pp. 131-141). Addison-Wesley.
 [12] "Find the perfect Logo for Salt And Paper,www.brandcrowd.com . https://www.brandcrowd.com/maker/logos?Text=Salt%20and%20paper&SearchText=resturant&KeywordChanged=true&LogoStyle=0
-[13]Bird, S., Klein, E., & Loper, E. (2009). Natural Language Processing with Python. Retrieved [June 4th,2023], from https://www.nltk.org/book/
-[14]Rank-bm25. (n.d.). Retrieved [June 4th,2023], from https://pypi.org/project/rank-bm25/
+[13] Bird, S., Klein, E., & Loper, E. (2009). Natural Language Processing with Python. Retrieved [June 4th,2023], from https://www.nltk.org/book/
+[14] Rank-bm25. (n.d.). Retrieved [June 4th,2023], from https://pypi.org/project/rank-bm25/
