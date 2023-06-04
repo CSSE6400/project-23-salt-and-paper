@@ -1,3 +1,7 @@
 [1]“python - SQLALCHEMY: how to use @events.listens_for in flask_sqlalchemy-SQLalchemy,” Stack Overflow, Dec. 20, 2016. https://stackoverflow.com/questions/41249045/sqlalchemy-how-to-use-events-listens-for-in-flask-sqlalchemy-sqlalchemy.
 [2]“Events — SQLAlchemy 2.0 Documentation,” docs.sqlalchemy.org, May 12, 2023. https://docs.sqlalchemy.org/en/20/core/event.html#sqlalchemy.event.listens_for.
 [3] N. Pratama, Github. https://github.com/CSSE6400/ticketoverflow-nardienapratama
+[4] OpenAI, “ChatGPT,” chat.openai.com, 2023. https://chat.openai.com/
+‌[5] “Mockaroo - Random Data Generator and API Mocking Tool | JSON / CSV / SQL / Excel,” www.mockaroo.com. https://www.mockaroo.com/
+‌[6] “Locust Documentation — Locust 0.14.6 documentation,” docs.locust.io. https://docs.locust.io/en/stable/
+‌

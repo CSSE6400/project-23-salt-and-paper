@@ -28,14 +28,19 @@
 		<button class="create-recipe-btn" onclick="createRecipe()">Create Recipe</button>
 		<br><br>
 		<div class="recipe-container">
+			<input type="hidden" name="user_recipes" value="{{ recipes }}">
 			{% for recipe in recipes %}
 			<div class="recipe">
 				<button class="recipe-btn" onclick="viewRecipe('{{ recipe.id }}')">
 					<h3 name="title">{{ recipe.title }}</h3>
 					<p name="description">{{ recipe.description }}</p>
 				</button>
+				<input type="hidden" name="id" value="{{ recipe.id }}">
+				<input type="hidden" name="title" value="{{ recipe.title }}">
+				<input type="hidden" name="description" value="{{ recipe.description }}">
 				<input type="hidden" name="category" value="{{ recipe.category }}">
 				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
+				<input type="hidden" name="author_id" value="{{ recipe.author_id }}">
 				<div class="recipe-actions">
 					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}')">Modify</button>
 					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}')">Delete</button>

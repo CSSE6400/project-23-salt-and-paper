@@ -21,7 +21,7 @@ class IDMismatchException(Exception):
     "recipe ID does not match ID in JSON object"
 
 
-@recipe_api.route("/health")
+@recipe_api.route("/health", methods=["GET"])
 def health():
     """Return a status of 'ok' if the server is running and listening to request"""
     return jsonify({"status": "ok"})
@@ -54,7 +54,7 @@ def get_user_recipes(author_id):
         for recipe in recipes:
             result.append(recipe.to_dict())
 
-        return render_template('recipes.html', recipes=result)
+        return render_template('recipes.html', recipes=result), 200
     
     except IDMismatchException:
         return jsonify({"error": "user ID does not match ID in JSON object"}), 400

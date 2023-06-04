@@ -1,109 +1,211 @@
-from locust import HttpUser, task, between
-import json, random
-from bs4 import BeautifulSoup
+# from locust import HttpUser, task, between
+# from locust.exception import RescheduleTask
+# import json, random
+# from bs4 import BeautifulSoup
 
+# global count = 0
+# # [6]
+# class UserTests(HttpUser):
+#     wait_time = between(1, 5)
 
-class UserTests(HttpUser):
-    wait_time = between(1, 5)
-    current_user_id = None
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.current_user_id = None
+#         self.recipe_ids = set([])
+#         self.cookbook_ids = set([])
 
-    def add_user(self):
-        with open("../data/users.json") as f:
-            user_json = json.load(f)
+#     def add_user(self):
+#         with open("backend/data/users.json") as f:
+#             user_json = json.load(f)
         
-        user_data = random.choice(user_json)
-        response_dict = self.client.post("/api/v1/users/create_user", json=user_data)
-        response = response_dict.json()
-        current_user_id = response['id']
+#         user_data = random.choice(user_json)
+#         username = "User " + count+1
 
-    def on_start(self):
-        self.add_user()
-        # TODO: Create several recipes -> save recipe ids to list
-        self.create_recipe()
-        # TODO: Create several cookbooks -> save cookbook ids to list
+#         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+#         new_user = User(name=form.name.data, username=form.username.data,
+#                         email=form.email.data,  password=hashed_password)
 
-    @task
-    def create_recipe(self):
-        with open("../data/recipes.json") as f:
-            recipe_json = json.load(f)
-        recipe_data = random.choice(recipe_json)
-        response_dict = self.client.post(f"/api/v1/recipe/create/{current_user_id}",json=recipe_data)
+#         with self.client.post("/api/v1/users/create_user", json=user_data, catch_response=True) as response:
+#             if response.status_code != 201:
+#                 response.failure(f"Add user request resulted in a {response.status_code} status code. Should return 201.")
+#             response_dict = response.json()
+#             self.current_user_id = int(response_dict["id"])
 
-        # Access the rendered HTML content
-        html_content = response.content.decode('utf-8')
+#     def on_start(self):
+#         self.add_user()
+#         # TODO: Create several recipes -> save recipe ids to list
+#         self.create_recipe(recipe_kw="chicken")
+#         # TODO: Create several cookbooks -> save cookbook ids to list
+#         self.create_cookbook()
 
-        # Parse the HTML content with BeautifulSoup
-        soup = BeautifulSoup(html_content, 'html.parser')
+#     @task
+#     def create_recipe(self, recipe_kw=None):
+#         with open("backend/data/recipes.json") as f:
+#             recipe_json = json.load(f)
+#         if recipe_kw:
+#             for recipe in recipe_json:
+#                 if recipe_kw.casefold() in recipe["description"].casefold():
+#                     recipe_data = recipe
+#                     break
+#         else:
+#             recipe_data = random.choice(recipe_json)
 
-        # Extract the attributes from the HTML
-        recipe_id = soup.find('input', {'name': 'id'})['value']
-        title = soup.find('input', {'name': 'title'})['value']
-        description = soup.find('input', {'name': 'description'})['value']
-        category = soup.find('input', {'name': 'category'})['value']
-        visibility = soup.find('input', {'name': 'visibility'})['value']
-        author_id = soup.find('input', {'name': 'author_id'})['value']
+#         with self.client.post(f"/api/v1/recipe/create/{self.current_user_id}",json=recipe_data, catch_response=True) as response:
+#             if response.status_code != 201:
+#                 response.failure(f"Create recipe request resulted in a {response.status_code} status code. Should return 201.")
+#             response_json = response.json()
+#             self.recipe_ids.add(int(response_json["id"]))
 
-        # Use the extracted attributes as needed in your Locust test logic
-        print(f"Recipe ID: {recipe_id}")
-        print(f"Title: {title}")
-        print(f"Description: {description}")
-        print(f"Category: {category}")
-        print(f"Visibility: {visibility}")
-        print(f"Author ID: {author_id}")
 
-        # In the example above, BeautifulSoup is imported and used to pa
+#     @task
+#     def create_cookbook(self):
+#         # with open("../data/cookbooks.json") as f:
+#         #     cookbook_json = json.load(f)
+#         cookbook_int = len(self.cookbook_ids) + 1
+#         cookbook_data = {"title": f"Cookbook {cookbook_int} for User {self.current_user_id}"}
+#         with self.client.post(f"/api/v1/cookbook/create/{self.current_user_id}",json=cookbook_data, catch_response=True) as response:
+#             if response.status_code != 201:
+#                 response.failure(f"Create cookbook request resulted in a {response.status_code} status code. Should return 201.")
+#             response_json = response.json()
+#             self.cookbook_ids.add(int(response_json["id"]))
 
-        pass
+#     @task
+#     def view_user_recipes(self):
+#         with self.client.get(f"/api/v1/recipe/get_user_recipes/{self.current_user_id}", catch_response=True) as recipe_resp:
 
-    @task
-    def create_cookbook(self):
-        pass
+#             # Code taken from [4]
+#             # ******* START *******
+#             # Access the rendered HTML content
+#             html_content = recipe_resp.text
 
-    @task
-    def view_user_recipes(self):
-        pass
+#             # Parse the HTML content with BeautifulSoup
+#             soup = BeautifulSoup(html_content, 'html.parser')
 
-    @task
-    def view_all_users_recipes(self):
-        pass
+#             # Extract the attributes from the HTML
+#             recipes = soup.find('input', {'name': 'user_recipes'})['value']
 
-    @task
-    def view_user_cookbooks(self):
-        pass
+#             # ******* END *******
+#             if recipe_resp.status_code != 200:
+#                 recipe_resp.failure(f"View user recipes request resulted in a {recipe_resp.status_code} status code. Should return 200.")
+#             if len(recipes) < 1:
+#                 recipe_resp.failure(f"No recipes for user {self.current_user_id}!")
 
-    @task
-    def view_user_recipes_in_cookbook(self):
-        pass
+#     # @task
+#     # def view_all_users_recipes(self):
+#     #     pass
 
-    @task
-    def add_recipe_to_cookbook(self):
-        pass
-        # Randomly choose option 1 or 2
+#     @task
+#     def view_user_cookbooks(self):
+#         with self.client.get(f"/api/v1/cookbook/get_user_cookbooks/{self.current_user_id}", catch_response=True) as cookbook_resp:
 
-        ## 1. recipe_id = create_recipe()
-        ## 2. recipe_id = get_user_recipe()
+#             # Code taken from [4]
+#             # ******* START *******
+#             # Access the rendered HTML content
+#             html_content = cookbook_resp.text
 
-        # Randomly choose option 1 or 2
+#             # Parse the HTML content with BeautifulSoup
+#             soup = BeautifulSoup(html_content, 'html.parser')
 
-        ## 1. cookbook_id = create_cookbook()
-        ## 2. cookbook_id = get_user_cookbooks()
+#             # Extract the attributes from the HTML
+#             cookbooks = soup.find('input', {'name': 'user_cookbooks'})['value']
 
-        # Add recipe
+#             # ******* END *******
+#             if cookbook_resp.status_code != 200:
+#                 cookbook_resp.failure(f"View user cookbooks request resulted in a {cookbook_resp.status_code} status code. Should return 200.")
+#             if len(cookbooks) < 1:
+#                 cookbook_resp.failure(f"No cookbooks for user {self.current_user_id}!")
 
-    @task
-    def search_recipe(self):
-        pass
-        # search by desc 1
-        ## assert output has correct substring and is > 0
-        # search by desc 2
-        ## assert output has correct substring and is > 0
 
-        # search by category 1
-        ## assertions
+#     # @task
+#     # def view_user_recipes_in_cookbook(self):
+#     #     pass
 
-        # search by category 2
+#     @task
+#     def add_recipe_to_cookbook(self):
+#         # Choose random recipe
+#         random_recipe_id = random.choice(list(self.recipe_ids))
+
+#         # Choose random cookbook
+#         random_cookbook_id = random.choice(list(self.cookbook_ids))
+
+#         add_recipe_to_cookbook_data = {"recipe_id": random_recipe_id, 
+#                                         "cookbook_id": random_cookbook_id}
+#         # Add recipe to cookbook
+#         with self.client.post("/api/v1/cookbook/add_recipe",json=add_recipe_to_cookbook_data, catch_response=True) as response:
+#             if response.status_code != 201:
+#                 response.failure(f"Add recipe to cookbook request resulted in a {response.status_code} status code. Should return 201.")
+        
+#     @task(3)
+#     def search_recipe_by_desc(self):
+#         # search by desc 1
+#         keywords = "chicken"
+#         with self.client.get(f"/api/v1/search/searchdescription/{keywords}", catch_response=True) as response:
+        
+#             if response.status_code != 200:
+#                 raise RescheduleTask()
+#             words = keywords.split(" ")
+#             response_json = response.json()
+#             for item in response_json:
+#                 for word in words:
+#                     if word.casefold() in item["description"].casefold():
+#                         response.success()
+#                     else:
+#                         response.failure(f"{word} is not in {response_json['title']}'s recipe description.")
+
+
+#     @task
+#     def search_recipe_by_category(self):
+#         # search by category 1
+#         keywords = "japanese"
+#         with self.client.get(f"/api/v1/search/searchcategory/{keywords}", catch_response=True) as response:
+#             if response.status_code != 200:
+#                 raise RescheduleTask()
+        
+#             words = keywords.split(" ")
+#             response_json = response.json()
+#             for item in response_json:
+#                 for word in words:
+#                     if word.casefold() in item["category"].casefold():
+#                         response.success()
+#                     else:
+#                         response.failure(f"{word} is not {response_json['title']}'s recipe category.")
+
+#     # @task
+#     # def update_recipe(self):
+#     #     random_recipe_id = random.choice(list(self.recipe_ids))
+#     #     updated_title = random_recipe_id["title"] + " Updated"
+#     #     updated_desc = random_recipe_id["description"].split(" ")[:-1]
+#     #     updated_category = random_recipe_id["category"].upper()
+#     #     updated_visibility = "PRIVATE" if random_recipe_id["visibility"] == "PUBLIC" else "PUBLIC"
+#     #     updated_data = {"title":  }
+#     #     with self.client.post(f"/api/v1/recipe/update/{random_recipe_id}",) as update_recipe_resp:
+#     #         if update_recipe_resp.status_code != 200:
+#     #             response.failure(f"Update recipe endpoint resulted in a {update_recipe_resp.status_code} status code. Should return 200.")
+#     #         response_json = update_recipe_resp.json()
+
+            
+
     
+# # ******* START *******
 
-    @task
-    #TODO: Update recipe
-    
+# # Access the rendered HTML content
+# # html_content = recipe_resp.text
+
+# # Parse the HTML content with BeautifulSoup
+# # soup = BeautifulSoup(html_content, 'html.parser')
+
+# # Extract the attributes from the HTML
+# # recipes = soup.find('input', {'name': 'user_recipes'})['value']
+# # title = soup.find('input', {'name': 'title'}).string
+# # description = soup.find('input', {'name': 'description'}).string
+# # category = soup.find('input', {'name': 'category'}).string
+# # visibility = soup.find('input', {'name': 'visibility'}).string
+# # author_id = soup.find('input', {'name': 'author_id'}).string
+
+# # Use the extracted attributes as needed in your Locust test logic
+# # print(f"Recipe ID: {recipes}")
+# # print(f"Title: {title}")
+# # print(f"Description: {description}")
+# # print(f"Category: {category}")
+# # print(f"Visibility: {visibility}")
+# # print(f"Author ID: {author_id}")
