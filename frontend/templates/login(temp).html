@@ -13,6 +13,7 @@
 	<iframe id="header-frame" src="/api/v1/recipe/header" frameborder="0"></iframe>
 	<div class="container">
 		<form>
+			{{ form.csrf_token }}
 			<h2>Login</h2>
 			<label for="username"><b>Username</b></label>
 			<input type="text" placeholder="Enter Username" name="username" required>

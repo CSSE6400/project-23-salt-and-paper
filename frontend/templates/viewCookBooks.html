@@ -30,5 +30,8 @@
 		</div>
 		<button onclick="window.location.href='/api/v1/cookbook/create_cookbook_view'">Create Cookbook</button>
 	</div>
+	<form method="post">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
 </body>
 </html>

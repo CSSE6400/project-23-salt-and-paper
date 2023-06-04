@@ -36,6 +36,7 @@
 	{% include 'header.html' %}
 	<div class="container">
 		<form id="updateRecipeForm">
+			{{ form.csrf_token }}
 			<h2>Update Recipe</h2>
 			<label for="recipeName"><b>Recipe Name</b></label>
 			<input type="text" placeholder="Enter Recipe Name" name="title" value="{{ recipe.title }}" required>

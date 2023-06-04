@@ -11,6 +11,7 @@
     <div class="container">
       {% include 'header.html' %}
       <form>
+        {{ form.csrf_token }}
         <h2>Sign Up</h2>
         <label for="username"><b>Username</b></label>
         <input
