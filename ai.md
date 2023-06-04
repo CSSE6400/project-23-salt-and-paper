@@ -24,7 +24,7 @@
 - 50% generated
 - Reference : [7]
 
-4. signup.html
+5. signup.html
 
 - Path: "frontend/templates/signup.html"
 - 50% generated
