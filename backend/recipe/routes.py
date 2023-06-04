@@ -2,8 +2,9 @@ from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 import uuid
+from flask_wtf import csrf
 
-from backend.models.models import Recipe, User
+from backend.models.models import Recipe, User, RecipeCookbook
 from backend.models import db
 
 recipe_api = Blueprint("recipe_api", __name__, url_prefix="/api/v1/recipe")
@@ -54,7 +55,9 @@ def get_user_recipes(author_id):
         for recipe in recipes:
             result.append(recipe.to_dict())
 
-        return render_template('recipes.html', recipes=result), 200
+        csrf_token = csrf.generate_csrf()  # Generate CSRF token
+
+        return render_template('recipes.html', recipes=result, csrf_token=csrf_token), 200
     
     except IDMismatchException:
         return jsonify({"error": "user ID does not match ID in JSON object"}), 400
@@ -62,7 +65,8 @@ def get_user_recipes(author_id):
 
 @recipe_api.route("/create_recipe", methods=["GET"])
 def view_create_recipe():
-    return render_template('createRecipe.html')
+    csrf_token = csrf.generate_csrf()
+    return render_template('createRecipe.html', csrf_token=csrf_token)
 
 
 @recipe_api.route("/create/<int:author_id>", methods=["POST"])
@@ -90,7 +94,7 @@ def create_recipe(author_id):
         if not recipe.title:
             raise InvalidParameterInput
 
-        if len(set(request.json.keys()) - {"title", "description", "category", "visibility"}) > 0:
+        if len(set(request.json.keys()) - {"title", "description", "category", "visibility", "csrf_token"}) > 0:
             raise UnknownFieldException
 
         db.session.add(recipe)
@@ -125,10 +129,11 @@ def get_recipe(recipe_id):
 
 @recipe_api.route("/updateRecipeView/<int:recipe_id>", methods=["GET"])
 def update_recipe_view(recipe_id):
+    csrf_token = csrf.generate_csrf()
     recipe = Recipe.query.get(recipe_id)
     if recipe is None:
         return jsonify({"error": "recipe does not exist"}), 404
-    return render_template('updateRecipe.html', recipe=recipe.to_dict())
+    return render_template('updateRecipe.html', recipe=recipe.to_dict(), csrf_token=csrf_token)
 
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])
 def update_recipe(recipe_id):
@@ -143,7 +148,7 @@ def update_recipe(recipe_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title", "description", "category", "visibility"}
+                - {"title", "description", "category", "visibility", "csrf_token"}
             )
             > 0
         ):
@@ -177,17 +182,31 @@ def update_recipe(recipe_id):
     except InvalidParameterInput:
         return jsonify({"error": "Parameter input is invalid!"}), 400
 
-
 @recipe_api.route("/delete/<int:recipe_id>", methods=["DELETE"])
 def delete_recipe(recipe_id):
     """Delete a recipe item and return the deleted item"""
-    recipe = Recipe.query.get(recipe_id)
-    if recipe is None:
-        return jsonify({"message": "recipe does not exist"}), 200
+    try:
+        # csrf_token = request.headers.get("X-CSRF-TOKEN")
+        # if not csrf_token:
+        #     return jsonify({"error": "CSRF token not found"}), 403
 
-    db.session.delete(recipe)
-    db.session.commit()
-    return jsonify(recipe.to_dict()), 200
+        # Validate the CSRF token here (e.g., using a CSRF protection library)
+
+        recipe = Recipe.query.get(recipe_id)
+        if recipe is None:
+            return jsonify({"message": "Recipe does not exist"}), 200
+    
+        recipeCookbooks = RecipeCookbook.query.filter_by(recipe_id=recipe_id).all()
+
+        for recipeCookbook in recipeCookbooks:
+            db.session.delete(recipeCookbook)
+        db.session.commit()
+
+        db.session.delete(recipe)
+        db.session.commit()
+        return jsonify(recipe.to_dict()), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @recipe_api.route("/header", methods=["GET"])

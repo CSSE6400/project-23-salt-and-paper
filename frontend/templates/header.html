@@ -41,23 +41,36 @@
       color: #FFF;
       font-weight: bold;
     }
+
+    .navbar {
+      display: flex;
+      justify-content: flex-end;
+    }
   </style>
 </head>
 <body>
   <header>
     <a class="logo" href="#">Salt and Paper</a>
-    <nav>
+    <nav class="navbar">
       <ul>
-        <li><a href="#">Home</a></li>
-        <!-- TODO change so its user specific -->
-        <li><a href="/api/v1/recipe/get_user_recipes/1">Recipes</a></li>
-        <li><a href="/api/v1/cookbook/get_user_cookbooks/1">Cookbooks</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="/api/v1/home">Home</a></li>
+        {% if current_user.is_authenticated == False %}
+        <li><a href="/api/v1/recipe/get_all">Recipes</a></li>
+        {% else %}
+        <li><a href="/api/v1/recipe/get_user_recipes/{{ current_user.id }}">Recipes</a></li>
+        <li><a href="/api/v1/cookbook/get_user_cookbooks/{{ current_user.id }}">Cookbooks</a></li>
+        {% endif %}
+        {% if current_user.is_authenticated == False %}
+        <li><a href="{{url_for('auth_api.login')}}">Login</a></li>
+        <li><a href="{{url_for('auth_api.register')}}">Sign Up</a></li>
+        {% else %}
+        <li><a href="{{url_for('auth_api.logout')}}">Log out</a></li>
+        {% endif %}
       </ul>
     </nav>
   </header>
   <form method="post">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token}}"/>
 </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 from backend.models.models import Recipe
@@ -23,7 +23,7 @@ def searchCategory(keywords):
     while True:
         if task.ready():
             task_result = task.result
-            return task_result, 200
+            return render_template('searchResult.html', recipes=task_result), 200
         else:
             time.sleep(1)
 
@@ -35,6 +35,6 @@ def searchDescription(keywords):
     while True:
         if task.ready():
             task_result = task.result
-            return task_result, 200
+            return render_template('searchResult.html', recipes=task_result), 200
         else:
             time.sleep(1)
