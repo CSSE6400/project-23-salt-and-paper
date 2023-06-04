@@ -49,5 +49,8 @@
     <footer>
       <p>© 2023 My Recipe Website. All rights reserved.</p>
     </footer>
+    <form method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+  </form>
   </body>
 </html>

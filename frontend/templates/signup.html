@@ -73,6 +73,7 @@
     <main>
       <h1>Sign Up for Salt and Paper</h1>
       <form action="" method="POST">
+        {{ form.csrf_token }}
         {{ form.hidden_tag() }}
         <p>
           {{ form.name }} {% for error in form.name.errors %}
