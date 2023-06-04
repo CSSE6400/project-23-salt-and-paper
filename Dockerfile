@@ -29,4 +29,4 @@ ENV CELERY_BROKER_URL=$CELERY_BROKER_URL
 ENV CELERY_RESULT_BACKEND=$CELERY_RESULT_BACKEND
 
 # Running our application 
-CMD ["bash", "-c", "sleep 1 && flask --app backend run --debug --host 0.0.0.0 --port 6400"]
+CMD ["gunicorn", "-b 0.0.0.0:6400", "backend:app"]
