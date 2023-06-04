@@ -14,18 +14,15 @@
     <script>
       function searchRecipesCategory() {
         var searchText = document.getElementById("searchInputCategory").value;
-        // Perform the desired search or function with the searchText
-        console.log("Searching for Category: " + searchText);
-        // You can replace the console.log statement with your desired functionality
+        window.location.href = "/api/v1/search/searchcategory/" + encodeURIComponent(searchText);
       }
-
+    
       function searchRecipesDescription() {
         var searchText = document.getElementById("searchInputDescription").value;
-        // Perform the desired search or function with the searchText
-        console.log("Searching for Description: " + searchText);
-        // You can replace the console.log statement with your desired functionality
+        window.location.href = "/api/v1/search/searchdescription/" + encodeURIComponent(searchText);
+
       }
-    </script>
+    </script>    
   </head>
   <body>
     {% include 'header.html' %}
