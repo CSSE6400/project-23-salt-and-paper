@@ -10,7 +10,7 @@ user_api = Blueprint("user_api", __name__, url_prefix="/api/v1/users")
 class UnknownFieldException(Exception):
     "Raised when there are unknown fields."
 
-@user_api.route("/health")
+@user_api.route("/health", methods=["GET"])
 def health():
     """Return a status of 'ok' if the server is running and listening to request"""
     users = User.query.all()

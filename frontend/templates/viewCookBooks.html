@@ -19,6 +19,7 @@
 	<div class="container">
 		<h2>Cookbooks</h2>
 		<div class="cookbook-container">
+			<input type="hidden" name="user_cookbooks" value="{{ cookbooks }}">
 			{% for cookbook in cookbooks %}
 			<div class="cookbook">
 				<button class="cookbook-button" onclick="window.location.href='/api/v1/cookbook/get_recipes/{{ cookbook.id }}'">{{ cookbook.title }}</button>
