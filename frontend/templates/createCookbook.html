@@ -41,7 +41,7 @@
 			<label for="cookbookName"><b>Cookbook Name</b></label>
 			<input type="text" placeholder="Enter Cookbook Name" name="title" required>
 			
-			<input type="hidden" name="author_id" value="1">
+			<input type="hidden" name="author_id" value="{{ current_user.id }}">
 
 			<button type="submit">Create Cookbook</button>
 		</form>
@@ -58,7 +58,7 @@
 				"title": formData.get("title"),
 			};
 
-			fetch("/api/v1/cookbook/create/1", {
+			fetch("/api/v1/cookbook/create/{{ current_user.id }}", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -68,7 +68,7 @@
 			.then(response => {
 				if (response.ok) {
 					console.log("Cookbook created successfully");
-					window.location.href = "/api/v1/cookbook/get_user_cookbooks/1";
+					window.location.href = "/api/v1/cookbook/get_user_cookbooks/{{ current_user.id }}";
 				} else {
 					console.error("Failed to create cookbook");
 				}

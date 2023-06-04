@@ -73,7 +73,7 @@
 				"visibility": formData.get("visibility")
 			};
 
-			fetch("/api/v1/recipe/create/1", {
+			fetch(`/api/v1/recipe/create/{{ current_user.id }}`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json"
@@ -83,8 +83,7 @@
 			.then(response => {
 				if (response.ok) {
 					console.log("Recipe created successfully");
-					var userId = current_user.id;
-					window.location.href = `/api/v1/cookbook/get_user_recipes/${userId}`;
+					window.location.href = `/api/v1/recipe/get_user_recipes/{{ current_user.id }}`;
 				} else {
 					console.error("Failed to create recipe");
 				}

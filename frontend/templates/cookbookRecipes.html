@@ -52,11 +52,10 @@
 		}
 
         function addRecipe() {
-            var userId = current_user.id;
 			var currentUrl = window.location.href;
 			var cookbookId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 			document.cookie = `cookbookId=${cookbookId}; path=/`;
-            window.location.href = `/api/v1/cookbook/get_user_recipes/${userId}`;
+            window.location.href = `/api/v1/cookbook/get_user_recipes/{{ current_user.id }}`;
         }
 
 	</script>
