@@ -140,7 +140,6 @@ def add_recipe_to_cookbook():
 def get_recipes(cookbook_id):
     """Return all recipe items in cookbook"""
     try:
-        csrf_token = csrf.generate_csrf()
         cookbook = Cookbook.query.get(cookbook_id)
         if cookbook is None:
             return jsonify({"error": "Cookbook does not exist"}), 404
@@ -156,6 +155,8 @@ def get_recipes(cookbook_id):
             print(recipe)
             result.append(recipe.to_dict())
         
+        csrf_token = csrf.generate_csrf()
+
         cookbook_title = cookbook.title
         return render_template('cookbookRecipes.html', recipes=result, cookbook_title=cookbook_title, csrf_token=csrf_token), 200
     
@@ -181,7 +182,8 @@ def get_cookbooks(author_id):
         for cookbook in cookbooks:
             result.append(cookbook.to_dict())
         
-        return render_template('viewCookBooks.html', cookbooks=result)
+        csrf_token = csrf.generate_csrf()
+        return render_template('viewCookBooks.html', cookbooks=result, csrf_token=csrf_token)
 
     except IDMismatchException: 
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400

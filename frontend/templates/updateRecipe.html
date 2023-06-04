@@ -89,6 +89,7 @@
 			.then(response => {
 				if (response.ok) {
 					console.log("Recipe updated successfully");
+					window.sessionStorage.setItem('csrf_token', csrfToken);
 					window.location.href = `/api/v1/recipe/get_user_recipes/{{ current_user.id }}`;
 				} else {
 					console.error("Failed to update recipe");

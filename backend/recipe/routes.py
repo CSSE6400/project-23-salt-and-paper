@@ -4,7 +4,7 @@ from sqlalchemy import exc
 import uuid
 from flask_wtf import csrf
 
-from backend.models.models import Recipe, User
+from backend.models.models import Recipe, User, RecipeCookbook
 from backend.models import db
 
 recipe_api = Blueprint("recipe_api", __name__, url_prefix="/api/v1/recipe")
@@ -43,7 +43,6 @@ def get_recipes():
 def get_user_recipes(author_id):
     """Return the list of recipe items"""
     try:
-        csrf_token = csrf.generate_csrf()
         user = User.query.get(author_id)
         if user is None:
             return jsonify({"error": "Author does not exist"}), 404
@@ -55,6 +54,8 @@ def get_user_recipes(author_id):
         result = []
         for recipe in recipes:
             result.append(recipe.to_dict())
+
+        csrf_token = csrf.generate_csrf()  # Generate CSRF token
 
         return render_template('recipes.html', recipes=result, csrf_token=csrf_token), 200
     
@@ -181,17 +182,31 @@ def update_recipe(recipe_id):
     except InvalidParameterInput:
         return jsonify({"error": "Parameter input is invalid!"}), 400
 
-
 @recipe_api.route("/delete/<int:recipe_id>", methods=["DELETE"])
 def delete_recipe(recipe_id):
     """Delete a recipe item and return the deleted item"""
-    recipe = Recipe.query.get(recipe_id)
-    if recipe is None:
-        return jsonify({"message": "recipe does not exist"}), 200
+    try:
+        # csrf_token = request.headers.get("X-CSRF-TOKEN")
+        # if not csrf_token:
+        #     return jsonify({"error": "CSRF token not found"}), 403
 
-    db.session.delete(recipe)
-    db.session.commit()
-    return jsonify(recipe.to_dict()), 200
+        # Validate the CSRF token here (e.g., using a CSRF protection library)
+
+        recipe = Recipe.query.get(recipe_id)
+        if recipe is None:
+            return jsonify({"message": "Recipe does not exist"}), 200
+    
+        recipeCookbooks = RecipeCookbook.query.filter_by(recipe_id=recipe_id).all()
+
+        for recipeCookbook in recipeCookbooks:
+            db.session.delete(recipeCookbook)
+        db.session.commit()
+
+        db.session.delete(recipe)
+        db.session.commit()
+        return jsonify(recipe.to_dict()), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 @recipe_api.route("/header", methods=["GET"])
