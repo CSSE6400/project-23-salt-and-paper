@@ -1,4 +1,6 @@
 from flask import Blueprint, jsonify, request, render_template
+from flask_wtf import csrf
+
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 from backend.models.models import Cookbook, db, Recipe, RecipeCookbook, User
@@ -21,7 +23,8 @@ def health():
 @cookbook_api.route('/create_cookbook_view', methods=['GET'])
 def create_cookbook_view():
     try:
-        return render_template('createCookbook.html')
+        csrf_token = csrf.generate_csrf()
+        return render_template('createCookbook.html', csrf_token=csrf_token)
     except Exception as e:
         return jsonify({"error": "Failed to load page" + e}), 500
 
@@ -48,7 +51,7 @@ def create_cookbook(author_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title"}
+                - {"title", "csrf_token"}
             )
             > 0
         ):
@@ -74,6 +77,7 @@ def create_cookbook(author_id):
 def get_user_recipes(author_id):
     """Return a list of recipe items"""
     try:
+        csrf_token = csrf.generate_csrf()
         user = User.query.filter_by(id=author_id).first()
         if user is None:
             return jsonify({"error": "Author does not exist"}), 404
@@ -85,7 +89,7 @@ def get_user_recipes(author_id):
         for recipe in recipes:
             result.append(recipe.to_dict())
 
-        return render_template('cookbookAddRecipe.html', recipes=result)
+        return render_template('cookbookAddRecipe.html', recipes=result, csrf_token=csrf_token)
     except IDMismatchException:
         return jsonify({"error": "user ID does not match ID in JSON object"}), 400
     
@@ -116,7 +120,7 @@ def add_recipe_to_cookbook():
             cookbook_id = cookbook_id_input
         )
 
-        if len(set(request.json.keys()) - {'recipe_id', 'cookbook_id'}) > 0:
+        if len(set(request.json.keys()) - {'recipe_id', 'cookbook_id', 'csrf_token'}) > 0:
             raise UnknownFieldException
         
         db.session.add(recipeCookbook)
@@ -151,7 +155,10 @@ def get_recipes(cookbook_id):
             print(recipe)
             result.append(recipe.to_dict())
         
-        return render_template('cookbookRecipes.html', recipes=result)
+        csrf_token = csrf.generate_csrf()
+
+        cookbook_title = cookbook.title
+        return render_template('cookbookRecipes.html', recipes=result, cookbook_title=cookbook_title, csrf_token=csrf_token), 200
     
     except IDMismatchException:
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
@@ -159,8 +166,6 @@ def get_recipes(cookbook_id):
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
-
-
 
 @cookbook_api.route('/get_user_cookbooks/<int:author_id>', methods=['GET'])
 def get_cookbooks(author_id):
@@ -177,7 +182,8 @@ def get_cookbooks(author_id):
         for cookbook in cookbooks:
             result.append(cookbook.to_dict())
         
-        return render_template('viewCookBooks.html', cookbooks=result)
+        csrf_token = csrf.generate_csrf()
+        return render_template('viewCookBooks.html', cookbooks=result, csrf_token=csrf_token)
 
     except IDMismatchException: 
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400

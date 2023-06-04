@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-token" content="{{ csrf_token }}">
 	<title>My Recipes</title>
 	<style>
 		.recipe {
@@ -22,7 +23,7 @@
 <body style="margin: 0">
 	{% include 'header.html' %}
 	<div class="container">
-		<h2>My Recipes</h2>
+		<h2 id="cookbookTitle">{{ cookbook_title }}</h2>
         <button class="add-btn" onclick="addRecipe()">Add Recipe</button>
 		<div class="recipe-container">
 			{% for recipe in recipes %}
@@ -41,8 +42,7 @@
 		</div>
 	</div>
 
-	<!-- JavaScript functions for modifying and deleting recipes -->
-	<script>
+	<script>		
 		function viewRecipe(recipeId) {
 			window.location.href = `/api/v1/recipe/get_by_id/${recipeId}`;
 		}
@@ -52,16 +52,16 @@
 		}
 
         function addRecipe() {
-            var userId = 1; // Need to change this TODO
 			var currentUrl = window.location.href;
 			var cookbookId = currentUrl.substring(currentUrl.lastIndexOf('/') + 1);
 			document.cookie = `cookbookId=${cookbookId}; path=/`;
-            window.location.href = `/api/v1/cookbook/get_user_recipes/${userId}`;
+			var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			window.sessionStorage.setItem('csrf_token', csrfToken);
+            window.location.href = `/api/v1/cookbook/get_user_recipes/{{ current_user.id }}`;
         }
-
 	</script>
 	<form method="post">
-		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+		<input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 	</form>
 </body>
 </html>
