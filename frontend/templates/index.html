@@ -2,9 +2,32 @@
 <html>
   <head>
     <title>My Recipe Website</title>
+    <style>
+      main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+      }
+    </style>
+    <script>
+      function searchRecipesCategory() {
+        var searchText = document.getElementById("searchInputCategory").value;
+        // Perform the desired search or function with the searchText
+        console.log("Searching for Category: " + searchText);
+        // You can replace the console.log statement with your desired functionality
+      }
+
+      function searchRecipesDescription() {
+        var searchText = document.getElementById("searchInputDescription").value;
+        // Perform the desired search or function with the searchText
+        console.log("Searching for Description: " + searchText);
+        // You can replace the console.log statement with your desired functionality
+      }
+    </script>
   </head>
-  <!-- TODO impliment search feature here -->
-  <body style="margin: 0">
+  <body>
     {% include 'header.html' %}
     <main>
       <section>
@@ -14,7 +37,6 @@
           <p>
             A delightful classic Italian dish that is quick and easy to make.
             Perfect for a quick weeknight dinner.
-            <a href="spaghetti-carbonara.html">Read more...</a>
           </p>
         </article>
         <article>
@@ -22,9 +44,17 @@
           <p>
             A popular Indian dish made with tender chicken pieces marinated in a
             tangy and creamy sauce.
-            <a href="chicken-tikka-masala.html">Read more...</a>
           </p>
         </article>
+      </section>
+
+      <section>
+        <h2>Search Recipes</h2>
+        <input type="text" id="searchInputCategory" placeholder="Search by Category">
+        <button onclick="searchRecipesCategory()">Search</button>
+        <br>
+        <input type="text" id="searchInputDescription" placeholder="Search by Description">
+        <button onclick="searchRecipesDescription()">Search</button>
       </section>
     </main>
   </body>
