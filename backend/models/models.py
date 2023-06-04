@@ -14,7 +14,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
-    email = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), unique=True,  nullable=False)
     password = db.Column(db.String, nullable=False)
     cooking_preferences = db.Column(db.String(100))
 
@@ -57,7 +57,12 @@ def validate_username(form, field):
 def validate_password(form, field):
     user = User.query.filter_by(username=form.username.data).first()
     if user and not user.check_password(password=field.data):
-        raise ValidationError("Username or password is incorrect")
+        raise ValidationError("Username or password is incorrect") 
+
+def validate_email(form, field):
+    user = User.query.filter_by(email=field.data).first()
+    if form.__class__.__name__ == 'RegisterForm' and user:
+        raise ValidationError("Email already exists")
 
 #[7]
 class RegisterForm(FlaskForm):
@@ -65,7 +70,7 @@ class RegisterForm(FlaskForm):
     name = StringField(validators=[InputRequired(), Length(min=4, max=100)], render_kw={"placeholder": "Full Name"})
     username = StringField(validators=[InputRequired(), Length(
         min=4, max=20), validate_username], render_kw={"placeholder": "Username"})
-    email = EmailField('Email', validators=[InputRequired(), Email()], render_kw={
+    email = EmailField('Email', validators=[InputRequired(), Email(), validate_email], render_kw={
                        "placeholder": "Email"})
     password = PasswordField(validators=[InputRequired(), Length(
         min=4, max=20)], render_kw={"placeholder": "Password"})

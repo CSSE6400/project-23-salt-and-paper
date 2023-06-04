@@ -88,5 +88,8 @@
 			}
 		}
 	</script>
+	<form method="post">
+		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+	</form>
 </body>
 </html>

@@ -15,7 +15,8 @@ import os
 
 app = Flask(__name__, template_folder="/frontend/templates/")
 
-
+from flask_wtf.csrf import CSRFProtect
+csrf = CSRFProtect(app)
 db_uri = "postgresql://postgres:postgres@db:5432/saltandpaper" # using DOCKER
 # db_uri = "postgresql://postgres:postgres@localhost:5432/saltandpaper" # without DOCKER
 
@@ -32,6 +33,7 @@ login_manager.login_view = "auth_api.login"
 
 db.init_app(app)
 bcrypt.init_app(app)
+csrf.init_app(app)
 with app.app_context():
     # db.drop_all()
     db.create_all()
