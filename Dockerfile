@@ -29,4 +29,4 @@ ENV CELERY_BROKER_URL=$CELERY_BROKER_URL
 ENV CELERY_RESULT_BACKEND=$CELERY_RESULT_BACKEND
 
 # Running our application 
-CMD ["gunicorn", "-b 0.0.0.0:6400", "backend:app"]
+CMD ["sh", "-c", "sleep 7 && gunicorn -b 0.0.0.0:6400 backend:app"]
