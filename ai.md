@@ -17,3 +17,21 @@
 - Path: "backend/data/users.json"
 - 100% generated
 - Reference : [4]
+
+4. login.html
+
+- Path: "frontend/templates/login.html"
+- 50% generated
+- Reference : [7]
+
+5. signup.html
+
+- Path: "frontend/templates/signup.html"
+- 50% generated
+- Reference : [7]
+
+6. salt-and-paper-logo.png
+
+- Path: "Report/salt-and-paper-logo.png"
+- 100% generated
+- Reference : [12]

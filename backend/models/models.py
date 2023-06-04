@@ -64,6 +64,7 @@ def validate_email(form, field):
     if form.__class__.__name__ == 'RegisterForm' and user:
         raise ValidationError("Email already exists")
 
+#[7]
 class RegisterForm(FlaskForm):
 
     name = StringField(validators=[InputRequired(), Length(min=4, max=100)], render_kw={"placeholder": "Full Name"})
