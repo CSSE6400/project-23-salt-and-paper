@@ -22,7 +22,7 @@
 <body style="margin: 0">
 	{% include 'header.html' %}
 	<div class="container">
-		<h2>My Recipes</h2>
+		<h2 id="cookbookTitle">{{ cookbook_title }}</h2>
         <button class="add-btn" onclick="addRecipe()">Add Recipe</button>
 		<div class="recipe-container">
 			{% for recipe in recipes %}
@@ -41,8 +41,7 @@
 		</div>
 	</div>
 
-	<!-- JavaScript functions for modifying and deleting recipes -->
-	<script>
+	<script>		
 		function viewRecipe(recipeId) {
 			window.location.href = `/api/v1/recipe/get_by_id/${recipeId}`;
 		}
@@ -57,7 +56,6 @@
 			document.cookie = `cookbookId=${cookbookId}; path=/`;
             window.location.href = `/api/v1/cookbook/get_user_recipes/{{ current_user.id }}`;
         }
-
 	</script>
 	<form method="post">
 		<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>

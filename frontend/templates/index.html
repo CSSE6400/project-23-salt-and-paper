@@ -10,17 +10,40 @@
         align-items: center;
         margin: 0;
       }
+      
+      .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+      }
     </style>
     <script>
       function searchRecipesCategory() {
         var searchText = document.getElementById("searchInputCategory").value;
+        var errorMessageElement = document.getElementById("categoryErrorMessage");
+        
+        if (searchText.trim() === "") {
+          errorMessageElement.textContent = "Cannot use an empty search text";
+          return;
+        }
+        
+        errorMessageElement.textContent = ""; // Clear the error message if a valid search term is entered
+        
         window.location.href = "/api/v1/search/searchcategory/" + encodeURIComponent(searchText);
       }
     
       function searchRecipesDescription() {
         var searchText = document.getElementById("searchInputDescription").value;
+        var errorMessageElement = document.getElementById("descriptionErrorMessage");
+        
+        if (searchText.trim() === "") {
+          errorMessageElement.textContent = "Cannot use an empty search text";
+          return;
+        }
+        
+        errorMessageElement.textContent = ""; // Clear the error message if a valid search term is entered
+        
         window.location.href = "/api/v1/search/searchdescription/" + encodeURIComponent(searchText);
-
       }
     </script>    
   </head>
@@ -49,9 +72,11 @@
         <h2>Search Recipes</h2>
         <input type="text" id="searchInputCategory" placeholder="Search by Category">
         <button onclick="searchRecipesCategory()">Search</button>
+        <span id="categoryErrorMessage" class="error-message"></span>
         <br>
         <input type="text" id="searchInputDescription" placeholder="Search by Description">
         <button onclick="searchRecipesDescription()">Search</button>
+        <span id="descriptionErrorMessage" class="error-message"></span>
       </section>
     </main>
   </body>

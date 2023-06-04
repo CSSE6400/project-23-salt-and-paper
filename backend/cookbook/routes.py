@@ -151,7 +151,8 @@ def get_recipes(cookbook_id):
             print(recipe)
             result.append(recipe.to_dict())
         
-        return render_template('cookbookRecipes.html', recipes=result)
+        cookbook_title = cookbook.title
+        return render_template('cookbookRecipes.html', recipes=result, cookbook_title=cookbook_title), 200
     
     except IDMismatchException:
         return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
@@ -159,8 +160,6 @@ def get_recipes(cookbook_id):
     except Exception as e:
         print(e)
         return jsonify({'error': str(e)}), 500
-
-
 
 @cookbook_api.route('/get_user_cookbooks/<int:author_id>', methods=['GET'])
 def get_cookbooks(author_id):
