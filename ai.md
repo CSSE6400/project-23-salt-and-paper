@@ -29,3 +29,9 @@
 - Path: "frontend/templates/signup.html"
 - 50% generated
 - Reference : [7]
+
+6. salt-and-paper-logo.png
+
+- Path: "Report/salt-and-paper-logo.png"
+- 100% generated
+- Reference : [12]
