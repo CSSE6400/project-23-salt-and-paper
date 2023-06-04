@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="csrf-token" content="{{ csrf_token }}">
 	<title>Create Recipe</title>
 	<style>
 		.container {
@@ -36,7 +37,7 @@
 	{% include 'header.html' %}
 	<div class="container">
 		<form id="createRecipeForm">
-			<input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+			<input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
 			<h2>Create Recipe</h2>
 			<label for="recipeName"><b>Recipe Name</b></label>
 			<input type="text" placeholder="Enter Recipe Name" name="title" required>
@@ -65,18 +66,21 @@
 
 			var form = document.getElementById("createRecipeForm");
 			var formData = new FormData(form);
+			var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 			var data = {
 				"title": formData.get("title"),
 				"description": formData.get("description"),
 				"category": formData.get("category"),
-				"visibility": formData.get("visibility")
+				"visibility": formData.get("visibility"),
+				"csrf_token": csrfToken
 			};
 
 			fetch(`/api/v1/recipe/create/{{ current_user.id }}`, {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/json",
+					"X-CSRFToken": csrfToken
 				},
 				body: JSON.stringify(data)
 			})

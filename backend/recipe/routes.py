@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, render_template
 from datetime import datetime, timedelta
 from sqlalchemy import exc
 import uuid
+from flask_wtf import csrf
 
 from backend.models.models import Recipe, User
 from backend.models import db
@@ -42,6 +43,7 @@ def get_recipes():
 def get_user_recipes(author_id):
     """Return the list of recipe items"""
     try:
+        csrf_token = csrf.generate_csrf()
         user = User.query.get(author_id)
         if user is None:
             return jsonify({"error": "Author does not exist"}), 404
@@ -54,7 +56,7 @@ def get_user_recipes(author_id):
         for recipe in recipes:
             result.append(recipe.to_dict())
 
-        return render_template('recipes.html', recipes=result), 200
+        return render_template('recipes.html', recipes=result, csrf_token=csrf_token), 200
     
     except IDMismatchException:
         return jsonify({"error": "user ID does not match ID in JSON object"}), 400
@@ -62,7 +64,8 @@ def get_user_recipes(author_id):
 
 @recipe_api.route("/create_recipe", methods=["GET"])
 def view_create_recipe():
-    return render_template('createRecipe.html')
+    csrf_token = csrf.generate_csrf()
+    return render_template('createRecipe.html', csrf_token=csrf_token)
 
 
 @recipe_api.route("/create/<int:author_id>", methods=["POST"])
@@ -90,7 +93,7 @@ def create_recipe(author_id):
         if not recipe.title:
             raise InvalidParameterInput
 
-        if len(set(request.json.keys()) - {"title", "description", "category", "visibility"}) > 0:
+        if len(set(request.json.keys()) - {"title", "description", "category", "visibility", "csrf_token"}) > 0:
             raise UnknownFieldException
 
         db.session.add(recipe)
@@ -125,10 +128,11 @@ def get_recipe(recipe_id):
 
 @recipe_api.route("/updateRecipeView/<int:recipe_id>", methods=["GET"])
 def update_recipe_view(recipe_id):
+    csrf_token = csrf.generate_csrf()
     recipe = Recipe.query.get(recipe_id)
     if recipe is None:
         return jsonify({"error": "recipe does not exist"}), 404
-    return render_template('updateRecipe.html', recipe=recipe.to_dict())
+    return render_template('updateRecipe.html', recipe=recipe.to_dict(), csrf_token=csrf_token)
 
 @recipe_api.route("/update/<int:recipe_id>", methods=["PUT"])
 def update_recipe(recipe_id):
@@ -143,7 +147,7 @@ def update_recipe(recipe_id):
         if (
             len(
                 set(request.json.keys())
-                - {"title", "description", "category", "visibility"}
+                - {"title", "description", "category", "visibility", "csrf_token"}
             )
             > 0
         ):
