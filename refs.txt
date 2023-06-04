@@ -9,3 +9,4 @@
 ‌[9] “Flask-Login — Flask-Login 0.5.0 documentation,” flask-login.readthedocs.io. https://flask-login.readthedocs.io/en/latest/
 [10] “How to run Gunicorn on Docker,” www.tutorialspoint.com. https://www.tutorialspoint.com/how-to-run-gunicorn-on-docker
 [11] Croft, W.B., Metzler, D., & Strohman, T. (2010). Search engines: Information retrieval in practice (Vol. 520, pp. 131-141). Addison-Wesley.
+[12] "Find the perfect Logo for Salt And Paper,www.brandcrowd.com . https://www.brandcrowd.com/maker/logos?Text=Salt%20and%20paper&SearchText=resturant&KeywordChanged=true&LogoStyle=0
