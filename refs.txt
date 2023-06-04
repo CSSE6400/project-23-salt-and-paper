@@ -4,4 +4,7 @@
 [4] OpenAI, “ChatGPT,” chat.openai.com, 2023. https://chat.openai.com/
 ‌[5] “Mockaroo - Random Data Generator and API Mocking Tool | JSON / CSV / SQL / Excel,” www.mockaroo.com. https://www.mockaroo.com/
 ‌[6] “Locust Documentation — Locust 0.14.6 documentation,” docs.locust.io. https://docs.locust.io/en/stable/
-‌
+‌[7] A. Neupane, “arpanneupane19/Python-Flask-Authentication-Tutorial,” GitHub, Jun. 01, 2023. https://github.com/arpanneupane19/Python-Flask-Authentication-Tutorial.
+‌[8] “CSRF Protection — Flask-WTF Documentation (0.15.x),” flask-wtf.readthedocs.io. https://flask-wtf.readthedocs.io/en/0.15.x/csrf/
+‌[9] “Flask-Login — Flask-Login 0.5.0 documentation,” flask-login.readthedocs.io. https://flask-login.readthedocs.io/en/latest/
+[10] “How to run Gunicorn on Docker,” www.tutorialspoint.com. https://www.tutorialspoint.com/how-to-run-gunicorn-on-docker

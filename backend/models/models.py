@@ -59,6 +59,7 @@ def validate_password(form, field):
     if user and not user.check_password(password=field.data):
         raise ValidationError("Username or password is incorrect")
 
+#[7]
 class RegisterForm(FlaskForm):
 
     name = StringField(validators=[InputRequired(), Length(min=4, max=100)], render_kw={"placeholder": "Full Name"})
