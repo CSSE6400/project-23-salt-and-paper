@@ -3,7 +3,7 @@ from locust.exception import RescheduleTask
 import json, random
 from bs4 import BeautifulSoup
 
-
+# [6]
 class UserTests(HttpUser):
     wait_time = between(1, 5)
 
