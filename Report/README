@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Have you ever had trouble remembering a recipe you followed a long time ago but can’t find it? Or perhaps you’re craving your mum’s special cookies but can’t remember how she made it? Wouldn’t it be easier if you had it all those recipes stored with step-by-step instructions on how to make them?
+Have you ever had trouble remembering a recipe you followed a long time ago but can’t find it? Or perhaps you’re craving your mum’s special cookies but can’t remember how she made it? Or maybe you want to share a new recipe you’ve developed with other fellow cooking enthusiasts? Wouldn’t it be easier if you had it all those recipes stored with step-by-step instructions on how to make them?
 
 Introducing Salt and Paper, a user-friendly software application designed for individuals who love to cook and want to organize their favourite recipes in one place. With this app, users can create a personal recipe collection by storing their own recipes and browse and save recipes from other users.
 
@@ -38,30 +38,40 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 
 ## Trade-Offs
 
-- Performance vs. Extensibility: By optimizing certain components, we've achieved an appetizing performance. However, to ensure a better user experience, we traded a slight reduction in extensibility. For the core architecture still welcomes future enhancements.
+- Performance vs. Extensibility: By optimizing certain components, we've achieved a adequate performance. However, to ensure a better user experience, we traded a slight reduction in extensibility. For the core architecture still welcomes future enhancements.
 
 - Simplicity vs. Customization: Our UI design focuses on simplicity and elegance. While customization options are limited, this approach ensures that users a consistent and intuitive interface.
-- accuracy  of search task are traded for efficiency and availability the search task. 
-Use global variables to stored documents which would expire in 5 minutes to respond to the search request.
-Only return 5 most related documents,just like the first page of google search result.
+- accuracy of search task are traded for efficiency and availability the search task.
+  Use global variables to stored documents which would expire in 5 minutes to respond to the search request.
+  Only return 5 most related documents,just like the first page of google search result.
+
 ## Architecture Diagrams
 
 @TODO
 
 <div align="center">
-  <img src="Salt and Paper - Architecture Diagram.png" alt="Salt and Paper Architecture Diagram" width="800"/>
+  <img src="structurizr-83413-Container-001.png" alt="Salt and Paper Container Diagram" width="800"/>
+</div>
+<div align="center">
+  <img src="structurizr-83413-Container-002.png" alt="Salt and Paper Container Diagram" width="800"/>
+</div>
+<div align="center">
+  <img src="structurizr-83413-SystemContext-001.png" alt="Salt and Paper Context Diagram" width="800"/>
+</div>
+<div align="center">
+  <img src="structurizr-83413-SystemContext-002.png" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
 ## Critique
 
 @TODO
 -Pros in search service:
-1.Search tasks use stored documents which avoid access db frequently and reduce the load of the app’s bottleneck :Database. 
-2. avoid repeat preprocessing documents and search index.
--Cons in search service:
-1.Users could not access the recently updated or added recipes and all recipes.
-2.Global variables are not suitable for storing large files , could use local file or another DB.
-3.Fail to use existing search engine frame like elasticsearch as configuration failed....
-4. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
+
+1. Search tasks use stored documents which avoid access db frequently and reduce the load of the app’s bottleneck :Database. 2. avoid repeat preprocessing documents and search index.
+   -Cons in search service:
+1. Users could not access the recently updated or added recipes and all recipes.
+1. Global variables are not suitable for storing large files , could use local file or another DB.
+1. Fail to use existing search engine frame like elasticsearch as configuration failed....
+1. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
 
 ## Evaluation
 
@@ -69,9 +79,9 @@ The flavor of Salt and Paper was meticulously tested to evaluate its adherence t
 
 - Scalability: We've put the application to the ultimate test using Locust. The results? Salt and Paper exhibits remarkable scalability, whith results exceeding @TODO
 
-- Extensibility: The architecture boasts well-defined, abstracted classes, ready to embrace future enhancements and evolving design requests.
+- Availability: Users need to be able to access the application any time they want. This is important as there may be instances where users will need access to these recipes as soon as possible, i.e., when users need to cook for a catering service (in a time crunch), or when users are out grocery shopping. We've tested the application using Locust, and the results were promising. The application was able to handle the load without any issues.
 
-- Accessibility: Salt and Paper front-end is using React to be accessible across devices, from smartphones to Personal Computers. We tested the application with several devices and it worked without a problem.
+- Extensibility: The architecture boasts well-defined, abstracted classes, ready to embrace future enhancements and evolving design requests.
 
 ## Reflection
 
@@ -79,6 +89,6 @@ The flavor of Salt and Paper was meticulously tested to evaluate its adherence t
 
 - Embrace Iterative Development: By adopting an iterative development approach, such as Agile or Scrum, we can utilize frequent feedback loops. This will ensure that the software is developed to meet the needs of the users.
 
-- Spice up with Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
+- Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
 
 ---
