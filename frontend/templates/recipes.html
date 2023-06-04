@@ -24,8 +24,10 @@
 <body style="margin: 0">
 	<div class="container">
 		{% include 'header.html' %}
-		<h2>My Recipes</h2>
+		<h2>Recipes</h2>
+		{% if current_user.is_authenticated == True %}
 		<button class="create-recipe-btn" onclick="createRecipe()">Create Recipe</button>
+		{% endif %}
 		<br><br>
 		<div class="recipe-container">
 			<input type="hidden" name="user_recipes" value="{{ recipes }}">
@@ -41,10 +43,12 @@
 				<input type="hidden" name="category" value="{{ recipe.category }}">
 				<input type="hidden" name="visibility" value="{{ recipe.visibility }}">
 				<input type="hidden" name="author_id" value="{{ recipe.author_id }}">
+				{% if current_user.is_authenticated == True %}
 				<div class="recipe-actions">
 					<button class="modify-btn" onclick="modifyRecipe('{{ recipe.id }}')">Modify</button>
 					<button class="delete-btn" onclick="deleteRecipe('{{ recipe.id }}')">Delete</button>
 				</div>
+				{% endif %}
 			</div>
 			{% endfor %}
 		</div>

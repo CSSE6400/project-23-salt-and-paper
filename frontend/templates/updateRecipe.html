@@ -83,7 +83,8 @@
 			.then(response => {
 				if (response.ok) {
 					console.log("Recipe updated successfully");
-					window.location.href = "/api/v1/recipe/get_all"; // Redirect to the get_all URL
+					var userId = current_user.id;
+					window.location.href = `/api/v1/cookbook/get_user_recipes/${userId}`;
 				} else {
 					console.error("Failed to update recipe");
 				}

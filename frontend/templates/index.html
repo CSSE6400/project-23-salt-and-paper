@@ -2,30 +2,15 @@
 <html>
   <head>
     <title>My Recipe Website</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
-  <body>
-    <header>
-      <h1>Welcome to My Recipe Website</h1>
-    </header>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        {% if current_user.is_authenticated == False %}
-        <li><a href="{{url_for('auth_api.login')}}">Login</a></li>
-        <li><a href="{{url_for('auth_api.register')}}">Sign Up</a></li>
-        {% else %}
-        <li><a href="{{url_for('auth_api.logout')}}">Log out</a></li>
-        {% endif %}
-        <li><a href="contact.html">Contact Us</a></li>
-      </ul>
-    </nav>
+  <!-- TODO impliment search feature here -->
+  <body style="margin: 0">
+    {% include 'header.html' %}
     <main>
       <section>
         <h2>Featured Recipes</h2>
         <article>
           <h3>Spaghetti Carbonara</h3>
-          <img src="images/spaghetti-carbonara.jpg" alt="Spaghetti Carbonara" />
           <p>
             A delightful classic Italian dish that is quick and easy to make.
             Perfect for a quick weeknight dinner.
@@ -34,10 +19,6 @@
         </article>
         <article>
           <h3>Chicken Tikka Masala</h3>
-          <img
-            src="images/chicken-tikka-masala.jpg"
-            alt="Chicken Tikka Masala"
-          />
           <p>
             A popular Indian dish made with tender chicken pieces marinated in a
             tangy and creamy sauce.
@@ -46,11 +27,5 @@
         </article>
       </section>
     </main>
-    <footer>
-      <p>© 2023 My Recipe Website. All rights reserved.</p>
-    </footer>
-    <form method="post">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-  </form>
   </body>
 </html>
