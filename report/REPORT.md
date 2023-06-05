@@ -83,14 +83,30 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 
 ## Critique
 
--Pros in search service:
+## Critique
 
-1. Search tasks use stored documents which avoid access db frequently and reduce the load of the app’s bottleneck :Database. 2. avoid repeat preprocessing documents and search index.
-   -Cons in search service:
-1. Users could not access the recently updated or added recipes and all recipes.
-1. Global variables are not suitable for storing large files , could use local file or another DB.
-1. Fail to use existing search engine frame like elasticsearch as configuration failed....
-1. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
+### Security
+
+- User registration credentials are protected using strong Password Hash.
+
+The user registration credentials that the user adds as input in our application when signing up or logging in are protected using a strong password hash mechanism. This ensures that the hash values cannot be decrypted, which means that there is an additional layer of protection against unauthorised access. This aligns with the Defense in Depth Principle.
+
+- Request Forgery prevention using CSRF tokens [3]
+
+CSRF attacks involve a malicious user performing actions using another user's credentials without that user's knowledge or consent. Adding this layer of protection in our application aligns with the Principle of Least Privilege because we're ensuring that only authorised and authenticated users can submit forms or perform any action on the application, preventing theses CSRF attacks.
+
+These are some of the mechanisms we have not implemented that should be implemented to improve the security of the application.
+
+- Add SSL HTTPS certificate (Principle of Least Privilege)
+- Use reverse proxy (Defense in Depth)
+
+### Scalability
+
+- Horizontal Scaling using Async Task Queue using Celery.
+
+We have implemented an asynchronous task queue for the searching endpoints using Celery. This helps with scalability because the system will be able to handle an increase in search requests without causing performance bottlenecks.
+
+One way to improve this is to implement the asynchronous task queue for other heavy endpoints as well, for instance the creating recipe endpoint.
 
 ## Evaluation
 
@@ -104,13 +120,25 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
   <img src="../model/tests/total_requests_per_second_1685937873.png" alt="Salt and Paper test Diagram" width="800"/>
 </div>
 
-The flavor of Salt and Paper was meticulously tested to evaluate its adherence to the promised quality attributes. Let us savor the results:
+### Scalability and Availability
 
-- Scalability: We've put the application to the ultimate test using Locust. The results? Salt and Paper exhibits remarkable scalability, whith results exceeding @TODO
+For these attributes, we have performed a load test for 2000 users using Locust whilst simultaneously checking that the tests returned successful status codes (to check availability as well).
 
-- Availability: Users need to be able to access the application any time they want. This is important as there may be instances where users will need access to these recipes as soon as possible, i.e., when users need to cook for a catering service (in a time crunch), or when users are out grocery shopping. We've tested the application using Locust, and the results were promising. The application was able to handle the load without any issues.
+Based on the test, the application was able to handle the increase number of users, but unfortunately in terms of availability, the requests weren’t able to run 100% of the time, with multiple failures.
 
-- Extensibility: The architecture boasts well-defined, abstracted classes, ready to embrace future enhancements and evolving design requests.
+It is important to note though that we ran tests on an earlier version of the system which did not include the authentication system, as that was delivered quite late.
+
+### Extensibility
+
+The architecture separates endpoints based on their usage. For instance, endpoints relating to authentication, recipes, cookbooks, and search are put in separate view files. This ensures that if we were to add a new feature, we would not have to modify a lot of the existing code and can simply add to the codebase. However, one way this could be improved is to make the application microserviced, as this would ease the process of adding features even more.
+
+## Reflection
+
+- Improved Requirements Gathering: We've learned that requirements gathering is a continuous process. We've improved our requirements gathering process by incorporating feedback from each iteration.
+
+- Embrace Iterative Development: By adopting an iterative development approach, such as Agile or Scrum, we can utilize frequent feedback loops. This will ensure that the software is developed to meet the needs of the users.
+
+- Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
 
 ## Reflection
 
