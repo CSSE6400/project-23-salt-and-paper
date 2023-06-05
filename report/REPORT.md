@@ -64,21 +64,20 @@ This is a dynamic diagram showing the process of searching a recipe in our appli
   <img src="../model/adrs/dynamic diagram.PNG" alt="Salt and Paper Container Diagram" width="800"/>
 </div>
 
-The Minimum Viable Product (MVP) showcases a tantalizing software architecture, composed of components:
+This is a description of some parts of the application:
 
 1. Frontend:
 
-   - User Interface (UI): Crafted with cutting-edge React frameworks, the UI tantalizes users' visual senses, providing a seamless and visually pleasing experience.
+   - User Interface (UI): Crafted with Javascript, HTML, and CSS, the UI tantalizes users' visual senses, providing a seamless and visually pleasing experience.
    - Views and Components: We incorporated pictures icons, and other elements to make it easier to navigate through the app. The UI is designed to be responsive, ensuring a consistent experience across devices.
 
 2. Backend:
 
    - Server: We used Python Flask to serve the API endpoints. The server is responsible for handling the requests and responses between the frontend and the database. Orchestrates the flow of requests, serving multiple API endpoints of data to the frontend. Some of the endpoints are enforced with protected routes middleware to ensure the authentication and authorization of the users.
-   - Database: We used PostgreSQL for its robustness. The database stores users' profiles, recipes, Cookbook and Ratings. Its design ensures data integrity and efficient recipe retrieval. We used the Sequelize ORM to facilitate the interaction with the database.
+   - Database: We used PostgreSQL for its robustness. The database stores users' profiles, recipes, Cookbook and Ratings. Its design ensures data integrity and efficient recipe retrieval. We used the SQLAlchemy ORM to facilitate the interaction with the database.
 
 3. API:
    - Endpoints: The endpoints are designed to be RESTful and follow the best practices of RESTful API design. The endpoints are enforced with authentication and authorization to ensure the security of the data.
-   - RESTful API: The API endpoints are designed to be intuitive and easy to use.
 
 ## Trade-Offs
 
@@ -125,8 +124,6 @@ If one database becomes unavailable, one of the replica instances can be utilise
 
 ### Extensibility
 
-Extensibility:
-
 The architecture boasts well-defined, abstracted classes, ready to embrace future enhancements and evolving design requests.
 
 An example of adding more integrations would be to allow users to upload images to their recipes. This would create an overall better experience for users as it would allow them to see what they are making. To implement this currently, the database model and routes would be required to handle image data. After doing so images can then be uploaded to the website.
@@ -159,8 +156,16 @@ The architecture separates endpoints based on their usage. For instance, endpoin
 
 ## Reflection
 
-- Improved Requirements Gathering: We've learned that requirements gathering is a continuous process. We've improved our requirements gathering process by incorporating feedback from each iteration.
+- Improved Requirements Gathering: We've learned that requirements gathering is a continuous process. We've improved our requirements gathering process by incorporating feedback from each iteration. In our development process we have realized that we were not incorporating changes as frequently as we should have. This was due to us not following a proper structure in development. Following a strict sprint/agile development process would have benefited in the development of our application.
 
 - Embrace Iterative Development: By adopting an iterative development approach, such as Agile or Scrum, we can utilize frequent feedback loops. This will ensure that the software is developed to meet the needs of the users.
 
-- Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
+- Better testing Our application currently only implements load testing on a version that was prior to the authentication system integration. While we couldn’t implement proper testing for these features due to time constraints. In the future we could better improve by implementing tests much earlier in development.
+
+## References (Report)
+
+[1] “Django,” Django Project . https://docs.djangoproject.com/en/4.2/topics/security/
+[2] “Django,” Django Project . https://docs.djangoproject.com/en/4.2/topics/http/sessions/
+[3] “Django,” Django Project . https://docs.djangoproject.com/en/4.2/ref/csrf/
+B. Webb, “Lecture Notes in Software Engineering Security Principles,” 2023. Available: https://csse6400.uqcloud.net/handouts/security.pdf
+[4] R. Thomas and B. Webb, “Lecture Notes in Software Engineering Architectural Views,” 2023. Available: https://csse6400.uqcloud.net/handouts/views.pdf
