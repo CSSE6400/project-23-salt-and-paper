@@ -25,21 +25,31 @@ However, due to time constraints and difficulty of implementation, we have decid
 ### Context
 
 <div align="center">
-  <img src="../model/adrs/structurizr-83413-SystemContext-001.png" alt="Salt and Paper Context Diagram" width="800"/>
+  <img src="../model/adrs/Context label.PNG" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
 
 <div align="center">
-  <img src="../model/adrs/structurizr-83413-SystemContext-002.png" alt="Salt and Paper Context Diagram" width="800"/>
+  <img src="../model/adrs/Context1.PNG" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
 
 ### Container
 
 <div align="center">
-  <img src="../model/adrs/structurizr-83413-Container-001.png" alt="Salt and Paper Container Diagram" width="800"/>
+  <img src="../model/adrs/Container legend.PNG" alt="Salt and Paper Container Diagram" width="800"/>
 </div>
 
 <div align="center">
-  <img src="../model/adrs/structurizr-83413-Container-002.png" alt="Salt and Paper Container Diagram" width="800"/>
+  <img src="../model/adrs/container1.PNG" alt="Salt and Paper Container Diagram" width="800"/>
+</div>
+
+<div align="center">
+  <img src="../model/adrs/Container2.PNG" alt="Salt and Paper Container Diagram" width="800"/>
+</div>
+
+### Dynamic
+
+<div align="center">
+  <img src="../model/adrs/dynamic diagram.PNG" alt="Salt and Paper Container Diagram" width="800"/>
 </div>
 
 The Minimum Viable Product (MVP) showcases a tantalizing software architecture, composed of components:
@@ -69,7 +79,6 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 
 ## Critique
 
-@TODO
 -Pros in search service:
 
 1. Search tasks use stored documents which avoid access db frequently and reduce the load of the app’s bottleneck :Database. 2. avoid repeat preprocessing documents and search index.

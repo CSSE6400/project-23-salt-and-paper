@@ -12,3 +12,10 @@
 [12] "Find the perfect Logo for Salt And Paper,www.brandcrowd.com . https://www.brandcrowd.com/maker/logos?Text=Salt%20and%20paper&SearchText=resturant&KeywordChanged=true&LogoStyle=0
 [13] Bird, S., Klein, E., & Loper, E. (2009). Natural Language Processing with Python. Retrieved [June 4th,2023], from https://www.nltk.org/book/
 [14] Rank-bm25. (n.d.). Retrieved [June 4th,2023], from https://pypi.org/project/rank-bm25/
+[15] “Django,” Django Project . https://docs.djangoproject.com/en/4.2/topics/security/
+[16] “Django,” Django Project . https://docs.djangoproject.com/en/4.2/topics/http/sessions/
+[17] “Django,” Django Project . https://docs.djangoproject.com/en/4.2/ref/csrf/
+[18] B. Webb, “Lecture Notes in Software Engineering Security Principles,” 2023. Available:
+https://csse6400.uqcloud.net/handouts/security.pdf
+[19] R. Thomas and B. Webb, “Lecture Notes in Software Engineering Architectural Views,” 2023. Available:
+https://csse6400.uqcloud.net/handouts/views.pdf
