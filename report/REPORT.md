@@ -4,7 +4,7 @@
 
 ## Demonstration
 
-(http://saltandpaper-lb-1821943437.us-east-1.elb.amazonaws.com/api/v1/home)
+[Demo](http://saltandpaper-lb-1821943437.us-east-1.elb.amazonaws.com/api/v1/home)
 
 ## Abstract
 
