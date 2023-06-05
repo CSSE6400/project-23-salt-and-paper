@@ -108,6 +108,25 @@ We have implemented an asynchronous task queue for the searching endpoints using
 
 One way to improve this is to implement the asynchronous task queue for other heavy endpoints as well, for instance the creating recipe endpoint.
 
+### Availability
+
+We Users need to be able to access the application any time they want. Each user information and their recipes are stored.
+Async Task Queue using Celery.
+Trying to minimize Downtime and Crashes.
+
+Database replication could be implemented
+If one database becomes unavailable, one of the replica instances can be utilised ensures high availability
+
+### Extensibility
+
+Extensibility:
+
+The architecture boasts well-defined, abstracted classes, ready to embrace future enhancements and evolving design requests.
+
+An example of adding more integrations would be to allow users to upload images to their recipes. This would create an overall better experience for users as it would allow them to see what they are making. To implement this currently, the database model and routes would be required to handle image data. After doing so images can then be uploaded to the website.
+
+In the future to improve upon this a microservice architecture could be implemented to improve further extensibility. By doing so, more functionalities could be added to the system. Further, this would also be useful in fault isolation, scalability [source](https://about.gitlab.com/blog/2022/09/29/what-are-the-benefits-of-a-microservices-architecture/)
+
 ## Evaluation
 
 ### Test Images
@@ -139,13 +158,3 @@ The architecture separates endpoints based on their usage. For instance, endpoin
 - Embrace Iterative Development: By adopting an iterative development approach, such as Agile or Scrum, we can utilize frequent feedback loops. This will ensure that the software is developed to meet the needs of the users.
 
 - Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
-
-## Reflection
-
-- Improved Requirements Gathering: We've learned that requirements gathering is a continuous process. We've improved our requirements gathering process by incorporating feedback from each iteration.
-
-- Embrace Iterative Development: By adopting an iterative development approach, such as Agile or Scrum, we can utilize frequent feedback loops. This will ensure that the software is developed to meet the needs of the users.
-
-- Continuous Integration and Deployment: Automating with robust CI/CD pipelines will ensure a seamless development process. This will allow us to focus on the development of the software, while the CI/CD pipelines take care of the rest.
-
----
