@@ -69,9 +69,9 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 1. Search tasks use stored documents which avoid access db frequently and reduce the load of the app’s bottleneck :Database. 2. avoid repeat preprocessing documents and search index.
    -Cons in search service:
 1. Users could not access the recently updated or added recipes and all recipes.
-1. Global variables are not suitable for storing large files , could use local file or another DB.
-1. Fail to use existing search engine frame like elasticsearch as configuration failed....
-1. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
+2. Global variables are not suitable for storing large files , could use local file or another DB.
+3. Fail to use existing search engine frame like elasticsearch as configuration failed.
+4. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
 
 ## Evaluation
 
