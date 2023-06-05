@@ -2,6 +2,10 @@
 
 # Salt and Paper: Software Architecture Capstone Project Report
 
+## Demonstration
+
+[Demo](https://saltandpaper-lb-1821943437.us-east-1.elb.amazonaws.com/api/v1/home)
+
 ## Abstract
 
 Introducing Salt & Paper, an innovative application designed to create a global community for cooking enthusiasts. This platform not only provides a space for users to post, save, search, and share recipes, but also encourages engagement, discovery, and culinary creativity. With a robust architecture that ensures scalability and availability, Salt & Paper is geared to handle a large userbase, providing a seamless experience for users regardless of peak usage times.
@@ -89,6 +93,16 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 1. did not use celery beats and worker together to set periodical tasks, which make service logic complex and hard to extend
 
 ## Evaluation
+
+### Test Images
+
+<div align="center">
+  <img src="../model/tests/number_of_users_1685937873.png" alt="Salt and Paper test Diagram" width="800"/>
+</div>
+
+<div align="center">
+  <img src="../model/tests/total_requests_per_second_1685937873.png" alt="Salt and Paper test Diagram" width="800"/>
+</div>
 
 The flavor of Salt and Paper was meticulously tested to evaluate its adherence to the promised quality attributes. Let us savor the results:
 
