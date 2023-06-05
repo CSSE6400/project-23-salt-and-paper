@@ -83,8 +83,6 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 
 ## Critique
 
-## Critique
-
 ### Security
 
 - User registration credentials are protected using strong Password Hash.
