@@ -16,9 +16,9 @@ In the spirit of continual improvement, Salt & Paper is able to receive regular 
 
 ## Changes
 
-From an architecture prospective, we changed the architecture to be maintainable. At first, we decided to design a software that is written in Python and Javascipt. After discussion, it was decided the application would be completely implemented in python for improved cooperation betweeen team members. We changed the architecture to be using a seperate front-end and back-end. We made sure that the new architecture is suitable with each members' prospective schedule.
+Several features have been excluded as they are not considered essential to the main features of the application. These features include the option to add images in recipe posts, the visibility settings for the recipe posts, and the personalised recommendation system.
 
-However, due to time constraints and difficulty of implementation, we have decided to exclude the integration of a personalized recipe recommendation system from our application.
+From an architecture perspective, we initially decided to design the application using microservices for each of the collection of endpoints, such as recipe endpoints, cookbook endpoints, among others. This was to improve its scalability and extensibility. However, due to the high amount of communication needed between services, this approach did not seem suitable as it would make the application complex, while not necessarily making the database operations faster, and since the application is still in its early stages and do not have a large user base yet, this approach is not needed yet.
 
 ## Architecture
 
