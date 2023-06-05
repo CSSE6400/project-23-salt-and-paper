@@ -28,6 +28,8 @@ From an architecture perspective, we initially decided to design the application
 
 ### Context
 
+The application consists of two parts: the Salt and Paper software system as well as the Data Collection and Processing system. The two systems communicate to each other - the Salt and Paper software system communicates to the Data Collection and Processing system when performing search requests as well performing requests which deal with the database.
+
 <div align="center">
   <img src="../model/adrs/Context label.PNG" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
