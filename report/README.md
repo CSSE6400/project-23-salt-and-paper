@@ -22,6 +22,8 @@ However, due to time constraints and difficulty of implementation, we have decid
 
 ## Architecture
 
+### Context
+
 <div align="center">
   <img src="../model/adrs/structurizr-83413-SystemContext-001.png" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
@@ -29,6 +31,8 @@ However, due to time constraints and difficulty of implementation, we have decid
 <div align="center">
   <img src="../model/adrs/structurizr-83413-SystemContext-002.png" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
+
+### Container
 
 <div align="center">
   <img src="../model/adrs/structurizr-83413-Container-001.png" alt="Salt and Paper Container Diagram" width="800"/>
