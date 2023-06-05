@@ -40,6 +40,10 @@ The application consists of two parts: the Salt and Paper software system as wel
 
 ### Container
 
+As seen in the container diagram for the Salt and Paper software system, the webpages are displayed on the user’s web browser and when the user makes a request, the request will be forwarded to the load balancer and then to the backend application via the Gunicorn Web Server Gate Interface. The purpose of the load balancer is to help enable horizontal scaling by adding or removing resources as required based on the current load. This means that the application will be able to handle high traffic volumes while not wasting resources during low traffic volumes.
+
+Once the request reaches the backend application, it will then communicate with either the PostgreSQL database directly, or through the Amazon SQS queue if the request relates to searching. If the latter, the requests will get forwarded to the asynchronous celery task queue before it then performs the tasks on the database. The asynchronous task queue has been implemented for the search endpoint as this is the heaviest endpoint in our implementation and this task queue helps with improving scalability.
+
 <div align="center">
   <img src="../model/adrs/Container legend.PNG" alt="Salt and Paper Container Diagram" width="800"/>
 </div>
@@ -53,6 +57,8 @@ The application consists of two parts: the Salt and Paper software system as wel
 </div>
 
 ### Dynamic
+
+This is a dynamic diagram showing the process of searching a recipe in our application.
 
 <div align="center">
   <img src="../model/adrs/dynamic diagram.PNG" alt="Salt and Paper Container Diagram" width="800"/>
