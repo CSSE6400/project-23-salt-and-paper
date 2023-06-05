@@ -22,6 +22,22 @@ However, due to time constraints and difficulty of implementation, we have decid
 
 ## Architecture
 
+<div align="center">
+  <img src="../model/adrs/structurizr-83413-SystemContext-001.png" alt="Salt and Paper Context Diagram" width="800"/>
+</div>
+
+<div align="center">
+  <img src="../model/adrs/structurizr-83413-SystemContext-002.png" alt="Salt and Paper Context Diagram" width="800"/>
+</div>
+
+<div align="center">
+  <img src="../model/adrs/structurizr-83413-Container-001.png" alt="Salt and Paper Container Diagram" width="800"/>
+</div>
+
+<div align="center">
+  <img src="../model/adrs/structurizr-83413-Container-002.png" alt="Salt and Paper Container Diagram" width="800"/>
+</div>
+
 The Minimum Viable Product (MVP) showcases a tantalizing software architecture, composed of components:
 
 1. Frontend:
@@ -46,23 +62,6 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 - accuracy of search task are traded for efficiency and availability the search task.
   Use global variables to stored documents which would expire in 5 minutes to respond to the search request.
   Only return 5 most related documents,just like the first page of google search result.
-
-## Architecture Diagrams
-
-@TODO
-
-<div align="center">
-  <img src="../model/adrs/structurizr-83413-Container-001.png" alt="Salt and Paper Container Diagram" width="800"/>
-</div>
-<div align="center">
-  <img src="../model/adrs/structurizr-83413-Container-002.png" alt="Salt and Paper Container Diagram" width="800"/>
-</div>
-<div align="center">
-  <img src="../model/adrs/structurizr-83413-SystemContext-001.png" alt="Salt and Paper Context Diagram" width="800"/>
-</div>
-<div align="center">
-  <img src="../model/adrs/structurizr-83413-SystemContext-002.png" alt="Salt and Paper Context Diagram" width="800"/>
-</div>
 
 ## Critique
 
