@@ -35,3 +35,8 @@
 - Path: "Report/salt-and-paper-logo.png"
 - 100% generated
 - Reference : [12]
+
+7. REPORT.md
+
+- Path: "Report/REPORT.md"
+- 10% generated
