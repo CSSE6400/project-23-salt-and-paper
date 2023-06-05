@@ -1,22 +1,24 @@
-<div align="center">
-  <img src="salt-and-paper-logo.png" alt="Salt and Paper Logo" width="200"/>
-</div>
+![Logo](salt-and-paper-logo.png)
 
 # Salt and Paper: Software Architecture Capstone Project Report
 
 ## Abstract
 
-Have you ever had trouble remembering a recipe you followed a long time ago but can’t find it? Or perhaps you’re craving your mum’s special cookies but can’t remember how she made it? Or maybe you want to share a new recipe you’ve developed with other fellow cooking enthusiasts? Wouldn’t it be easier if you had it all those recipes stored with step-by-step instructions on how to make them?
+Introducing Salt & Paper, an innovative application designed to create a global community for cooking enthusiasts. This platform not only provides a space for users to post, save, search, and share recipes, but also encourages engagement, discovery, and culinary creativity. With a robust architecture that ensures scalability and availability, Salt & Paper is geared to handle a large userbase, providing a seamless experience for users regardless of peak usage times.
 
-Introducing Salt and Paper, a user-friendly software application designed for individuals who love to cook and want to organize their favourite recipes in one place. With this app, users can create a personal recipe collection by storing their own recipes and browse and save recipes from other users.
+The platform features an inclusive browser version that allows users to utilize the application with ease. The inclusion of both authenticated and guest user modes ensures the application caters to the needs of users at different engagement levels. Users can effortlessly search for recipes using either keywords or tags, allowing for a wide array of results tailored to their specific requirements.
 
-The app features a user-friendly interface where users can easily enter and store their recipes. In addition to storing personal recipes, the app allows users to search for recipes based on different categories, such as cuisine type, meal type, or ingredient. They can also view popular recipes or browse recipes by other users they follow. Prepare to embark on a flavorful journey as we delve into the architecture, trade-offs, critique, evaluation, and reflection of Salt and Paper.
+Additionally, Salt & Paper offers a feature to create and edit recipes, complete with title, description, images, and tags, thereby nurturing the users' creativity. With visibility settings that can be toggled between 'public' and 'only me,' users can have full control over their shared content.
+
+Moreover, the application includes a personalized cookbook feature for users to save their favorite recipes, fostering a custom and organized recipe collection. With the integration of a personal recipe recommendation system, the application can suggest recipes based on user's preferences, creating an intuitive and personalized culinary journey.
+
+In the spirit of continual improvement, Salt & Paper is able to receive regular updates introducing new features, thus extending its functionality to better serve its users. By connecting cooking lovers worldwide and fostering a dynamic space for recipe sharing and discovery, Salt & Paper aims to stir up a culinary revolution.
 
 ## Changes
 
-Just as spices enhance the flavors of a dish, our team has infused Salt and Paper with design improvements. We added a feature that would allow users to search recipes. We added a feature that would allow users to create and update their profile.
+From an architecture prospective, we changed the architecture to be maintainable. At first, we decided to design a software that is written in Python and Javascipt. After discussion, it was decided the application would be completely implemented in python for improved cooperation betweeen team members. We changed the architecture to be using a seperate front-end and back-end. We made sure that the new architecture is suitable with each members' prospective schedule.
 
-from Architecture prospective; We changed the architecture to be maintainability. At first, we decided to design a software that is fully written in Python and Javascipt. We then decided to move to react to be able to design a more appealing front-end. We changed the architecture to be using a seperate front-end and back-end. We made sure that the new architecture is suitable with each members' prospective schedule.
+However, due to time constraints and difficulty of implementation, we have decided to exclude the integration of a personalized recipe recommendation system from our application.
 
 ## Architecture
 
@@ -61,6 +63,7 @@ The Minimum Viable Product (MVP) showcases a tantalizing software architecture, 
 <div align="center">
   <img src="../model/adrs/structurizr-83413-SystemContext-002.png" alt="Salt and Paper Context Diagram" width="800"/>
 </div>
+
 ## Critique
 
 @TODO
