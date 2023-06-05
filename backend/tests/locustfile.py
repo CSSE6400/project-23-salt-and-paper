@@ -1,68 +1,140 @@
 from locust import HttpUser, task, between
 from locust.exception import RescheduleTask
-from backend.models import bcrypt
 import json, random
 from bs4 import BeautifulSoup
+from flask_bcrypt import Bcrypt
 
-count = 0
+bcrypt = Bcrypt()
+
 # [6]
 class UserTests(HttpUser):
+    count = 0
     wait_time = between(1, 5)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        UserTests.count += 1
         self.current_user_id = None
+        self.current_username = None
+        self.current_password = None
         self.recipe_ids = set([])
         self.cookbook_ids = set([])
 
     # [4]
+    @classmethod
+    def generate_user_details(cls):
+        cls.count += 1
+        name = f"user{cls.count}"
+        username = f"user{cls.count}"
+        email = f"{name}@gmail.com"
+        hashed_password = bcrypt.generate_password_hash(name).decode('utf-8')   
+        return name,username, email, hashed_password
+        
+    # [4]
     def register_user(self):
-        response = self.client.get('/register')  # Perform a GET request to retrieve the form
-        csrftoken = response.cookies['csrf_token']  # Extract the CSRF token from the response
+        global count
+        with self.client.get('/api/v1/auth/register', catch_response=True) as response:  # Perform a GET request to retrieve the form
+            if response.status_code != 200:
+                response.failure(f"Add user request resulted in a {response.status_code} status code. Should return 200.")
+            html_content = response.text # Extract the CSRF token from the response
 
-        # Prepare the form data with your desired values
-        count += 1
-        name = f"user{count}"
-        hashed_password = bcrypt.generate_password_hash(name).decode('utf-8')
-        form_data = {
-            'name': name,
-            'username': name,
-            'email': f'{name}@gmail.com',
-            'password': hashed_password,
-            'csrf_token': csrftoken 
-        }
+            # Parse the HTML content with BeautifulSoup
+            soup = BeautifulSoup(html_content, 'html.parser')
 
-        # Perform a POST request with the form data
-        with self.client.post('api/v1/auth/register', data=form_data, catch_response=True) as response:
-            if response.status_code != 201:
-                response.failure(f"Add user request resulted in a {response.status_code} status code. Should return 201.")
-            response_dict = response.json()
-            self.current_user_id = int(response_dict["id"])
+            # Extract the attributes from the HTML
+            csrf_token = soup.find('input', {'name': 'csrf_token'})['value']
+
+            # Prepare the form data with your desired values
+            name, username, email, hashed_password = self.generate_user_details()
+            form_data = {
+                'name': name,
+                'username': username,
+                'email': email,
+                'password': hashed_password,
+                'csrf_token': csrf_token 
+            }
+            self.current_username=username
+            self.current_password=name
+
+            # Perform a POST request with the form data
+            with self.client.post('/api/v1/auth/register', data=form_data, catch_response=True) as post_response:
+                if post_response.status_code != 200:
+                    post_response.failure(f"Add user request resulted in a {post_response.status_code} status code. Should return 200.")
+
+
+    def login(self):
+        global count
+        with self.client.get('/api/v1/auth/login', catch_response=True) as response:  # Perform a GET request to retrieve the form
+            if response.status_code != 200:
+                response.failure(f"Add user request resulted in a {response.status_code} status code. Should return 200.")
+            html_content = response.text # Extract the CSRF token from the response
+
+            # Parse the HTML content with BeautifulSoup
+            soup = BeautifulSoup(html_content, 'html.parser')
+
+            # Extract the attributes from the HTML
+            csrf_token = soup.find('input', {'name': 'csrf_token'})['value']
+
+            # Prepare the form data with your desired values
+            name, username, email, hashed_password = self.generate_user_details()
+            form_data = {
+                'username': self.current_username,
+                'password': self.current_password,
+                'csrf_token': csrf_token 
+            }
+            
+            # Perform a POST request with the form data
+            with self.client.post('/api/v1/auth/login', data=form_data, catch_response=True) as post_response:
+                if post_response.status_code != 200:
+                    post_response.failure(f"Add user request resulted in a {post_response.status_code} status code. Should return 200.")
+                else:
+                    html_content = response.text
+                    soup = BeautifulSoup(html_content, 'html.parser')
+                    author_id = soup.find('input', {'name': 'author_id'})['value']
+                    self.current_user_id = author_id
+
 
     def on_start(self):
         self.register_user()
         # TODO: Create several recipes -> save recipe ids to list
+        self.login()
         self.create_recipe(recipe_kw="chicken")
         # TODO: Create several cookbooks -> save cookbook ids to list
         self.create_cookbook()
 
     @task
     def create_recipe(self, recipe_kw=None):
-        with open("backend/data/recipes.json") as f:
-            recipe_json = json.load(f)
-        if recipe_kw:
-            for recipe in recipe_json:
-                if recipe_kw.casefold() in recipe["description"].casefold():
-                    recipe_data = recipe
-                    break
-        else:
-            recipe_data = random.choice(recipe_json)
+        with self.client.get('/api/v1/recipe/create_recipe', catch_response=True) as response:  # Perform a GET request to retrieve the form
+            if response.status_code != 200:
+                response.failure(f"Add user request resulted in a {response.status_code} status code. Should return 200.")
+            html_content = response.text # Extract the CSRF token from the response
 
-        with self.client.post(f"/api/v1/recipe/create/{self.current_user_id}",json=recipe_data, catch_response=True) as response:
-            if response.status_code != 201:
-                response.failure(f"Create recipe request resulted in a {response.status_code} status code. Should return 201.")
-            response_json = response.json()
-            self.recipe_ids.add(int(response_json["id"]))
+            # Parse the HTML content with BeautifulSoup
+            soup = BeautifulSoup(html_content, 'html.parser')
+
+            # Extract the attributes from the HTML
+            csrf_token = soup.find('input', {'name': 'csrf_token'})['value']
+            author_id = soup.find('input', {'name': 'author_id'})['value']
+
+            # Prepare the form data with your desired values
+
+            with open("backend/data/recipes.json") as f:
+                recipe_json = json.load(f)
+            if recipe_kw:
+                for recipe in recipe_json:
+                    if recipe_kw.casefold() in recipe["description"].casefold():
+                        recipe_data = recipe
+                        break
+            else:
+                recipe_data = random.choice(recipe_json)
+            
+            # recipe_data["csrf_token"] = csrf_token
+
+            with self.client.post(f"/api/v1/recipe/create/{self.current_user_id}",json=recipe_data, catch_response=True) as response:
+                if response.status_code != 201:
+                    
+                    response.failure(f"Create recipe request resulted in a {response.status_code} status code. Should return 201.")
+                # response_json = response.json()
 
 
     @task

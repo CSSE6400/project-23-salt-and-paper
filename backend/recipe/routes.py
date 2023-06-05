@@ -77,8 +77,6 @@ def create_recipe(author_id):
         if user is None:
             return jsonify({"error": "Author does not exist"}), 404
 
-        if user.id != author_id:
-            raise IDMismatchException
 
         recipe = Recipe(
             title=request.json.get("title"),
@@ -113,10 +111,6 @@ def create_recipe(author_id):
     except InvalidParameterInput:
         return jsonify({"error": "Parameter input is invalid!"}), 407
     
-    except IDMismatchException:
-        return jsonify({"error": "recipe ID does not match ID in JSON object"}), 400
-
-
 
 @recipe_api.route("/get_by_id/<int:recipe_id>", methods=["GET"])
 def get_recipe(recipe_id):

@@ -120,7 +120,7 @@ table.stats tr.total td {
 
         <div class="info">
             
-            <p>During: <span class="l10n datetime">2023-06-04 04:50:32</span> - <span class="l10n datetime">2023-06-04 04:50:34</span></p>
+            <p>During: <span class="l10n datetime">2023-06-05 03:01:18</span> - <span class="l10n datetime">2023-06-05 03:01:23</span></p>
             <p>Target Host: <span>http://127.0.0.1:6400</span></p>
             <p>Script: <span>locustfile.py</span></p>
         </div>
@@ -145,29 +145,55 @@ table.stats tr.total td {
                 <tbody>
                     
                         <tr>
+                            <td>GET</td>
+                            <td>/api/v1/auth/login</td>
+                            <td>11</td>
+                            <td>11</td>
+                            <td>158</td>
+                            <td>9</td>
+                            <td>424</td>
+                            <td>265</td>
+                            <td>2.2</td>
+                            <td>2.2</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>GET</td>
+                            <td>/api/v1/auth/register</td>
+                            <td>11</td>
+                            <td>0</td>
+                            <td>319</td>
+                            <td>6</td>
+                            <td>1136</td>
+                            <td>2935</td>
+                            <td>2.2</td>
+                            <td>0.0</td>
+                        </tr>
+                    
+                        <tr>
                             <td>POST</td>
-                            <td>/api/v1/users/create_user</td>
-                            <td>23</td>
-                            <td>23</td>
-                            <td>828</td>
-                            <td>513</td>
-                            <td>1032</td>
-                            <td>54480</td>
-                            <td>12.8</td>
-                            <td>12.8</td>
+                            <td>/api/v1/auth/register</td>
+                            <td>11</td>
+                            <td>0</td>
+                            <td>358</td>
+                            <td>15</td>
+                            <td>1207</td>
+                            <td>3093</td>
+                            <td>2.2</td>
+                            <td>0.0</td>
                         </tr>
                     
                         <tr class="total">
                             <td></td>
                             <td>Aggregated</td>
-                            <td>23</td>
-                            <td>23</td>
-                            <td>828</td>
-                            <td>513</td>
-                            <td>1032</td>
-                            <td>54480</td>
-                            <td>12.8</td>
-                            <td>12.8</td>
+                            <td>33</td>
+                            <td>11</td>
+                            <td>278</td>
+                            <td>6</td>
+                            <td>1207</td>
+                            <td>2097</td>
+                            <td>6.6</td>
+                            <td>2.2</td>
                         </tr>
                     
                 </tbody>
@@ -194,29 +220,55 @@ table.stats tr.total td {
                 <tbody>
                     
                         <tr>
+                            <td>GET</td>
+                            <td>/api/v1/auth/login</td>
+                            <td>16</td>
+                            <td>26</td>
+                            <td>400</td>
+                            <td>400</td>
+                            <td>410</td>
+                            <td>420</td>
+                            <td>420</td>
+                            <td>420</td>
+                        </tr>
+                    
+                        <tr>
+                            <td>GET</td>
+                            <td>/api/v1/auth/register</td>
+                            <td>280</td>
+                            <td>350</td>
+                            <td>360</td>
+                            <td>580</td>
+                            <td>710</td>
+                            <td>1100</td>
+                            <td>1100</td>
+                            <td>1100</td>
+                        </tr>
+                    
+                        <tr>
                             <td>POST</td>
-                            <td>/api/v1/users/create_user</td>
-                            <td>880</td>
-                            <td>890</td>
-                            <td>920</td>
-                            <td>970</td>
-                            <td>1000</td>
-                            <td>1000</td>
-                            <td>1000</td>
-                            <td>1000</td>
+                            <td>/api/v1/auth/register</td>
+                            <td>330</td>
+                            <td>370</td>
+                            <td>420</td>
+                            <td>620</td>
+                            <td>850</td>
+                            <td>1200</td>
+                            <td>1200</td>
+                            <td>1200</td>
                         </tr>
                     
                         <tr class="total">
                             <td></td>
                             <td>Aggregated</td>
-                            <td>880</td>
-                            <td>890</td>
-                            <td>920</td>
-                            <td>970</td>
-                            <td>1000</td>
-                            <td>1000</td>
-                            <td>1000</td>
-                            <td>1000</td>
+                            <td>76</td>
+                            <td>350</td>
+                            <td>400</td>
+                            <td>420</td>
+                            <td>710</td>
+                            <td>1100</td>
+                            <td>1200</td>
+                            <td>1200</td>
                         </tr>
                     
                 </tbody>
@@ -238,10 +290,10 @@ table.stats tr.total td {
                     <tbody>
                         
                             <tr>
-                                <td>POST</td>
-                                <td>/api/v1/users/create_user</td>
-                                <td>Add user request resulted in a 500 status code. Should return 201.</td>
-                                <td>23</td>
+                                <td>GET</td>
+                                <td>/api/v1/auth/login</td>
+                                <td>Add user request resulted in a 500 status code. Should return 200.</td>
+                                <td>11</td>
                             </tr>
                         
                     </tbody>
@@ -251,6 +303,10 @@ table.stats tr.total td {
 
         
 
+        
+            <div class="charts-container">
+                <h2>Charts</h2>
+            </div>
         
 
         <div id="tasks">
@@ -532,12 +588,12 @@ function fillTasksFromRequest() {
     <script>
         
 var stats_history = {
-    "time": [].map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
-    "user_count": [],
-    "current_rps": [],
-    "current_fail_per_sec": [],
-    "response_time_percentile_1": [],
-    "response_time_percentile_2": [],
+    "time": ["03:01:23"].map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
+    "user_count": [{"value": 0}],
+    "current_rps": [{"users": 0, "value": 3.0}],
+    "current_fail_per_sec": [{"users": 0, "value": 1.0}],
+    "response_time_percentile_1": [{"users": 0, "value": 76}],
+    "response_time_percentile_2": [{"users": 0, "value": 1100.0}],
     "markers": [],
 };
         var percentile1 = 0.5

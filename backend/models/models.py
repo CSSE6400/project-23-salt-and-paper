@@ -109,6 +109,33 @@ def populate_users(mapper, connection, *args, **kwargs):
             cooking_preferences=new_user.cooking_preferences))
 
 
+# [1]
+# [2]
+recipe_json_file = "backend/data/recipes.json"
+@event.listens_for(User.__table__, 'after_create')
+def populate_recipes(mapper, connection, *args, **kwargs):
+    "Listen for the 'after_create' event"
+    with open(recipe_json_file) as f:
+        recipe_json_object = json.load(f)
+
+    recipe_table = Recipe.__table__
+    for recipe_data in recipe_json_object:
+        new_recipe = Recipe(
+            title=recipe_data["title"],
+            description=recipe_data["description"],
+            category=recipe_data["category"],
+            visibility=recipe_data["visibility"],
+            author_id=recipe_data["author_id"]
+        )
+        connection.execute(recipe_table.insert().values(
+            title=new_recipe.title,
+            description=new_recipe.description,
+            category=new_recipe.category,
+            visibility=new_recipe.visibility,
+            author_id=new_recipe.author_id
+        ))
+
+
 
 # Followers table
 followers = db.Table(

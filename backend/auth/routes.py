@@ -21,7 +21,8 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(password=form.password.data):
             login_user(user)
-            return redirect(url_for('home'))
+            author_id = user.id
+            return redirect(url_for('home', author_id=author_id))
     return render_template('login.html', form=form)
 
 @auth_api.route('/logout', methods=['GET', 'POST'])
