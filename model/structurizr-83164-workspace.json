@@ -1,0 +1,400 @@
+{
+    "id": 83164,
+    "name": "Name",
+    "description": "Description",
+    "revision": 3,
+    "lastModifiedDate": "2023-05-29T07:50:19Z",
+    "lastModifiedUser": "n.pratama@uq.net.au",
+    "lastModifiedAgent": "structurizr-cloud/dsl-editor/4e894718-58fd-4294-8422-48d846f46f13",
+    "properties": {
+        "structurizr.dsl": "d29ya3NwYWNlICJOYW1lIiAiRGVzY3JpcHRpb24iIHsNCg0KICAgIG1vZGVsIHsNCiAgICAgICAgdXNlciA9IHBlcnNvbiAiVXNlciINCiAgICAgICAgc29mdHdhcmVTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiU2FsdCBhbmQgUGFwZXIiIHsNCiAgICAgICAgICAgIGxiID0gY29udGFpbmVyICJMb2FkIEJhbGFuY2VyIiAiIiAiRWxhc3RpYyBMb2FkIEJhbGFuY2luZyIgew0KICAgICAgICAgICAgICAgIHVzZXIgLT4gdGhpcyAiVXNlcyINCiAgICAgICAgICAgIH0NCiAgICAgICAgICAgIHdlYmFwcCA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiB7DQogICAgICAgICAgICAgICAgbGIgLT4gdGhpcyAiU2VuZCBSRVNUIEFQSSByZXF1ZXN0cyIgIiIgIkpTT04vSFRUUFMiDQogICAgICAgICAgICB9DQogICAgICAgICAgICANCg0KICAgICAgICB9DQogICAgICAgIGRhdGFQcm9jZXNzaW5nU3lzdGVtID0gc29mdHdhcmVTeXN0ZW0gIkRhdGEgQ29sbGVjdGlvbiBhbmQgUHJvY2Vzc2luZyIgew0KICAgICAgICAgICAgcmVkaXMgPSBjb250YWluZXIgIk1lc3NhZ2UgQnJva2VyIiAiTWVkaWF0ZXMgY29tbXVuaWNhdGlvbiBiZXR3ZWVuIGFwcGxpY2F0aW9uIGJhY2tlbmQgYW5kIHRhc2sgcXVldWUiICJSZWRpcyIgew0KICAgICAgICAgICAgICAgIHdlYmFwcCAtPiB0aGlzICJHZXQgc2VhcmNoIHJlc3VsdHMiDQogICAgICAgICAgICB9DQogICAgICAgICAgICBjZWxlcnkgPSBjb250YWluZXIgIkFzeW5jaHJvbm91cyB0YXNrIHF1ZXVlIiAiRXhlY3V0ZSB0YXNrcyIgIkNlbGVyeSIgew0KICAgICAgICAgICAgICAgIHJlZGlzIC0+IHRoaXMgIlNlbmQgdGFza3MgdG8gYmUgZXhlY3V0ZWQiDQogICAgICAgICAgICB9DQogICAgICAgICAgICBwb3N0Z3JlcyA9IGNvbnRhaW5lciAiRGF0YWJhc2UiICIiICJQb3N0Z3JlU1FMIiB7DQogICAgICAgICAgICAgICAgd2ViYXBwIC0+IHRoaXMgIlN0b3JlIHJlY2lwZXMgYW5kIGdldCBzZWFyY2ggcmVzdWx0cyINCiAgICAgICAgICAgICAgICBjZWxlcnkgLT4gdGhpcyAiR2V0IHNlYXJjaCByZXN1bHRzIg0KICAgICAgICAgICAgfQ0KDQogICAgICAgIH0NCiAgICB9DQoNCiAgICB2aWV3cyB7DQogICAgICAgIHN5c3RlbUNvbnRleHQgc29mdHdhcmVTeXN0ZW0gew0KICAgICAgICAgICAgaW5jbHVkZSAqDQogICAgICAgICAgICBhdXRvbGF5b3V0IGxyDQogICAgICAgIH0NCiAgICAgICAgDQogICAgICAgIHN5c3RlbUNvbnRleHQgZGF0YVByb2Nlc3NpbmdTeXN0ZW0gew0KICAgICAgICAgICAgaW5jbHVkZSAqDQogICAgICAgICAgICBhdXRvbGF5b3V0IGxyDQogICAgICAgIH0NCiAgICAgICAgDQogICAgICAgIGNvbnRhaW5lciBzb2Z0d2FyZVN5c3RlbSB7DQogICAgICAgICAgICBpbmNsdWRlICoNCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHINCiAgICAgICAgfQ0KICAgICAgICANCiAgICAgICAgY29udGFpbmVyIGRhdGFQcm9jZXNzaW5nU3lzdGVtIHsNCiAgICAgICAgICAgIGluY2x1ZGUgKg0KICAgICAgICAgICAgYXV0b2xheW91dCBscg0KICAgICAgICB9DQoNCiAgICAgICAgdGhlbWUgZGVmYXVsdA0KICAgIH0NCn0NCg0K"
+    },
+    "model": {
+        "people": [
+            {
+                "id": "1",
+                "tags": "Element,Person",
+                "properties": {
+                    "structurizr.dsl.identifier": "user"
+                },
+                "name": "User",
+                "relationships": [
+                    {
+                        "id": "5",
+                        "sourceId": "1",
+                        "destinationId": "2",
+                        "description": "Uses",
+                        "linkedRelationshipId": "4"
+                    },
+                    {
+                        "id": "4",
+                        "tags": "Relationship",
+                        "sourceId": "1",
+                        "destinationId": "3",
+                        "description": "Uses"
+                    }
+                ],
+                "location": "Unspecified"
+            }
+        ],
+        "softwareSystems": [
+            {
+                "id": "2",
+                "tags": "Element,Software System",
+                "properties": {
+                    "structurizr.dsl.identifier": "softwaresystem"
+                },
+                "name": "Salt and Paper",
+                "relationships": [
+                    {
+                        "id": "12",
+                        "sourceId": "2",
+                        "destinationId": "9",
+                        "description": "Get search results",
+                        "linkedRelationshipId": "10"
+                    },
+                    {
+                        "id": "13",
+                        "sourceId": "2",
+                        "destinationId": "8",
+                        "description": "Get search results",
+                        "linkedRelationshipId": "10"
+                    },
+                    {
+                        "id": "18",
+                        "sourceId": "2",
+                        "destinationId": "16",
+                        "description": "Store recipes and get search results",
+                        "linkedRelationshipId": "17"
+                    }
+                ],
+                "location": "Unspecified",
+                "containers": [
+                    {
+                        "id": "3",
+                        "tags": "Element,Container",
+                        "properties": {
+                            "structurizr.dsl.identifier": "lb"
+                        },
+                        "name": "Load Balancer",
+                        "relationships": [
+                            {
+                                "id": "7",
+                                "tags": "Relationship,JSON/HTTPS",
+                                "sourceId": "3",
+                                "destinationId": "6",
+                                "description": "Send REST API requests"
+                            }
+                        ],
+                        "technology": "Elastic Load Balancing",
+                        "documentation": {}
+                    },
+                    {
+                        "id": "6",
+                        "tags": "Element,Container",
+                        "properties": {
+                            "structurizr.dsl.identifier": "webapp"
+                        },
+                        "name": "Web Application",
+                        "relationships": [
+                            {
+                                "id": "11",
+                                "sourceId": "6",
+                                "destinationId": "8",
+                                "description": "Get search results",
+                                "linkedRelationshipId": "10"
+                            },
+                            {
+                                "id": "17",
+                                "tags": "Relationship",
+                                "sourceId": "6",
+                                "destinationId": "16",
+                                "description": "Store recipes and get search results"
+                            },
+                            {
+                                "id": "10",
+                                "tags": "Relationship",
+                                "sourceId": "6",
+                                "destinationId": "9",
+                                "description": "Get search results"
+                            }
+                        ],
+                        "documentation": {}
+                    }
+                ],
+                "documentation": {}
+            },
+            {
+                "id": "8",
+                "tags": "Element,Software System",
+                "properties": {
+                    "structurizr.dsl.identifier": "dataprocessingsystem"
+                },
+                "name": "Data Collection and Processing",
+                "location": "Unspecified",
+                "containers": [
+                    {
+                        "id": "16",
+                        "tags": "Element,Container",
+                        "properties": {
+                            "structurizr.dsl.identifier": "postgres"
+                        },
+                        "name": "Database",
+                        "technology": "PostgreSQL",
+                        "documentation": {}
+                    },
+                    {
+                        "id": "9",
+                        "tags": "Element,Container",
+                        "properties": {
+                            "structurizr.dsl.identifier": "redis"
+                        },
+                        "name": "Message Broker",
+                        "description": "Mediates communication between application backend and task queue",
+                        "relationships": [
+                            {
+                                "id": "15",
+                                "tags": "Relationship",
+                                "sourceId": "9",
+                                "destinationId": "14",
+                                "description": "Send tasks to be executed"
+                            }
+                        ],
+                        "technology": "Redis",
+                        "documentation": {}
+                    },
+                    {
+                        "id": "14",
+                        "tags": "Element,Container",
+                        "properties": {
+                            "structurizr.dsl.identifier": "celery"
+                        },
+                        "name": "Asynchronous task queue",
+                        "description": "Execute tasks",
+                        "relationships": [
+                            {
+                                "id": "19",
+                                "tags": "Relationship",
+                                "sourceId": "14",
+                                "destinationId": "16",
+                                "description": "Get search results"
+                            }
+                        ],
+                        "technology": "Celery",
+                        "documentation": {}
+                    }
+                ],
+                "documentation": {}
+            }
+        ]
+    },
+    "documentation": {},
+    "views": {
+        "systemContextViews": [
+            {
+                "key": "SystemContext-001",
+                "order": 1,
+                "softwareSystemId": "2",
+                "paperSize": "A5_Landscape",
+                "dimensions": {
+                    "width": 2316,
+                    "height": 816
+                },
+                "automaticLayout": {
+                    "implementation": "Graphviz",
+                    "rankDirection": "LeftRight",
+                    "rankSeparation": 300,
+                    "nodeSeparation": 300,
+                    "edgeSeparation": 0,
+                    "vertices": false
+                },
+                "enterpriseBoundaryVisible": true,
+                "elements": [
+                    {
+                        "id": "1",
+                        "x": 208,
+                        "y": 208
+                    },
+                    {
+                        "id": "2",
+                        "x": 908,
+                        "y": 258
+                    },
+                    {
+                        "id": "8",
+                        "x": 1658,
+                        "y": 258
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "5"
+                    },
+                    {
+                        "id": "13"
+                    }
+                ]
+            },
+            {
+                "key": "SystemContext-002",
+                "order": 2,
+                "softwareSystemId": "8",
+                "paperSize": "A6_Landscape",
+                "dimensions": {
+                    "width": 1616,
+                    "height": 716
+                },
+                "automaticLayout": {
+                    "implementation": "Graphviz",
+                    "rankDirection": "LeftRight",
+                    "rankSeparation": 300,
+                    "nodeSeparation": 300,
+                    "edgeSeparation": 0,
+                    "vertices": false
+                },
+                "enterpriseBoundaryVisible": true,
+                "elements": [
+                    {
+                        "id": "2",
+                        "x": 208,
+                        "y": 208
+                    },
+                    {
+                        "id": "8",
+                        "x": 958,
+                        "y": 208
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "13"
+                    }
+                ]
+            }
+        ],
+        "containerViews": [
+            {
+                "key": "Container-002",
+                "order": 4,
+                "softwareSystemId": "8",
+                "paperSize": "A4_Landscape",
+                "dimensions": {
+                    "width": 3220,
+                    "height": 1158
+                },
+                "automaticLayout": {
+                    "implementation": "Graphviz",
+                    "rankDirection": "LeftRight",
+                    "rankSeparation": 300,
+                    "nodeSeparation": 300,
+                    "edgeSeparation": 0,
+                    "vertices": false
+                },
+                "externalSoftwareSystemBoundariesVisible": true,
+                "elements": [
+                    {
+                        "id": "2",
+                        "x": 208,
+                        "y": 633
+                    },
+                    {
+                        "id": "14",
+                        "x": 1708,
+                        "y": 329
+                    },
+                    {
+                        "id": "16",
+                        "x": 2458,
+                        "y": 329
+                    },
+                    {
+                        "id": "9",
+                        "x": 958,
+                        "y": 329
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "18",
+                        "vertices": [
+                            {
+                                "x": 2158,
+                                "y": 779
+                            }
+                        ]
+                    },
+                    {
+                        "id": "15"
+                    },
+                    {
+                        "id": "12"
+                    },
+                    {
+                        "id": "19"
+                    }
+                ]
+            },
+            {
+                "key": "Container-001",
+                "order": 3,
+                "softwareSystemId": "2",
+                "dimensions": {
+                    "width": 3050,
+                    "height": 841
+                },
+                "automaticLayout": {
+                    "implementation": "Graphviz",
+                    "rankDirection": "LeftRight",
+                    "rankSeparation": 300,
+                    "nodeSeparation": 300,
+                    "edgeSeparation": 0,
+                    "vertices": false
+                },
+                "externalSoftwareSystemBoundariesVisible": true,
+                "elements": [
+                    {
+                        "id": "1",
+                        "x": 200,
+                        "y": 199
+                    },
+                    {
+                        "id": "3",
+                        "x": 900,
+                        "y": 249
+                    },
+                    {
+                        "id": "6",
+                        "x": 1650,
+                        "y": 249
+                    },
+                    {
+                        "id": "8",
+                        "x": 2400,
+                        "y": 249
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "4"
+                    },
+                    {
+                        "id": "11"
+                    },
+                    {
+                        "id": "7"
+                    }
+                ]
+            }
+        ],
+        "configuration": {
+            "branding": {},
+            "styles": {},
+            "themes": [
+                "https://static.structurizr.com/themes/default/theme.json"
+            ],
+            "terminology": {},
+            "metadataSymbols": "SquareBrackets",
+            "lastSavedView": "Container-001"
+        }
+    }
+}
